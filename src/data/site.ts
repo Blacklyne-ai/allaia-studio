@@ -47,6 +47,7 @@ export const nav = [
   { label: 'Method', href: '/#method' },
   { label: 'Engagements', href: '/#engagements' },
   { label: 'Studio', href: '/#studio' },
+  { label: 'Insights', href: '/insights/' },
 ];
 
 // The three things the studio leads with.

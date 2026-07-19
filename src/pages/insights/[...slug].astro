@@ -1,0 +1,209 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import ChatFab from '../../components/ChatFab.astro';
+import { bySlug } from '../../data/landings';
+import { company } from '../../data/site';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const chatHref = company.messenger || `tel:${company.phoneHref}`;
+const related = post.data.related.map((s) => bySlug(s)).filter(Boolean);
+
+// Rough reading time. Honest enough at this length and better than nothing.
+const words = post.body?.split(/\s+/).length ?? 0;
+const minutes = Math.max(2, Math.round(words / 220));
+
+const fmt = (d: Date) => d.toLocaleDateString('en-PH', { day: 'numeric', month: 'long', year: 'numeric' });
+
+const url = `https://allaiastudio.com/insights/${post.id}/`;
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: post.data.date.toISOString(),
+  dateModified: (post.data.updated ?? post.data.date).toISOString(),
+  mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+  author: { '@type': 'Organization', name: company.name, url: 'https://allaiastudio.com' },
+  publisher: { '@type': 'Organization', name: company.name, url: 'https://allaiastudio.com' },
+  inLanguage: 'en-PH',
+};
+
+const crumbs = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://allaiastudio.com/' },
+    { '@type': 'ListItem', position: 2, name: 'Insights', item: 'https://allaiastudio.com/insights/' },
+    { '@type': 'ListItem', position: 3, name: post.data.title, item: url },
+  ],
+};
+---
+
+<Base title={`${post.data.title} | Allaia Studio`} description={post.data.description} path={`/insights/${post.id}/`}>
+  <Header solid />
+
+  <main id="main">
+    <article>
+      <!-- Header -->
+      <header class="mx-auto max-w-[52rem] px-6 pb-12 pt-36 sm:px-10 lg:pt-44">
+        <nav aria-label="Breadcrumb" class="label text-ink-300">
+          <a href="/" class="transition-colors hover:text-ink-700">Home</a>
+          <span class="mx-2" aria-hidden="true">/</span>
+          <a href="/insights/" class="transition-colors hover:text-ink-700">Insights</a>
+        </nav>
+
+        <p class="label mt-10 text-clay-500">{post.data.topic}</p>
+        <h1 class="display mt-5 text-[clamp(2.2rem,5.5vw,4.2rem)]">{post.data.title}</h1>
+
+        <div class="mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 border-t rule pt-6 text-sm text-ink-500">
+          <time datetime={post.data.date.toISOString()}>{fmt(post.data.date)}</time>
+          <span aria-hidden="true" class="h-1 w-1 rounded-full bg-ink-300"></span>
+          <span>{minutes} min read</span>
+        </div>
+      </header>
+
+      <!-- Body -->
+      <div
+        class="prose-editorial mx-auto max-w-[52rem] px-6 pb-20 sm:px-10"
+      >
+        <Content />
+      </div>
+    </article>
+
+    <!-- Related services -->
+    {
+      related.length > 0 && (
+        <section class="mx-auto max-w-[90rem] px-6 pb-20 sm:px-10 lg:px-14">
+          <p class="label text-ink-500">Where this applies</p>
+          <div class="mt-8 grid gap-px border rule bg-[color-mix(in_oklab,var(--color-ink-900)_12%,transparent)] md:grid-cols-2">
+            {related.map((r) => (
+              <a href={`/${r!.slug}`} class="group bg-bone-50 p-9 transition-colors hover:bg-bone-100 lg:p-12">
+                <p class="label text-clay-500">{r!.eyebrow}</p>
+                <h2 class="display mt-4 text-2xl lg:text-3xl">
+                  {r!.h1} <span class="italic">{r!.h1Accent}</span>
+                </h2>
+                <span class="mt-6 inline-flex items-center gap-2 text-sm font-semibold">
+                  Read more
+                  <svg viewBox="0 0 24 24" class="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M5 12h14M13 6l6 6-6 6" />
+                  </svg>
+                </span>
+              </a>
+            ))}
+          </div>
+        </section>
+      )
+    }
+
+    <!-- CTA -->
+    <section class="px-6 pb-24 sm:px-10 lg:px-14 lg:pb-32">
+      <div class="mx-auto max-w-[90rem] border-y rule py-20 text-center">
+        <h2 class="display mx-auto max-w-[16ch] text-[clamp(2rem,5vw,4rem)]">
+          Want this run <span class="italic text-clay-500">properly?</span>
+        </h2>
+        <div class="mt-10 flex flex-col justify-center gap-3 sm:flex-row">
+          <a href={chatHref} class="inline-flex items-center justify-center rounded-full bg-ink-900 px-9 py-4 text-sm font-semibold text-bone-50 transition-all hover:-translate-y-0.5 hover:bg-clay-500">
+            Start a conversation
+          </a>
+          <a href="/insights/" class="inline-flex items-center justify-center rounded-full border rule px-9 py-4 text-sm font-semibold transition-colors hover:border-ink-900">
+            More insights
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+  <ChatFab />
+
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(crumbs)} />
+</Base>
+
+<style is:global>
+  /* Long-form typography. Scoped to article bodies so it cannot leak into the
+     rest of the site, which is deliberately not prose-styled. */
+  .prose-editorial > * + * {
+    margin-top: 1.5rem;
+  }
+  .prose-editorial p {
+    font-size: 1.075rem;
+    line-height: 1.75;
+    color: var(--color-ink-700);
+  }
+  .prose-editorial h2 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.12;
+    font-size: clamp(1.7rem, 3.4vw, 2.4rem);
+    color: var(--color-ink-900);
+    margin-top: 3.25rem;
+  }
+  .prose-editorial h3 {
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: var(--color-ink-900);
+    margin-top: 2.25rem;
+  }
+  .prose-editorial ul,
+  .prose-editorial ol {
+    padding-left: 1.15rem;
+    color: var(--color-ink-700);
+    line-height: 1.75;
+  }
+  .prose-editorial ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  .prose-editorial ul li {
+    position: relative;
+    padding-left: 1.4rem;
+    margin-top: 0.6rem;
+  }
+  .prose-editorial ul li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.72em;
+    width: 0.28rem;
+    height: 0.28rem;
+    border-radius: 999px;
+    background: var(--color-clay-500);
+  }
+  .prose-editorial ol {
+    list-style: decimal;
+  }
+  .prose-editorial ol li {
+    margin-top: 0.6rem;
+    padding-left: 0.35rem;
+  }
+  .prose-editorial strong {
+    font-weight: 600;
+    color: var(--color-ink-900);
+  }
+  .prose-editorial em {
+    font-style: italic;
+  }
+  .prose-editorial hr {
+    margin-top: 3rem;
+    border: 0;
+    border-top: 1px solid color-mix(in oklab, var(--color-ink-900) 12%, transparent);
+  }
+  /* The trailing disclaimer paragraph after a rule reads as a footnote. */
+  .prose-editorial hr + p {
+    font-size: 0.9rem;
+    color: var(--color-ink-500);
+  }
+</style>
