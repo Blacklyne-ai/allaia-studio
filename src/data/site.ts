@@ -54,7 +54,7 @@ export const pillars = [
   {
     n: '01',
     title: 'Paid acquisition',
-    body: 'Meta ads as the engine - built on daily monitoring, multi-variant testing and a named person who owns your account. Google and TikTok where the maths works.',
+    body: 'Meta ads as the engine - built on daily monitoring, multi-variant testing and a named person who owns your account. Google search where the intent is already there.',
   },
   {
     n: '02',
@@ -75,9 +75,7 @@ export const services = [
   { title: 'Social Media Management', body: 'Content, scheduling, saved replies and community management.' },
   { title: 'Website Design & Development', body: 'Responsive sites built so the traffic you pay for converts.' },
   { title: 'Google PPC', body: 'Search campaigns that catch high-intent demand at the bottom of the funnel.' },
-  { title: 'TikTok Ads', body: 'Campaigns built for the pace and format of the platform.' },
   { title: 'Brand Building', body: 'A coherent identity that holds up across every touchpoint.' },
-  { title: 'Content Marketing', body: 'Content that earns attention instead of renting it.' },
   { title: 'Email Marketing', body: 'The one channel you actually own. Nurture, retention, repeat sales.' },
   { title: 'Influencer & UGC', body: 'Creator partnerships and user-generated content for reach and trust.' },
   { title: 'SEO & Copywriting', body: 'Optimised content and copy that compounds over time.' },

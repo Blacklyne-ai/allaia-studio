@@ -89,7 +89,9 @@ const faqSchema = {
       <!-- Everything else -->
       <div class="mt-20">
         <p class="label reveal text-ink-500">Everything else, in-house</p>
-        <div class="mt-8 grid gap-x-12 gap-y-px border-t rule sm:grid-cols-2 lg:grid-cols-3">
+        {/* Two columns on desktop: 10 services fill five complete rows, so no
+            orphan item is left hanging in a half-empty final row. */}
+        <div class="mt-8 grid gap-x-14 gap-y-px border-t rule sm:grid-cols-2">
           {
             services.map((s) => (
               <div class="reveal border-b rule py-6">
