@@ -10,10 +10,8 @@ import MethodSticky from '../components/MethodSticky.astro';
 import {
   company, pillars, services,
   engagements, engagementTerms, principles, faqs,
-  testimonials, testimonialsVerified,
-} from '../data/site';
+  testimonials, testimonialsVerified, chatHref,} from '../data/site';
 
-const chatHref = company.messenger || `tel:${company.phoneHref}`;
 // Two gates: the master flag, and per-person consent. A quote only appears if
 // that specific client agreed to it being published.
 // Interleave property with the other sectors, so the first row alone shows the

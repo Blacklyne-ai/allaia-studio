@@ -5,6 +5,13 @@ import { company } from '../data/site';
 // Messenger only appears once a real page URL is set in site.ts.
 const options = [
   company.messenger && { label: 'Messenger', href: company.messenger, hint: 'Usually fastest', accent: true },
+  // Instagram DM is the primary route until a Facebook page exists.
+  company.instagramDM && {
+    label: 'Instagram',
+    href: company.instagramDM,
+    hint: company.instagramHandle,
+    accent: !company.messenger,
+  },
   { label: 'Viber', href: company.viber, hint: company.phone },
   { label: 'Call', href: `tel:${company.phoneHref}`, hint: company.phone },
   { label: 'Email', href: `mailto:${company.email}`, hint: company.email },

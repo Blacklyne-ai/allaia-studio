@@ -3,10 +3,9 @@ import Base from '../../layouts/Base.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import ChatFab from '../../components/ChatFab.astro';
-import { work, company, caseStudies } from '../../data/site';
+import { work, company, caseStudies, chatHref} from '../../data/site';
 import { landings } from '../../data/landings';
 
-const chatHref = company.messenger || `tel:${company.phoneHref}`;
 
 const counts = work.reduce<Record<string, number>>((acc, w) => {
   acc[w.sector] = (acc[w.sector] ?? 0) + 1;

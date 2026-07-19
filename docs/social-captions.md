@@ -6,8 +6,23 @@ Logo files are in `public/brand/`.
 Every figure below is real and traceable to the case studies or testimonials on
 the site. Nothing here claims anything the site cannot back up.
 
-**Before posting:** the studio has no Facebook page yet. Fix that first, or
-these send people nowhere. Update the link in bio to `allaiastudio.com`.
+**Account:** `@allaia.media` - instagram.com/allaia.media
+
+Every "Start a conversation" button on the site now opens an Instagram DM to
+that account, so the loop is closed: a post drives a profile visit, the bio
+link drives the site, and the site sends them straight back to your inbox.
+
+**Two things to do first**
+
+1. Set the link in bio to `allaiastudio.com`.
+2. Turn on Instagram's saved replies for the three questions you will get
+   every time - what do you charge, what do you need from me, how long before
+   we see results. Replying in minutes rather than hours is the same behaviour
+   the site sells.
+
+**Still open:** there is no Facebook page. The captions below are written for
+both platforms so they are ready when there is - and the site is wired so that
+adding a Facebook slug makes Messenger the primary route automatically.
 
 ---
 

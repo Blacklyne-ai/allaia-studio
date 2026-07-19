@@ -53,6 +53,11 @@ const year = new Date().getFullYear();
         <ul class="mt-6 space-y-3.5 text-sm">
           <li><a href={`mailto:${company.email}`} class="text-bone-50/65 transition-colors hover:text-bone-50">{company.email}</a></li>
           <li><a href={`tel:${company.phoneHref}`} class="text-bone-50/65 transition-colors hover:text-bone-50">{company.phone}</a></li>
+          <li>
+            <a href={company.instagram} rel="me noopener" target="_blank" class="text-bone-50/65 transition-colors hover:text-bone-50">
+              {company.instagramHandle}
+            </a>
+          </li>
         </ul>
       </div>
     </div>

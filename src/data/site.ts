@@ -20,8 +20,17 @@ export const company = {
   email: 'hello@allaiastudio.com',
   phone: '+63 956 216 1407',
   phoneHref: '+639562161407',
-  // TODO: add the Facebook page URL to make Messenger the primary CTA.
+  // TODO: no Facebook page yet. Add the slug here and Messenger takes over as
+  // the primary CTA automatically - nothing else needs changing.
   messenger: '', // e.g. 'https://m.me/allaiastudio'
+
+  // ig.me/m/ is Instagram's direct-message deep link, the equivalent of m.me.
+  // With no Facebook page yet, this is what makes the message-first CTA real
+  // rather than falling back to a phone number.
+  instagram: 'https://www.instagram.com/allaia.media/',
+  instagramHandle: '@allaia.media',
+  instagramDM: 'https://ig.me/m/allaia.media',
+
   viber: 'viber://chat?number=%2B639562161407',
   region: 'Philippines',
   serviceArea: 'Manila-based, working across the Philippines',
@@ -44,6 +53,12 @@ export const heroMedia = {
   video: '', // e.g. '/hero.mp4'
   poster: '', // e.g. '/hero-poster.jpg'
 };
+
+// The message-first CTA, resolved once. Messenger wins if a Facebook page is
+// added later, otherwise Instagram DM, and a phone call as the last resort.
+// Duplicating this expression across seven files is how it drifts.
+export const chatHref =
+  company.messenger || company.instagramDM || `tel:${company.phoneHref}`;
 
 // Root-relative so these resolve from the landing pages too, not just home.
 export const nav = [

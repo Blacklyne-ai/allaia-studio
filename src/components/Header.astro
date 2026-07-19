@@ -1,12 +1,11 @@
 ---
 import Logo from './Logo.astro';
-import { nav, company } from '../data/site';
+import { nav, company, chatHref} from '../data/site';
 
 interface Props {
   solid?: boolean;
 }
 const { solid = false } = Astro.props;
-const chatHref = company.messenger || `tel:${company.phoneHref}`;
 ---
 
 <header

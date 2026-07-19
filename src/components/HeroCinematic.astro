@@ -1,7 +1,6 @@
 ---
-import { company, heroMedia } from '../data/site';
+import { company, heroMedia, chatHref} from '../data/site';
 
-const chatHref = company.messenger || `tel:${company.phoneHref}`;
 const hasVideo = Boolean(heroMedia.video);
 
 // Each line reveals independently, so the three "More" lines land in sequence
