@@ -21,9 +21,14 @@ const chatHref = company.messenger || `tel:${company.phoneHref}`;
 const consented = testimonials.filter((t) => t.consent);
 const property = consented.filter((t) => t.sector === 'Real Estate');
 const other = consented.filter((t) => t.sector !== 'Real Estate');
-const approved = Array.from({ length: consented.length }, (_, i) =>
-  i % 2 === 0 ? property[Math.floor(i / 2)] : other[Math.floor(i / 2)]
-).filter(Boolean);
+// Alternate until one list runs out, then append the remainder. Indexing both
+// lists off the same counter silently dropped quotes as soon as the counts
+// diverged, which they do the moment a sector is added.
+const approved: typeof consented = [];
+for (let p = 0, o = 0; p < property.length || o < other.length; ) {
+  if (p < property.length) approved.push(property[p++]);
+  if (o < other.length) approved.push(other[o++]);
+}
 const showTestimonials = testimonialsVerified && approved.length > 0;
 
 const faqSchema = {

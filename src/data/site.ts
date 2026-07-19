@@ -645,5 +645,45 @@ export const testimonials: Testimonial[] = [
     sector: 'Automotive',
     consent: true,
   },
+  {
+    quote:
+      'We sold out our December tours for Japan, and almost sold out na yung Scandinavian tours. We would like to transfer to the 6-month contract - pwede pa ba?',
+    author: 'Tour operator',
+    role: 'Published anonymously',
+    sector: 'Travel',
+    consent: true,
+  },
+  {
+    quote:
+      'Naka-dalawang sale na ako in the past 3 months, madami din akong mga closables. Actually sa inyo na lang ako umaasa ng sales, puro online na lang. So far nasa 28M na yung nakuha kong sales galing sa ads niyo.',
+    author: 'Condominium sales, Alveo',
+    role: 'Published anonymously',
+    sector: 'Real Estate',
+    consent: true,
+  },
+  {
+    quote:
+      'I closed a sale and I\u2019m still working on booking the account. The sale is from your ads - a 1200sqm lot in Miravera. This is my very first sale with ALP.',
+    author: 'Property salesperson, Ayala Land Premier',
+    role: 'Published anonymously',
+    sector: 'Real Estate',
+    consent: true,
+  },
+  {
+    quote:
+      'May na-close na akong isang client, pero dalawang unit kinuha nila. Based sila sa US, na-close ko lang online. Dalawang 1BR units sa The Seasons, around 50M TCP.',
+    author: 'Property salesperson, Federal Land',
+    role: 'Published anonymously',
+    sector: 'Real Estate',
+    consent: true,
+  },
+  {
+    quote:
+      'The inquiries are good quality and madami din per day. I actually did a tripping already, positive naman - just waiting for the client\u2019s final decision on a 2BR suite in Parklinks.',
+    author: 'Property salesperson, Ayala Land Premier',
+    role: 'Published anonymously',
+    sector: 'Real Estate',
+    consent: true,
+  },
 ];
 
