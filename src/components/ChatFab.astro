@@ -1,0 +1,63 @@
+---
+import { company } from '../data/site';
+
+// Messenger-first, with Viber, phone and email always available.
+// Messenger only appears once a real page URL is set in site.ts.
+const options = [
+  company.messenger && { label: 'Messenger', href: company.messenger, hint: 'Usually fastest', accent: true },
+  { label: 'Viber', href: company.viber, hint: company.phone },
+  { label: 'Call', href: `tel:${company.phoneHref}`, hint: company.phone },
+  { label: 'Email', href: `mailto:${company.email}`, hint: company.email },
+].filter(Boolean) as { label: string; href: string; hint: string; accent?: boolean }[];
+---
+
+<!-- Hidden over the hero so it can't sit on top of the primary CTA, especially
+     on mobile. Fades in once you scroll past it. -->
+<div
+  id="chat-fab"
+  class="pointer-events-none fixed bottom-6 right-6 z-50 translate-y-3 opacity-0 transition-all duration-500 [&.is-shown]:pointer-events-auto [&.is-shown]:translate-y-0 [&.is-shown]:opacity-100 print:hidden"
+>
+  <details class="group relative">
+    <summary
+      class="flex cursor-pointer list-none items-center gap-2.5 rounded-full bg-ink-900 py-4 pl-6 pr-7 text-sm font-semibold text-bone-50 shadow-2xl shadow-ink-900/25 ring-1 ring-bone-50/25 transition-all hover:-translate-y-0.5 hover:bg-clay-500 hover:ring-clay-400 [&::-webkit-details-marker]:hidden"
+      aria-label="Open contact options"
+    >
+      <span class="h-1.5 w-1.5 rounded-full bg-clay-400 group-open:bg-bone-50" aria-hidden="true"></span>
+      Let's talk
+    </summary>
+
+    <div class="absolute bottom-[calc(100%+0.9rem)] right-0 w-64 overflow-hidden rounded-2xl border rule bg-bone-50 shadow-2xl shadow-ink-900/15">
+      {
+        options.map((o) => (
+          <a
+            href={o.href}
+            class="flex items-center justify-between gap-3 border-b rule px-5 py-4 transition-colors last:border-0 hover:bg-bone-100"
+          >
+            <span>
+              <span class={`block text-sm font-semibold ${o.accent ? 'text-clay-500' : 'text-ink-900'}`}>{o.label}</span>
+              <span class="block text-xs text-ink-500">{o.hint}</span>
+            </span>
+            <svg viewBox="0 0 24 24" class="h-3.5 w-3.5 shrink-0 text-ink-300" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M7 17 17 7M9 7h8v8" />
+            </svg>
+          </a>
+        ))
+      }
+    </div>
+  </details>
+</div>
+
+<script is:inline>
+  (() => {
+    const fab = document.getElementById('chat-fab');
+    if (!fab) return;
+    // No JS or reduced motion still gets a usable button.
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      fab.classList.add('is-shown');
+      return;
+    }
+    const onScroll = () => fab.classList.toggle('is-shown', window.scrollY > window.innerHeight * 0.6);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  })();
+</script>

@@ -1,0 +1,14 @@
+---
+// Extends the real "allaia media." lockup - italic serif, bold geometric sans,
+// full stop. Set in live type rather than an image so it stays crisp and
+// selectable, and so the studio word can change without a new asset.
+interface Props {
+  class?: string;
+  light?: boolean;
+}
+const { class: cls = 'text-xl', light = false } = Astro.props;
+---
+
+<span class={`whitespace-nowrap ${cls} ${light ? 'text-bone-50' : 'text-ink-900'}`} aria-label="Allaia Studio">
+  <span class="mark-serif">allaia</span><span class="mark-sans">studio</span><span class="mark-sans text-clay-500">.</span>
+</span>

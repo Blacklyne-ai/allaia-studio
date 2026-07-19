@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://allaiastudio.com/sitemap-index.xml

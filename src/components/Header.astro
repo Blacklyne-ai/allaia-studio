@@ -1,0 +1,76 @@
+---
+import Logo from './Logo.astro';
+import { nav, company } from '../data/site';
+
+interface Props {
+  solid?: boolean;
+}
+const { solid = false } = Astro.props;
+const chatHref = company.messenger || `tel:${company.phoneHref}`;
+---
+
+<header
+  id="site-header"
+  data-solid={solid ? 'true' : undefined}
+  class:list={[
+    'group/hdr fixed inset-x-0 top-0 z-50 transition-all duration-500',
+    '[&.is-stuck]:bg-bone-50/85 [&.is-stuck]:backdrop-blur-xl [&.is-stuck]:border-b [&.is-stuck]:rule',
+    solid && 'is-stuck',
+  ]}
+>
+  <div class="mx-auto flex max-w-[90rem] items-center justify-between px-6 py-5 sm:px-10 lg:px-14">
+    <a href="/" class="shrink-0" aria-label="Allaia Studio home">
+      <Logo class="text-xl sm:text-[1.35rem]" />
+    </a>
+
+    <nav aria-label="Main" class="hidden items-center gap-10 lg:flex">
+      {
+        nav.map((item) => (
+          <a
+            href={item.href}
+            class="relative text-[0.82rem] font-medium tracking-wide text-ink-700 transition-colors hover:text-ink-900 after:absolute after:-bottom-1.5 after:left-0 after:h-px after:w-0 after:bg-clay-500 after:transition-all after:duration-300 hover:after:w-full"
+          >
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="flex items-center gap-3">
+      <a
+        href={chatHref}
+        class="hidden items-center gap-2 rounded-full bg-ink-900 px-6 py-3 text-[0.8rem] font-semibold tracking-wide text-bone-50 transition-all hover:-translate-y-0.5 hover:bg-clay-500 sm:inline-flex"
+      >
+        Start a conversation
+      </a>
+
+      <button
+        id="burger"
+        type="button"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        aria-label="Toggle menu"
+        class="grid h-11 w-11 place-items-center rounded-full border rule text-ink-900 lg:hidden"
+      >
+        <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+          <path d="M4 8h16M4 16h16" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="mobile-menu" class="hidden border-t rule bg-bone-50/97 backdrop-blur-xl lg:hidden">
+    <nav aria-label="Mobile" class="mx-auto flex max-w-[90rem] flex-col px-6 py-6 sm:px-10">
+      {
+        nav.map((item) => (
+          <a href={item.href} class="border-b rule py-4 text-xl text-ink-900 last:border-0">
+            {item.label}
+          </a>
+        ))
+      }
+      <a href={chatHref} class="mt-6 rounded-full bg-ink-900 px-6 py-4 text-center text-sm font-semibold text-bone-50">
+        Start a conversation
+      </a>
+    </nav>
+  </div>
+</header>

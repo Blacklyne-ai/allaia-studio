@@ -1,0 +1,109 @@
+---
+import '@fontsource-variable/jost';
+import '@fontsource/playfair-display';
+import '@fontsource/playfair-display/400-italic.css';
+import '@fontsource/playfair-display/500-italic.css';
+import '../styles/global.css';
+import { company } from '../data/site';
+
+interface Props {
+  title: string;
+  description: string;
+  path?: string;
+}
+
+const { title, description, path = '/' } = Astro.props;
+const canonical = new URL(path, Astro.site ?? 'https://allaiastudio.com').toString();
+
+const orgSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: company.name,
+  description: company.tagline,
+  url: 'https://allaiastudio.com',
+  email: company.email,
+  telephone: company.phoneHref,
+  areaServed: { '@type': 'Country', name: 'Philippines' },
+};
+---
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={company.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content="/og.svg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="theme-color" content="#1b1b1b" />
+
+    <script is:inline>
+      document.documentElement.classList.remove('no-js');
+    </script>
+    <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
+  </head>
+  <body>
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:rounded-full focus:bg-ink-900 focus:px-6 focus:py-3 focus:text-sm focus:font-semibold focus:text-bone-50"
+      >Skip to content</a
+    >
+    <slot />
+
+    <script is:inline>
+      const els = document.querySelectorAll('.reveal');
+      if ('IntersectionObserver' in window && els.length) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const e of entries) {
+              if (e.isIntersecting) {
+                e.target.classList.add('is-in');
+                io.unobserve(e.target);
+              }
+            }
+          },
+          { rootMargin: '0px 0px -6% 0px', threshold: 0.06 }
+        );
+        els.forEach((el) => io.observe(el));
+      } else {
+        els.forEach((el) => el.classList.add('is-in'));
+      }
+
+      const header = document.getElementById('site-header');
+      if (header && header.dataset.solid !== 'true') {
+        const onScroll = () => header.classList.toggle('is-stuck', window.scrollY > 20);
+        onScroll();
+        window.addEventListener('scroll', onScroll, { passive: true });
+      }
+
+      const burger = document.getElementById('burger');
+      const menu = document.getElementById('mobile-menu');
+      if (burger && menu) {
+        burger.addEventListener('click', () => {
+          const open = burger.getAttribute('aria-expanded') === 'true';
+          burger.setAttribute('aria-expanded', String(!open));
+          menu.classList.toggle('hidden', open);
+          document.body.style.overflow = open ? '' : 'hidden';
+        });
+        menu.querySelectorAll('a').forEach((a) =>
+          a.addEventListener('click', () => {
+            burger.setAttribute('aria-expanded', 'false');
+            menu.classList.add('hidden');
+            document.body.style.overflow = '';
+          })
+        );
+      }
+    </script>
+  </body>
+</html>

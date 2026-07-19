@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <rect width="1200" height="630" fill="#faf8f5" />
+  <rect x="0" y="0" width="1200" height="8" fill="#1b1b1b" />
+
+  <text x="80" y="120" font-family="Georgia, serif" font-size="34" fill="#1b1b1b">
+    <tspan font-style="italic">allaia</tspan><tspan font-family="Helvetica, Arial, sans-serif" font-weight="bold" letter-spacing="-1">studio</tspan><tspan font-family="Helvetica, Arial, sans-serif" font-weight="bold" fill="#b4532a">.</tspan>
+  </text>
+
+  <text x="80" y="320" font-family="Georgia, serif" font-size="104" fill="#1b1b1b" letter-spacing="-3">The phone <tspan font-style="italic" fill="#b4532a">rings</tspan></text>
+  <text x="80" y="430" font-family="Georgia, serif" font-size="104" fill="#1b1b1b" letter-spacing="-3">or it didn't work.</text>
+
+  <line x1="80" y1="500" x2="1120" y2="500" stroke="#1b1b1b" stroke-opacity="0.15" stroke-width="1" />
+  <text x="80" y="552" font-family="Helvetica, Arial, sans-serif" font-size="22" font-weight="600" letter-spacing="4" fill="#6b6560">META ADS · RECRUITMENT · AI SYSTEMS · PHILIPPINES</text>
+</svg>

@@ -1,0 +1,68 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { company } from '../data/site';
+---
+
+<Base title={`Privacy Policy - ${company.name}`} description="How Allaia Studio collects, uses and protects your personal information." path="/privacy">
+  <Header solid />
+  <main id="main" class="mx-auto max-w-3xl px-5 pb-24 pt-40 sm:px-8 lg:pt-48">
+    <p class="label text-clay-500">Legal</p>
+    <h1 class="display mt-5 text-[clamp(2.4rem,6vw,4rem)] text-ink-900">Privacy Policy</h1>
+
+    <div class="mt-12 space-y-8 text-base leading-relaxed text-ink-700 [&_h2]:display [&_h2]:mt-12 [&_h2]:text-2xl [&_h2]:text-ink-900 [&_a]:font-semibold [&_a]:text-clay-500 [&_a]:underline">
+      <p>
+        This policy explains how {company.name} handles personal information collected through this website, in line
+        with the Philippine Data Privacy Act of 2012 (Republic Act No. 10173).
+      </p>
+
+      <h2>What we collect</h2>
+      <p>
+        We collect the information you choose to send us - your name, contact details and whatever you tell us about
+        your business when you message, call or email us. This website does not host a contact form and does not
+        require you to create an account.
+      </p>
+
+      <h2>How we use it</h2>
+      <p>
+        Solely to respond to your enquiry, prepare a proposal, and deliver services if you become a client. We do not
+        sell your personal information, and we do not share it with third parties except where necessary to deliver
+        our services to you or where required by law.
+      </p>
+
+      <h2>Messaging platforms</h2>
+      <p>
+        Our primary contact routes are third-party messaging services such as Facebook Messenger and Viber. When you
+        contact us that way, your message is also handled under that provider's own privacy policy, which we do not
+        control.
+      </p>
+
+      <h2>Cookies and analytics</h2>
+      <p>
+        This site does not set advertising or tracking cookies and does not run third-party analytics. If that changes,
+        this policy will be updated and consent will be requested where required.
+      </p>
+
+      <h2>Retention</h2>
+      <p>
+        We keep enquiry correspondence only as long as needed for the purpose it was given, and for any period required
+        by law or by our contractual and tax obligations.
+      </p>
+
+      <h2>Your rights</h2>
+      <p>
+        Under the Data Privacy Act you have the right to be informed, to access, to correct, to object, to erasure or
+        blocking, to damages, and to data portability. To exercise any of these, contact us at
+        <a href={`mailto:${company.email}`}>{company.email}</a>.
+      </p>
+
+      <h2>Contact</h2>
+      <p>
+        {company.name} - <a href={`mailto:${company.email}`}>{company.email}</a> -
+        <a href={`tel:${company.phoneHref}`}>{company.phone}</a>
+      </p>
+    </div>
+  </main>
+  <Footer />
+</Base>

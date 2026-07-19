@@ -1,0 +1,137 @@
+@import 'tailwindcss';
+
+@theme {
+  /* Ink sampled from the real "allaia media." wordmark. The identity is
+     monochrome; terracotta is the single accent, carried over from the
+     existing Allaia visual family. */
+  --color-ink-900: #1b1b1b;
+  --color-ink-700: #3d3a37;
+  --color-ink-500: #6b6560;
+  --color-ink-300: #a8a29b;
+
+  --color-bone-50: #faf8f5;
+  --color-bone-100: #f2efe9;
+  --color-bone-200: #e5e0d7;
+
+  --color-clay-600: #9c4520;
+  --color-clay-500: #b4532a;
+  --color-clay-400: #c96f42;
+
+  --font-display: 'Playfair Display', ui-serif, Georgia, serif;
+  --font-sans: 'Jost Variable', ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-bone-50);
+    color: var(--color-ink-900);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background-color: var(--color-ink-900);
+    color: var(--color-bone-50);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-clay-500);
+    outline-offset: 4px;
+  }
+}
+
+/* The wordmark lockup: italic serif + bold geometric sans + full stop. */
+@utility mark-serif {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+}
+
+@utility mark-sans {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+@utility display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  line-height: 1.03;
+}
+
+@utility label {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+/* A hairline that reads as editorial rule rather than a UI border. */
+@utility rule {
+  border-color: color-mix(in oklab, var(--color-ink-900) 12%, transparent);
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+html.no-js .reveal {
+  opacity: 1;
+  transform: none;
+}
+
+/* Without JS the chat button never gets its is-shown class, so show it. */
+html.no-js #chat-fab {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .marquee-track {
+    animation: none !important;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee-track {
+  animation: marquee 46s linear infinite;
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}

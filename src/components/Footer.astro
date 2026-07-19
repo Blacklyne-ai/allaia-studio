@@ -1,0 +1,49 @@
+---
+import Logo from './Logo.astro';
+import { company, nav } from '../data/site';
+const year = new Date().getFullYear();
+---
+
+<footer class="bg-ink-900 text-bone-50">
+  <div class="mx-auto max-w-[90rem] px-6 py-20 sm:px-10 lg:px-14 lg:py-28">
+    <div class="grid gap-14 lg:grid-cols-[1.5fr_1fr_1fr]">
+      <div>
+        <Logo class="text-2xl sm:text-3xl" light />
+        <p class="display mt-8 max-w-md text-3xl leading-tight text-bone-50/90 sm:text-4xl">
+          {company.tagline}
+        </p>
+        <p class="mt-6 text-sm text-bone-50/45">{company.serviceArea}.</p>
+      </div>
+
+      <nav aria-label="Footer">
+        <h2 class="label text-bone-50/35">Index</h2>
+        <ul class="mt-6 space-y-3.5">
+          {
+            nav.map((i) => (
+              <li>
+                <a href={i.href} class="text-sm text-bone-50/65 transition-colors hover:text-bone-50">
+                  {i.label}
+                </a>
+              </li>
+            ))
+          }
+          <li><a href="/privacy" class="text-sm text-bone-50/65 transition-colors hover:text-bone-50">Privacy</a></li>
+          <li><a href="/terms" class="text-sm text-bone-50/65 transition-colors hover:text-bone-50">Terms</a></li>
+        </ul>
+      </nav>
+
+      <div>
+        <h2 class="label text-bone-50/35">Contact</h2>
+        <ul class="mt-6 space-y-3.5 text-sm">
+          <li><a href={`mailto:${company.email}`} class="text-bone-50/65 transition-colors hover:text-bone-50">{company.email}</a></li>
+          <li><a href={`tel:${company.phoneHref}`} class="text-bone-50/65 transition-colors hover:text-bone-50">{company.phone}</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-20 flex flex-col gap-3 border-t border-bone-50/12 pt-8 text-xs text-bone-50/40 sm:flex-row sm:items-center sm:justify-between">
+      <p>&copy; {year} {company.name}</p>
+      <p>{company.region}</p>
+    </div>
+  </div>
+</footer>
