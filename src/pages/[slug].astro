@@ -98,6 +98,28 @@ const crumbs = {
       </ol>
 
       <p class="reveal mt-12 max-w-3xl text-lg leading-relaxed text-ink-500">{page.proof}</p>
+
+      {/* The documented results are all property, so this band only belongs on
+          the real estate page - it would over-claim anywhere else. */}
+      {
+        page.slug === 'real-estate-marketing-philippines' && (
+          <a
+            href="/case-studies/"
+            class="reveal group mt-12 block rounded-3xl bg-ink-900 p-9 text-bone-50 transition-colors hover:bg-ink-700 lg:p-12"
+          >
+            <p class="label text-clay-400">Eight documented campaigns</p>
+            <h3 class="display mt-4 max-w-[20ch] text-2xl lg:text-3xl">
+              ₱47.9M in closed condo sales, a ₱50M Makati unit, and cost per message cut from ₱77 to ₱11.
+            </h3>
+            <span class="mt-7 inline-flex items-center gap-2 text-sm font-semibold">
+              Read the case studies
+              <svg viewBox="0 0 24 24" class="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M5 12h14M13 6l6 6-6 6" />
+              </svg>
+            </span>
+          </a>
+        )
+      }
     </section>
 
     <!-- ENGAGEMENTS -->

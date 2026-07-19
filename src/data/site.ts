@@ -70,15 +70,15 @@ export const pillars = [
   {
     n: '03',
     title: 'More sales',
-    body: 'Most money is lost after the enquiry, not before it. Instant AI response, qualification in the chat, follow-up that actually happens, and email that brings people back.',
-    through: 'AI systems · Follow-up automation · Email · Social management',
+    body: 'Most money is lost after the enquiry. AI systems that qualify and route every lead, score them so your team works the right ones first, chase the follow-ups nobody remembers, and keep your CRM and reporting honest without anyone touching a spreadsheet.',
+    through: 'AI systems · Lead scoring & routing · CRM automation · Follow-up · Email',
   },
 ];
 
 export const services = [
   { title: 'Meta Ads Management', body: 'Facebook and Instagram campaigns, daily monitoring, multi-variant testing.' },
   { title: 'Recruitment Campaigns', body: 'Paid campaigns engineered to fill roles, not just collect CVs.' },
-  { title: 'AI Systems', body: 'Chatbot integration and automated lead nurturing that answers instantly.' },
+  { title: 'AI Systems', body: 'Qualification, routing, lead scoring, CRM automation and reporting - not just a chatbot.' },
   { title: 'Social Media Management', body: 'Content, scheduling, saved replies and community management.' },
   { title: 'Website Design & Development', body: 'Responsive sites built so the traffic you pay for converts.' },
   { title: 'Google PPC', body: 'Search campaigns that catch high-intent demand at the bottom of the funnel.' },
@@ -276,7 +276,6 @@ export interface CaseStudy {
   // Rendered as a visible footnote. Used where a figure is an estimate or
   // where the source deck was internally inconsistent.
   caveat?: string;
-  image: string;
   featured?: boolean;
 }
 
@@ -309,7 +308,6 @@ export const caseStudies: CaseStudy[] = [
       'Five closed deals: SYNC N Tower 1BR \u20b19.4M, Woodsville Crest Building 3 2BR with parking \u20b118.6M, The Sapphire Bloc East Tower 1BR \u20b17.42M, a second Sapphire Bloc East Tower 1BR \u20b18.34M, and Sierra Valley Gardens Building 1 \u20b14.2M.',
     caveat:
       'Commission on these sales was estimated at \u20b14M-\u20b15M against \u20b1192,000 of total investment (\u20b1120,000 ad spend plus \u20b172,000 in fees). Commission is an estimate based on standard rates, not a confirmed figure, so it is shown as one. The closed sales total is actual.',
-    image: '/work/c02.jpg',
     featured: true,
   },
   {
@@ -345,7 +343,6 @@ export const caseStudies: CaseStudy[] = [
     },
     caveat:
       'The source deck states 4,176% here. Recalculated from its own figures the return is 4,067% - or 41.67x total investment. The lower, verifiable number is shown.',
-    image: '/work/c05.jpg',
     featured: true,
   },
   {
@@ -379,7 +376,6 @@ export const caseStudies: CaseStudy[] = [
       roi: '1,511%',
       perPeso: '\u20b116.11 returned per \u20b11 invested',
     },
-    image: '/work/c04.jpg',
     featured: true,
   },
   {
@@ -413,7 +409,6 @@ export const caseStudies: CaseStudy[] = [
       roi: '1,462%',
       perPeso: '\u20b115.63 returned per \u20b11 invested',
     },
-    image: '/work/c09.jpg',
     featured: true,
   },
   {
@@ -440,7 +435,6 @@ export const caseStudies: CaseStudy[] = [
     ],
     outcome:
       'A \u20b13.2M lot-only sale closed at Metrogate Silang Estates, with the client subsequently finalising a bulk account sale for Grandview Tower.',
-    image: '/work/c01.jpg',
   },
   {
     slug: 'luxury-condo-10m-studio',
@@ -474,7 +468,6 @@ export const caseStudies: CaseStudy[] = [
       roi: '795%',
       perPeso: '\u20b18.95 returned per \u20b11 invested',
     },
-    image: '/work/c06.jpg',
   },
   {
     slug: 'quezon-city-9-3m-condo',
@@ -510,7 +503,6 @@ export const caseStudies: CaseStudy[] = [
       perPeso: 'At least \u20b18.38 returned per \u20b11 invested',
     },
     caveat: 'Commission here is estimated from standard commission rates rather than confirmed, so the lower bound is used.',
-    image: '/work/c10.jpg',
   },
   {
     slug: 'site-visits-metro-manila',
@@ -536,7 +528,6 @@ export const caseStudies: CaseStudy[] = [
     ],
     outcome:
       'Site visits booked across the month, with several buyers expressing strong interest. This campaign is included for the lead economics - no closed sale is claimed for it.',
-    image: '/work/c03.jpg',
   },
 ];
 

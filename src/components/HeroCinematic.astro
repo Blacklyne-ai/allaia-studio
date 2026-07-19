@@ -14,12 +14,18 @@ const lines = [
   [{ t: 'More' }, { t: 'sales.', accent: true }],
 ];
 
-// Verified figures from the case studies. Proof in the hero rather than three
-// screens down, because this is the most persuasive thing on the site.
-const proof = [
-  { value: '₱47.9M', label: 'closed sales from one four-month campaign' },
-  { value: '₱11', label: 'cost per message, down from ₱77' },
-  { value: '41x', label: 'return on a ₱50M unit sale' },
+// The closing line cycles through the sectors we have actually delivered in,
+// so "your industry" becomes the visitor's industry. Deliberately not a link -
+// a click target that changes under the cursor is hostile.
+const industries = [
+  'real estate.',
+  'aesthetics.',
+  'dental.',
+  'food service.',
+  'insurance.',
+  'fitness.',
+  'automotive.',
+  'travel.',
 ];
 ---
 
@@ -76,9 +82,18 @@ const proof = [
           </span>
         ))
       }
-      <!-- ink-500 not ink-300: the lighter tone reads better but only clears
-           2.4:1 on bone, which fails AA even at this size. -->
-      <span class="hero-line mt-2 block text-ink-500" style="--i:4">Not more likes.</span>
+      <!-- Screen readers get the plain sentence; the rotator is decorative. -->
+      <span class="hero-line mt-2 block" style="--i:4">
+        <span class="sr-only">Be the best in your industry.</span>
+        <span aria-hidden="true" class="flex flex-wrap items-baseline gap-x-[0.3em]">
+          <span class="text-ink-500">Be the best in</span>
+          <span id="industry-rotator" class="relative inline-block overflow-hidden align-bottom">
+            <span id="industry-track" class="block will-change-transform">
+              {industries.map((w) => <span class="block whitespace-nowrap italic text-clay-500">{w}</span>)}
+            </span>
+          </span>
+        </span>
+      </span>
     </h1>
 
     <div class="mt-10 grid gap-8 border-t rule pt-8 lg:grid-cols-[1fr_auto] lg:items-start">
@@ -107,23 +122,6 @@ const proof = [
       </div>
     </div>
 
-    <!-- Proof. Real figures, linked to the case study that substantiates them. -->
-    <a
-      href="/case-studies/"
-      class="hero-line group mt-8 grid gap-6 border-t rule pt-7 sm:grid-cols-3 sm:gap-12"
-      style="--i:7"
-    >
-      {
-        proof.map((p) => (
-          <span class="block">
-            <span class="display block text-3xl text-ink-900 transition-colors group-hover:text-clay-600 sm:text-4xl">
-              {p.value}
-            </span>
-            <span class="mt-2 block text-xs leading-relaxed text-ink-500">{p.label}</span>
-          </span>
-        ))
-      }
-    </a>
   </div>
 </section>
 
@@ -169,6 +167,21 @@ const proof = [
     will-change: transform, opacity;
   }
 
+  /* Rotator. Height is set in JS from the measured line box so the sentence
+     never reflows, and the track slides by whole lines. */
+  #industry-rotator {
+    height: 1em;
+  }
+  #industry-track {
+    transition: transform 0.72s cubic-bezier(0.76, 0, 0.24, 1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #industry-track {
+      transition: none;
+    }
+  }
+
   /* Once WebGL is live the 2D field steps back to a faint texture over it. */
   #hero.has-gl #hero-canvas {
     opacity: 0.28;
@@ -194,6 +207,52 @@ const proof = [
 </style>
 
 <script is:inline>
+  // Industry rotator.
+  (() => {
+    const box = document.getElementById('industry-rotator');
+    const track = document.getElementById('industry-track');
+    if (!box || !track) return;
+
+    const items = [...track.children];
+    if (items.length < 2) return;
+
+    // Width is set per word so the line does not jitter as lengths change.
+    const sizeTo = (i) => {
+      const w = items[i].getBoundingClientRect().width;
+      const h = items[0].getBoundingClientRect().height;
+      box.style.height = h + 'px';
+      box.style.width = Math.ceil(w) + 'px';
+      track.style.transform = `translate3d(0,${-i * h}px,0)`;
+    };
+
+    let i = 0;
+    sizeTo(0);
+    // Re-measure once webfonts land, otherwise the box is sized from fallback
+    // metrics and the word gets clipped.
+    if (document.fonts?.ready) document.fonts.ready.then(() => sizeTo(i));
+    addEventListener('resize', () => sizeTo(i), { passive: true });
+
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    let timer = 0;
+    const tick = () => {
+      i = (i + 1) % items.length;
+      sizeTo(i);
+    };
+    const start = () => {
+      clearInterval(timer);
+      timer = setInterval(tick, 2400);
+    };
+    const stop = () => clearInterval(timer);
+
+    start();
+    // Do not burn cycles while the tab is hidden or the hero is off screen.
+    document.addEventListener('visibilitychange', () => (document.hidden ? stop() : start()));
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(([e]) => (e.isIntersecting ? start() : stop()), { threshold: 0.05 }).observe(box);
+    }
+  })();
+
   (() => {
     const section = document.getElementById('hero');
     const canvas = document.getElementById('hero-canvas');
