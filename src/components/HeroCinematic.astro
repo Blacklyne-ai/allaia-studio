@@ -34,7 +34,10 @@ const lines = [
   }
 
   <!-- Generative motion layer. Complete on its own; thins out if footage loads. -->
-  <canvas id="hero-canvas" class="absolute inset-0 -z-10 h-full w-full" aria-hidden="true"></canvas>
+  <canvas id="hero-canvas" class="absolute inset-0 -z-10 h-full w-full transition-opacity duration-1000" aria-hidden="true"></canvas>
+
+  <!-- WebGL terrain. Upgraded in lazily on capable devices; absent otherwise. -->
+  <canvas id="hero-gl" class="pointer-events-none absolute inset-0 -z-10 hidden h-full w-full" aria-hidden="true"></canvas>
 
   <!-- Pointer light. Terracotta, follows the cursor, eased. -->
   <div id="hero-spot" class="pointer-events-none absolute inset-0 -z-10 opacity-0" aria-hidden="true"></div>
@@ -131,6 +134,14 @@ const lines = [
   /* Scroll hand-off: content drifts and fades as the hero leaves. */
   #hero-content {
     will-change: transform, opacity;
+  }
+
+  /* Once WebGL is live the 2D field steps back to a faint texture over it. */
+  #hero.has-gl #hero-canvas {
+    opacity: 0.28;
+  }
+  #hero.has-gl #hero-gl {
+    display: block;
   }
 
   /* ---- Progressive enhancement floors ---------------------------------- */
@@ -392,6 +403,9 @@ const lines = [
       addEventListener('scroll', onScroll, { passive: true });
     }
 
+    // Tell the bundled module whether it is allowed to run at all.
+    section.dataset.glAllowed = !reduced && !thrifty ? '1' : '0';
+
     // Footage is opt-in and lazy: never fetched on save-data or reduced motion.
     if (video && !thrifty && !reduced) {
       const play = () => {
@@ -410,5 +424,41 @@ const lines = [
       if ('requestIdleCallback' in window) requestIdleCallback(play, { timeout: 2200 });
       else setTimeout(play, 900);
     }
+  })();
+</script>
+
+<!-- Bundled (not inline) so the dynamic import can be code-split: three.js
+     ships in its own chunk that is only fetched on devices that will use it. -->
+<script>
+  (() => {
+    const host = document.getElementById('hero');
+    const canvas = document.getElementById('hero-gl');
+    if (!host || !canvas) return;
+    if (host.dataset.glAllowed !== '1') return;
+
+    // Cheap capability probe before pulling down the chunk.
+    function hasWebGL() {
+      try {
+        const c = document.createElement('canvas');
+        return !!(c.getContext('webgl2') || c.getContext('webgl'));
+      } catch {
+        return false;
+      }
+    }
+    if (!hasWebGL()) return;
+
+    const go = () => {
+      import('../scripts/hero3d.js')
+        .then(({ initHero3D }) => {
+          const inst = initHero3D(canvas, host);
+          if (inst) host.classList.add('has-gl');
+        })
+        .catch(() => {
+          /* 2D hero already stands on its own */
+        });
+    };
+
+    if ('requestIdleCallback' in window) requestIdleCallback(go, { timeout: 2500 });
+    else setTimeout(go, 1000);
   })();
 </script>
