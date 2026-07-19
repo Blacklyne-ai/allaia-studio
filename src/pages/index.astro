@@ -14,7 +14,10 @@ import {
 } from '../data/site';
 
 const chatHref = company.messenger || `tel:${company.phoneHref}`;
-const showTestimonials = testimonialsVerified && testimonials.length > 0;
+// Two gates: the master flag, and per-person consent. A quote only appears if
+// that specific client agreed to it being published.
+const approved = testimonials.filter((t) => t.consent);
+const showTestimonials = testimonialsVerified && approved.length > 0;
 
 const faqSchema = {
   '@context': 'https://schema.org',
@@ -201,7 +204,7 @@ const faqSchema = {
         <section class="mx-auto max-w-[90rem] px-6 py-24 sm:px-10 lg:px-14 lg:py-36">
           <p class="label reveal text-clay-500">Client words</p>
           <div class="mt-12 grid gap-px border rule bg-[color-mix(in_oklab,var(--color-ink-900)_12%,transparent)] md:grid-cols-2 lg:grid-cols-3">
-            {testimonials.map((t) => (
+            {approved.map((t) => (
               <figure class="reveal bg-bone-50 p-9">
                 <blockquote class="display text-2xl leading-snug">{t.quote}</blockquote>
                 <figcaption class="mt-6 border-t rule pt-5 text-sm">

@@ -531,5 +531,75 @@ export const caseStudies: CaseStudy[] = [
   },
 ];
 
+// ---------------------------------------------------------------------------
+// TESTIMONIALS
+//
+// These are REAL. Transcribed verbatim from client Messenger threads in
+// ~/Desktop/.../Compilation of Testimonials. Nothing here is written by us.
+//
+// They are kept in Taglish on purpose. "Okay naman po mga inquiries" reads as
+// a real Philippine client because it is one; translating it into polished
+// agency English would make it sound invented.
+//
+// NOTHING RENDERS UNTIL CONSENT IS RECORDED.
+//
+// These were private one-to-one conversations. Publishing a named person's
+// words on a public site needs their agreement - that is basic courtesy and
+// also the Data Privacy Act. Set `consent: true` per person only after they
+// have actually said yes, then flip testimonialsVerified.
+//
+// The request message is in docs/collecting-proof.md. Anonymous is fine too:
+// drop the surname and use e.g. "Real estate salesperson, Metro Manila".
+// ---------------------------------------------------------------------------
 export const testimonialsVerified = false;
-export const testimonials: { quote: string; author: string; role: string }[] = [];
+
+export interface Testimonial {
+  quote: string;
+  author: string;
+  role: string;
+  sector: string;
+  consent: boolean;
+}
+
+export const testimonials: Testimonial[] = [
+  {
+    quote:
+      'One Arton sale then 4 LOIs for Samanean so far.',
+    author: 'Michelle',
+    role: 'Real estate sales',
+    sector: 'Real Estate',
+    consent: false,
+  },
+  {
+    quote:
+      'Share ko lang we can also change the marketing strat kasi SOLD OUT na yung units. Thank you guys.',
+    author: 'Daniel dela Cruz',
+    role: 'Real estate salesperson',
+    sector: 'Real Estate',
+    consent: false,
+  },
+  {
+    quote:
+      'Maraming inquiry yung sa Ellis project, then Manhattan Heights. Naka generate na ko ng dalawang viewing sa Ellis.',
+    author: 'Florian Viernes',
+    role: 'Real estate salesperson',
+    sector: 'Real Estate',
+    consent: false,
+  },
+  {
+    quote:
+      'As of now okay naman po mga inquiries sa GVT. I have 2 trippings last week, closable naman po.',
+    author: 'Annabelle Pangilinan',
+    role: 'Real estate salesperson',
+    sector: 'Real Estate',
+    consent: false,
+  },
+  {
+    quote: "It's doing well so far. Thank you so much.",
+    author: 'Jasmine Millicent Dulay',
+    role: 'Real estate salesperson',
+    sector: 'Real Estate',
+    consent: false,
+  },
+];
+
