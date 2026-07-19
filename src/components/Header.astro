@@ -1,6 +1,6 @@
 ---
 import Logo from './Logo.astro';
-import { nav, company, chatHref} from '../data/site';
+import { nav, company, intake } from '../data/site';
 
 interface Props {
   solid?: boolean;
@@ -37,10 +37,10 @@ const { solid = false } = Astro.props;
 
     <div class="flex items-center gap-3">
       <a
-        href={chatHref}
+        href="/apply/"
         class="hidden items-center gap-2 rounded-full bg-ink-900 px-5 py-2.5 text-[0.72rem] font-semibold tracking-[0.06em] text-bone-50 transition-all hover:-translate-y-0.5 hover:bg-clay-500 sm:inline-flex"
       >
-        Start a conversation
+        {intake.ctaShort}
       </a>
 
       <button
@@ -67,8 +67,8 @@ const { solid = false } = Astro.props;
           </a>
         ))
       }
-      <a href={chatHref} class="mt-6 rounded-full bg-ink-900 px-6 py-4 text-center text-sm font-semibold text-bone-50">
-        Start a conversation
+      <a href="/apply/" class="mt-6 rounded-full bg-ink-900 px-6 py-4 text-center text-sm font-semibold text-bone-50">
+        {intake.ctaShort}
       </a>
     </nav>
   </div>

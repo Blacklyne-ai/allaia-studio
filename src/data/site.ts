@@ -57,6 +57,57 @@ export const heroMedia = {
 // The message-first CTA, resolved once. Messenger wins if a Facebook page is
 // added later, otherwise Instagram DM, and a phone call as the last resort.
 // Duplicating this expression across seven files is how it drifts.
+// ---------------------------------------------------------------------------
+// INTAKE
+//
+// The studio works by application, not enquiry. This is positioning, not a
+// growth hack - so keep it TRUE. Say you screen and you must actually screen;
+// say there is a waitlist and there must actually be one.
+//
+// Deliberately no live counters, no "2 slots left", no countdown. Invented
+// scarcity is a deceptive sales act under the Consumer Act, and it is the
+// fastest way to lose the credibility the case studies just bought you.
+//
+// TODO: confirm the real numbers before publishing anything specific -
+// how many clients you actually carry, and the real wait.
+// ---------------------------------------------------------------------------
+export const intake = {
+  // Shown wherever a CTA lands. Change the verb here and it changes everywhere.
+  ctaPrimary: 'Apply to work with us',
+  ctaShort: 'Apply',
+  ctaWaitlist: 'Join the waitlist',
+  status: 'Currently at capacity - applications open for next intake',
+  screening: [
+    {
+      n: '01',
+      title: 'You apply',
+      body: 'Tell us what you sell, what you are spending now, and what you need the number to be. Two minutes, in a message.',
+    },
+    {
+      n: '02',
+      title: 'We screen',
+      body: 'We look at whether your offer, margin and capacity can carry paid acquisition at all. Roughly half of what we see cannot yet, and we say so rather than take the retainer.',
+    },
+    {
+      n: '03',
+      title: 'A straight answer',
+      body: 'Either a scope and a quote, or an honest no with what we would fix first. Both come back within a few days.',
+    },
+    {
+      n: '04',
+      title: 'Waitlist or start',
+      body: 'If we have room you start on the next cycle. If we do not, you go on the waitlist and we tell you roughly when - we would rather you wait than be run badly.',
+    },
+  ],
+  // Why the studio turns work away. These are reasons, not thresholds.
+  declineReasons: [
+    'The margin cannot support paid acquisition yet - ads would only lose money faster.',
+    'Nobody is available to answer the enquiries the campaigns would generate.',
+    'The offer or the price is the real problem, and advertising would only buy evidence of it.',
+    'The budget is too small to exit the learning phase, so it could never produce readable data.',
+  ],
+};
+
 export const chatHref =
   company.messenger || company.instagramDM || `tel:${company.phoneHref}`;
 
@@ -70,6 +121,7 @@ export const nav = [
   { label: 'Engagements', href: '/engagements/' },
   { label: 'Studio', href: '/studio/' },
   { label: 'Insights', href: '/insights/' },
+  { label: 'Apply', href: '/apply/' },
 ];
 
 // Framed by outcome rather than by channel. Every pillar draws on several

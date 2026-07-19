@@ -17,11 +17,12 @@
   --color-clay-500: #b4532a;
   --color-clay-400: #c96f42;
 
-  /* Jost is a Futura revival - geometric, modern, and the same family as the
-     body text, so the whole site now sits on one typeface instead of pairing
-     a Didone against a grotesque. */
-  --font-display: 'Jost Variable', ui-sans-serif, system-ui, sans-serif;
-  --font-sans: 'Jost Variable', ui-sans-serif, system-ui, sans-serif;
+  /* Geist. A modern grotesk - even colour, tight apertures, no eccentric
+     letterforms to trip over at display size. To try another face, change
+     these two lines and the imports in Base.astro; Inter Variable and Space
+     Grotesk Variable are both installed-compatible alternatives. */
+  --font-display: 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
   /* The wordmark keeps the serif, because that is the real allaia mark. */
   --font-mark: 'Playfair Display', ui-serif, Georgia, serif;
 }
@@ -64,14 +65,13 @@
   letter-spacing: -0.03em;
 }
 
-/* Semibold, tightly tracked. Light weights read delicate rather than modern
-   at this scale - the contemporary geometric look is weight plus tight
-   spacing, not thin strokes. */
+/* Medium-bold and tightly tracked. Grotesks carry display size on weight and
+   spacing, not on stroke contrast. */
 @utility display {
   font-family: var(--font-display);
   font-weight: 600;
-  letter-spacing: -0.032em;
-  line-height: 1.02;
+  letter-spacing: -0.028em;
+  line-height: 1.03;
 }
 
 @utility label {
