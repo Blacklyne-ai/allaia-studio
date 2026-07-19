@@ -99,7 +99,7 @@ const pillarLinks = ['/services/', '/work/', '/method/'];
         <div class="mt-14 grid gap-px border border-bone-50/15 bg-bone-50/15 md:grid-cols-3">
           {
             featured.map((c) => (
-              <a href={`/case-studies/#${c.slug}`} class="group bg-ink-900 p-8 transition-colors hover:bg-ink-700/40 lg:p-10">
+              <a href={`/case-studies/${c.slug}/`} class="group bg-ink-900 p-8 transition-colors hover:bg-ink-700/40 lg:p-10">
                 <p class="label text-clay-400">{c.sector}</p>
                 <p class="display mt-5 text-4xl text-clay-400 lg:text-5xl">{c.metrics[0].value}</p>
                 <p class="mt-2 text-xs text-bone-50/50">{c.metrics[0].label}</p>

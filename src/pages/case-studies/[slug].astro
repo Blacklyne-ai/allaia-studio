@@ -1,0 +1,193 @@
+---
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import ChatFab from '../../components/ChatFab.astro';
+import PageCta from '../../components/PageCta.astro';
+import { caseStudies } from '../../data/site';
+
+export function getStaticPaths() {
+  return caseStudies.map((c, i) => ({
+    params: { slug: c.slug },
+    props: {
+      c,
+      // Neighbours for the prev/next rail, wrapping at both ends.
+      prev: caseStudies[(i - 1 + caseStudies.length) % caseStudies.length],
+      next: caseStudies[(i + 1) % caseStudies.length],
+    },
+  }));
+}
+
+const { c, prev, next } = Astro.props;
+const url = `https://allaiastudio.com/case-studies/${c.slug}/`;
+
+const crumbs = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://allaiastudio.com/' },
+    { '@type': 'ListItem', position: 2, name: 'Case studies', item: 'https://allaiastudio.com/case-studies/' },
+    { '@type': 'ListItem', position: 3, name: c.title, item: url },
+  ],
+};
+
+// Lead metric doubles as the description, so the search snippet leads with a
+// number rather than a sector label.
+const desc = `${c.metrics[0].value} ${c.metrics[0].label.toLowerCase()}. ${c.background}`.slice(0, 180);
+---
+
+<Base title={`${c.title} | Case Study`} description={desc} path={`/case-studies/${c.slug}/`}>
+  <Header solid />
+
+  <main id="main">
+    <!-- Masthead -->
+    <section class="mx-auto max-w-[90rem] px-6 pb-14 pt-36 sm:px-10 lg:px-14 lg:pt-44">
+      <nav aria-label="Breadcrumb" class="label text-ink-300">
+        <a href="/" class="transition-colors hover:text-ink-700">Home</a>
+        <span class="mx-2" aria-hidden="true">/</span>
+        <a href="/case-studies/" class="transition-colors hover:text-ink-700">Case studies</a>
+      </nav>
+
+      <div class="mt-10 flex items-baseline gap-4">
+        <span class="display text-4xl text-clay-500/35">{c.n}</span>
+        <p class="label text-clay-500">{c.sector}</p>
+      </div>
+
+      <h1 class="display mt-5 max-w-[20ch] text-[clamp(2.3rem,6vw,5rem)]">{c.title}</h1>
+      {c.period && <p class="mt-5 text-sm text-ink-500">{c.period}</p>}
+
+      <p class="mt-12 max-w-3xl border-t rule pt-12 text-lg leading-relaxed text-ink-700 sm:text-xl">
+        {c.background}
+      </p>
+    </section>
+
+    <!-- Metrics -->
+    <section class="mx-auto max-w-[90rem] px-6 pb-16 sm:px-10 lg:px-14">
+      <dl class="grid gap-px border rule bg-[color-mix(in_oklab,var(--color-ink-900)_12%,transparent)] sm:grid-cols-2 lg:grid-cols-4">
+        {
+          c.metrics.map((m, i) => (
+            <div
+              class:list={[
+                'bg-bone-50 p-8',
+                // Close an incomplete final row rather than leave a grey cell.
+                i === c.metrics.length - 1 && c.metrics.length % 2 === 1 && 'sm:col-span-2 lg:col-span-1',
+              ]}
+            >
+              <dt class="label text-ink-500">{m.label}</dt>
+              <dd class="display mt-3 text-3xl text-clay-600 lg:text-4xl">{m.value}</dd>
+              {m.note && <p class="mt-2 text-xs text-ink-500">{m.note}</p>}
+            </div>
+          ))
+        }
+      </dl>
+    </section>
+
+    <!-- Problem + strategy -->
+    <section class="mx-auto max-w-[90rem] px-6 pb-16 sm:px-10 lg:px-14">
+      <div class="grid gap-14 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+        <div class="lg:sticky lg:top-32 lg:h-fit">
+          <p class="label text-ink-500">The problem</p>
+          <ul class="mt-6 space-y-4">
+            {
+              c.challenges.map((ch) => (
+                <li class="flex items-baseline gap-3 leading-relaxed text-ink-700">
+                  <span class="h-1 w-1 shrink-0 rounded-full bg-clay-500" aria-hidden="true" />
+                  {ch}
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+
+        <div>
+          <p class="label text-ink-500">What we ran</p>
+          <div class="mt-6 border-t rule">
+            {
+              c.strategy.map((s, i) => (
+                <div class="border-b rule py-7">
+                  <div class="flex items-baseline gap-5">
+                    <span class="label shrink-0 text-clay-500">{String(i + 1).padStart(2, '0')}</span>
+                    <div>
+                      <h2 class="text-lg font-semibold text-ink-900">{s.title}</h2>
+                      <p class="mt-2 leading-relaxed text-ink-700">{s.body}</p>
+                    </div>
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Outcome -->
+    <section class="mx-auto max-w-[90rem] px-6 pb-16 sm:px-10 lg:px-14">
+      <div class="rounded-3xl bg-ink-900 p-9 text-bone-50 lg:p-14">
+        <p class="label text-clay-400">Outcome</p>
+        <p class="mt-5 max-w-3xl text-xl leading-relaxed text-bone-50/85">{c.outcome}</p>
+
+        {
+          c.economics && (
+            <dl class="mt-10 grid grid-cols-2 gap-x-10 gap-y-6 border-t border-bone-50/15 pt-9 sm:grid-cols-3 lg:grid-cols-5">
+              <div>
+                <dt class="label text-bone-50/35">Ad spend</dt>
+                <dd class="mt-2 font-semibold">{c.economics.adSpend}</dd>
+              </div>
+              <div>
+                <dt class="label text-bone-50/35">Service fee</dt>
+                <dd class="mt-2 font-semibold">{c.economics.fee}</dd>
+              </div>
+              <div>
+                <dt class="label text-bone-50/35">Total investment</dt>
+                <dd class="mt-2 font-semibold">{c.economics.investment}</dd>
+              </div>
+              <div>
+                <dt class="label text-bone-50/35">Commission earned</dt>
+                <dd class="mt-2 font-semibold">{c.economics.commission}</dd>
+              </div>
+              <div class="col-span-2 sm:col-span-3 lg:col-span-1">
+                <dt class="label text-bone-50/35">Return</dt>
+                <dd class="display mt-1 text-3xl text-clay-400">{c.economics.roi}</dd>
+                {c.economics.perPeso && <p class="mt-1.5 text-xs text-bone-50/50">{c.economics.perPeso}</p>}
+              </div>
+            </dl>
+          )
+        }
+      </div>
+
+      {
+        c.caveat && (
+          <p class="mt-8 max-w-3xl border-l-2 border-clay-500/40 pl-6 text-sm leading-relaxed text-ink-500">
+            {c.caveat}
+          </p>
+        )
+      }
+
+      <p class="mt-8 max-w-3xl text-xs leading-relaxed text-ink-500">
+        Delivered by the same team under the studio's previous name, Winnify Ads. Commission figures are client
+        earnings, not studio revenue. Past performance is not a prediction - results vary by market, offer and budget.
+      </p>
+    </section>
+
+    <!-- Prev / next -->
+    <section class="mx-auto max-w-[90rem] px-6 pb-16 sm:px-10 lg:px-14">
+      <div class="grid gap-px border rule bg-[color-mix(in_oklab,var(--color-ink-900)_12%,transparent)] md:grid-cols-2">
+        <a href={`/case-studies/${prev.slug}/`} class="group bg-bone-50 p-8 transition-colors hover:bg-bone-100">
+          <p class="label text-ink-500">Previous</p>
+          <p class="display mt-3 text-xl lg:text-2xl">{prev.title}</p>
+        </a>
+        <a href={`/case-studies/${next.slug}/`} class="group bg-bone-50 p-8 text-right transition-colors hover:bg-bone-100">
+          <p class="label text-ink-500">Next</p>
+          <p class="display mt-3 text-xl lg:text-2xl">{next.title}</p>
+        </a>
+      </div>
+    </section>
+
+    <PageCta title="Want numbers like these" accent="on your account?" />
+  </main>
+
+  <Footer />
+  <ChatFab />
+
+  <script type="application/ld+json" set:html={JSON.stringify(crumbs)} />
+</Base>

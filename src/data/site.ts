@@ -65,6 +65,7 @@ export const nav = [
   { label: 'Services', href: '/services/' },
   { label: 'Work', href: '/work/' },
   { label: 'Case studies', href: '/case-studies/' },
+  { label: 'Reviews', href: '/reviews/' },
   { label: 'Method', href: '/method/' },
   { label: 'Engagements', href: '/engagements/' },
   { label: 'Studio', href: '/studio/' },

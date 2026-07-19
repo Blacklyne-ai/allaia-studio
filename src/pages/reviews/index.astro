@@ -1,0 +1,91 @@
+---
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import ChatFab from '../../components/ChatFab.astro';
+import PageHead from '../../components/PageHead.astro';
+import PageCta from '../../components/PageCta.astro';
+import { testimonials, testimonialsVerified } from '../../data/site';
+
+const consented = testimonialsVerified ? testimonials.filter((t) => t.consent) : [];
+
+// Group by sector so the range is the first thing you see.
+const sectors = [...new Set(consented.map((t) => t.sector))].sort(
+  (a, b) => consented.filter((t) => t.sector === b).length - consented.filter((t) => t.sector === a).length
+);
+---
+
+<Base
+  title="Client Reviews | What Philippine Businesses Say"
+  description="Unedited client messages from Allaia Studio engagements across property, hospitality, retail, furniture, travel and motors. Published with permission, exactly as they were sent."
+  path="/reviews/"
+>
+  <Header solid />
+
+  <main id="main">
+    <PageHead
+      crumb="Reviews"
+      eyebrow="Client words"
+      title="Their words,"
+      accent="not ours."
+      lede="Straight from Messenger, exactly as they were sent - including the Taglish and the bits that were not perfect. Published with each client's permission, some named, some anonymously at their preference."
+    />
+
+    {
+      consented.length === 0 ? (
+        <section class="mx-auto max-w-[52rem] px-6 pb-24 sm:px-10">
+          <p class="text-lg leading-relaxed text-ink-700">
+            Reviews are being collected and will appear here once clients have approved them.
+          </p>
+        </section>
+      ) : (
+        sectors.map((sector) => (
+          <section class="mx-auto max-w-[90rem] px-6 pb-14 sm:px-10 lg:px-14">
+            <div class="flex items-baseline justify-between gap-6 border-t rule pt-8">
+              <h2 class="display text-2xl lg:text-3xl">{sector}</h2>
+              <span class="label text-ink-300">
+                {consented.filter((t) => t.sector === sector).length}
+              </span>
+            </div>
+
+            <div class="mt-8 grid gap-px border rule bg-[color-mix(in_oklab,var(--color-ink-900)_12%,transparent)] md:grid-cols-2 lg:grid-cols-3">
+              {consented
+                .filter((t) => t.sector === sector)
+                .map((t, i, arr) => (
+                  <figure
+                    class:list={[
+                      'reveal flex flex-col bg-bone-50 p-9',
+                      // Stretch a lone trailing card so the divider grid does
+                      // not show through as an empty cell.
+                      i === arr.length - 1 && arr.length % 2 === 1 && 'md:col-span-2',
+                      i === arr.length - 1 && arr.length % 3 === 1 && arr.length > 1 && 'lg:col-span-3',
+                      i === arr.length - 1 && arr.length % 3 === 2 && 'lg:col-span-2',
+                      i === arr.length - 1 && arr.length % 3 === 0 && 'lg:col-span-1',
+                    ]}
+                  >
+                    <blockquote class="display text-2xl leading-snug">{t.quote}</blockquote>
+                    <figcaption class="mt-6 border-t rule pt-5 text-sm">
+                      <span class="block font-semibold text-ink-900">{t.author}</span>
+                      <span class="block text-ink-500">{t.role}</span>
+                    </figcaption>
+                  </figure>
+                ))}
+            </div>
+          </section>
+        ))
+      )
+    }
+
+    <section class="mx-auto max-w-[52rem] px-6 pb-16 pt-6 sm:px-10">
+      <p class="text-xs leading-relaxed text-ink-500">
+        Quotes are reproduced verbatim from client messages, lightly punctuated for reading and nothing more. Named
+        clients are shown by first name and initial. Anyone who would rather not appear can be removed at any time.
+      </p>
+    </section>
+
+    <PageCta title="Want to be" accent="one of these?" />
+  </main>
+
+  <Footer />
+  <ChatFab />
+</Base>
