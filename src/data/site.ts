@@ -604,5 +604,43 @@ export const testimonials: Testimonial[] = [
     sector: 'Real Estate',
     consent: true,
   },
+
+  // The four below come from the Jul/Aug 2024 batches, which the studio already
+  // published publicly as social posts with client names redacted. They are
+  // anonymous by design and were cleared at the time, so they carry a sector
+  // rather than a name. They are also the only non-property proof on the site,
+  // which is exactly why they matter.
+  {
+    quote:
+      'We have many bookings for the month, maybe double compared to last month. This is a big deal to us.',
+    author: 'Hotel & resort operator',
+    role: 'Published anonymously',
+    sector: 'Hotel & Resort',
+    consent: true,
+  },
+  {
+    quote:
+      'We already sold 5 bags this month. Worth 300K+ na din. Thanks to the team for your big help - we\u2019re excited for next month campaign.',
+    author: 'Luxury bag retailer',
+    role: 'Published anonymously',
+    sector: 'Retail',
+    consent: true,
+  },
+  {
+    quote:
+      'We have 4 new clients from your ads. This month is very strong for us, thanks to all of you!',
+    author: 'Furniture business',
+    role: 'Published anonymously',
+    sector: 'Furniture',
+    consent: true,
+  },
+  {
+    quote:
+      'I already made a sale. Super busy lang lately, hindi ko ma-monitor kung saan galing yung sales ko. Pero so far ang galing, kasi 500php lang tapos ang baba ng CPM.',
+    author: 'Car trading business',
+    role: 'Published anonymously',
+    sector: 'Automotive',
+    consent: true,
+  },
 ];
 
