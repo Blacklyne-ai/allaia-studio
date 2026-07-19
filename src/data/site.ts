@@ -43,6 +43,7 @@ export const heroMedia = {
 // Root-relative so these resolve from the landing pages too, not just home.
 export const nav = [
   { label: 'Work', href: '/work/' },
+  { label: 'Case studies', href: '/case-studies/' },
   { label: 'Services', href: '/#services' },
   { label: 'Method', href: '/#method' },
   { label: 'Engagements', href: '/#engagements' },
@@ -251,58 +252,291 @@ export const faqs = [
 // caseResultsVerified = true. Until then the projects render without a results
 // block rather than with a fabricated one.
 // ---------------------------------------------------------------------------
-export const caseResultsVerified = false;
+export const caseResultsVerified = true;
 
 export interface CaseStudy {
-  client: string;
+  slug: string;
+  n: string;
+  title: string;
   sector: string;
-  context: string;
-  delivered: string[];
+  period?: string;
+  background: string;
+  challenges: string[];
+  strategy: { title: string; body: string }[];
+  metrics: { label: string; value: string; note?: string }[];
+  outcome: string;
+  economics?: {
+    adSpend: string;
+    fee: string;
+    investment: string;
+    commission: string;
+    roi: string;
+    perPeso?: string;
+  };
+  // Rendered as a visible footnote. Used where a figure is an estimate or
+  // where the source deck was internally inconsistent.
+  caveat?: string;
   image: string;
-  results: { label: string; value: string }[];
+  featured?: boolean;
 }
 
 export const caseStudies: CaseStudy[] = [
   {
-    client: 'Metro Manila property developments',
+    slug: 'metro-manila-condo-team-47m',
+    n: '01',
+    title: 'A four-month campaign that closed \u20b147.9M in condo sales',
     sector: 'Real Estate',
-    context:
-      'Preselling and ready-for-occupancy units across Metro Manila, including projects in Alabang, Makati and Quezon City. Long decision cycles and a hard qualification problem - the brief was buyers who could service the amortisation, not volume.',
-    delivered: [
-      'Campaign creative for 14 property campaigns',
-      'Price, reservation fee and monthly amortisation placed in-creative to qualify',
-      'Carousel and single-image formats for unit, amenity and payment-term sequences',
-      'Developer branding applied consistently across broker-facing assets',
+    period: 'September - December 2024',
+    background:
+      'A top-performing sales team from a prestigious Metro Manila developer, with members deployed in the US and Canada, wanted to reach high-net-worth Filipino buyers at home and abroad. They committed a \u20b130,000 monthly ad budget over four months.',
+    challenges: [
+      'Reaching Filipino buyers across three countries with one budget',
+      'Sustaining lead quality month after month rather than one good month',
+      'Converting online inquiries into signed deals across time zones',
     ],
+    strategy: [
+      { title: 'Local and international targeting', body: 'Campaigns aimed at high-net-worth Filipinos in Metro Manila, the US and Canada looking for premium condo investments.' },
+      { title: 'Premium creative', body: 'Property visuals and copy built around exclusivity, convenience and investment potential.' },
+      { title: 'Lead nurturing', body: 'The team ran a follow-up system so every inquiry was nurtured until the buyer was ready.' },
+      { title: 'Monthly optimisation', body: 'Audience segments, creative and messaging adjusted every month to lower costs and lift quality.' },
+    ],
+    metrics: [
+      { label: 'Total sales closed', value: '\u20b147,975,502' },
+      { label: 'Ad spend, 4 months', value: '\u20b1120,000', note: '\u20b130,000 per month' },
+      { label: 'Deals closed', value: '5 units' },
+    ],
+    outcome:
+      'Five closed deals: SYNC N Tower 1BR \u20b19.4M, Woodsville Crest Building 3 2BR with parking \u20b118.6M, The Sapphire Bloc East Tower 1BR \u20b17.42M, a second Sapphire Bloc East Tower 1BR \u20b18.34M, and Sierra Valley Gardens Building 1 \u20b14.2M.',
+    caveat:
+      'Commission on these sales was estimated at \u20b14M-\u20b15M against \u20b1192,000 of total investment (\u20b1120,000 ad spend plus \u20b172,000 in fees). Commission is an estimate based on standard rates, not a confirmed figure, so it is shown as one. The closed sales total is actual.',
     image: '/work/c02.jpg',
-    results: [],
+    featured: true,
   },
   {
-    client: 'Aesthetic and dental clinics',
-    sector: 'Beauty & Aesthetics',
-    context:
-      'Skin, laser, hair and dental practices running package launches and seasonal promotions. The constraint is Meta health advertising policy, which restricts personal-attribute copy and before-and-after formats.',
-    delivered: [
-      'Package and promo creative built to pass health advertising review first time',
-      'Price-in-creative to filter enquiries before they reach the front desk',
-      'Multi-session package framing rather than single-treatment discounting',
-      'One-tap Messenger booking as the primary call to action',
+    slug: 'gentry-corporate-plaza-50m',
+    n: '02',
+    title: 'A \u20b150M commercial unit sold at Gentry Corporate Plaza',
+    sector: 'Real Estate',
+    background:
+      'A salesperson specialising in commercial property and high-end lots needed high-value leads for Gentry Corporate Plaza in Makati - a premium office space aimed at businesses and investors. The task was reaching buyers genuinely willing to commit to a \u20b150M unit.',
+    challenges: [
+      'High competition in Makati commercial real estate',
+      'Reaching corporate buyers, investors and business owners with real purchase intent',
+      'Filtering unqualified leads while keeping cost per lead reasonable',
     ],
-    image: '/work/c15.jpg',
-    results: [],
+    strategy: [
+      { title: 'Hyper-targeted audiences', body: 'High-net-worth individuals, entrepreneurs and decision-makers in finance, tech and law, plus lookalike audiences built from past buyers and engaged users.' },
+      { title: 'Luxury positioning', body: 'Carousel and single-image ads leading on the Makati location, architecture, facilities and investment case, with copy emphasising exclusivity and ROI potential.' },
+    ],
+    metrics: [
+      { label: 'Sale closed', value: '\u20b150M unit' },
+      { label: 'Leads generated', value: '42', note: 'high-net-worth prospects' },
+      { label: 'Cost per lead', value: '\u20b197' },
+      { label: 'Click-through rate', value: '2.07%' },
+    ],
+    outcome: 'One confirmed sale of a \u20b150M corporate unit, from 42 inquiries.',
+    economics: {
+      adSpend: '\u20b132,000',
+      fee: '\u20b128,000',
+      investment: '\u20b160,000',
+      commission: '\u20b12,500,000',
+      roi: '4,067%',
+      perPeso: '\u20b141.67 returned per \u20b11 invested',
+    },
+    caveat:
+      'The source deck states 4,176% here. Recalculated from its own figures the return is 4,067% - or 41.67x total investment. The lower, verifiable number is shown.',
+    image: '/work/c05.jpg',
+    featured: true,
   },
   {
-    client: 'Food service and meal programmes',
-    sector: 'Food Service',
-    context:
-      'Subscription meal plans and catering across Bulacan and Metro Manila, where the offer is recurring rather than one-off and the economics depend on retention rather than first order.',
-    delivered: [
-      'Subscription tier and macro-breakdown creative for meal programmes',
-      'Delivery-area and rate-card assets for operational clarity',
-      'Catering and event-led creative for the higher-value segment',
+    slug: 'mid-high-end-condo-14-5m',
+    n: '03',
+    title: 'Two condo units sold, \u20b114.5M revenue, from 193 inquiries',
+    sector: 'Real Estate',
+    background:
+      'A sales manager from a well-known developer selling mid-to-high-end condominiums in Metro Manila wanted leads that converted into actual sales, not just volume. Given the price point, the focus was serious buyers with high purchase intent.',
+    challenges: [
+      'High competition in the luxury condo market',
+      'Ensuring inquiries came from financially capable buyers',
+      'High cost per lead driven by the premium price point',
     ],
-    image: '/work/c22.jpg',
-    results: [],
+    strategy: [
+      { title: 'High-intent targeting', body: 'Interest targeting on high-net-worth individuals and property investors, with lookalike audiences built from past messagers and engaged users.' },
+      { title: 'Premium creative and messaging', body: 'Carousel and single-image ads showing amenities, city views and flexible payment terms, with copy on exclusivity, investment potential and limited availability.' },
+    ],
+    metrics: [
+      { label: 'Sales closed', value: '2 units', note: '\u20b114.5M revenue' },
+      { label: 'Leads generated', value: '193', note: 'in one month' },
+      { label: 'Cost per lead', value: '\u20b177.73', note: 'target was \u20b1500 or lower' },
+      { label: 'Click-through rate', value: '2.52%' },
+    ],
+    outcome: 'Two condominium units sold, totalling \u20b114.5M in revenue, against a target of converting at least two inquiries.',
+    economics: {
+      adSpend: '\u20b131,000',
+      fee: '\u20b114,000',
+      investment: '\u20b145,000',
+      commission: '\u20b1725,000',
+      roi: '1,511%',
+      perPeso: '\u20b116.11 returned per \u20b11 invested',
+    },
+    image: '/work/c04.jpg',
+    featured: true,
+  },
+  {
+    slug: 'affluent-condo-buyers-15m',
+    n: '04',
+    title: '\u20b120K of ad spend to a \u20b1750K commission',
+    sector: 'Real Estate',
+    background:
+      'A sales manager from a developer offering mid-to-high-end condominium units in Metro Manila set out to attract affluent buyers - young professionals, growing families and investors - while holding cost per message under \u20b1100.',
+    challenges: [
+      'Attracting high-income buyers with a niche interest in premium property',
+      'Higher cost per message driven by the premium nature of the project',
+      'Getting leads to hand over contact details to reduce time on unqualified inquiries',
+    ],
+    strategy: [
+      { title: 'Luxury positioning', body: 'Prime location, modern amenities and proximity to business districts, framed around exclusivity, comfort and investment potential.' },
+      { title: 'Audience segmentation', body: 'Affluent professionals aged 28-54 and investors in Metro Manila and surrounding areas, plus lookalikes from previous messagers.' },
+      { title: 'Tested creative', body: 'Carousel and single-image ads showing interiors, amenities and landmarks, with headlines, CTAs and captions A/B tested.' },
+    ],
+    metrics: [
+      { label: 'Booked sales', value: '\u20b115M', note: '1BR unit, first month' },
+      { label: 'Cost per message', value: 'Under \u20b1100', note: 'the stated target' },
+      { label: 'Click-through rate', value: 'Above 2%' },
+    ],
+    outcome: 'After one month of running, the campaign produced a \u20b115M 1BR unit in booked sales, with further closable leads in the pipeline.',
+    economics: {
+      adSpend: '\u20b120,000',
+      fee: '\u20b128,000',
+      investment: '\u20b148,000',
+      commission: '\u20b1750,000',
+      roi: '1,462%',
+      perPeso: '\u20b115.63 returned per \u20b11 invested',
+    },
+    image: '/work/c09.jpg',
+    featured: true,
+  },
+  {
+    slug: 'cost-per-message-77-to-11',
+    n: '05',
+    title: 'Cost per message cut from \u20b177 to \u20b111',
+    sector: 'Real Estate',
+    background:
+      'A real estate salesperson selling house-and-lot and condominium projects wanted more inquiries at the lowest possible cost, without sacrificing the lead quality needed to eventually convert into sales.',
+    challenges: [
+      'A saturated market with many competing ads',
+      'High cost per message in the real estate niche',
+      'Generating leads from buyers genuinely intending to purchase',
+    ],
+    strategy: [
+      { title: 'Targeting optimisation', body: 'Audiences segmented by age, location, job and income bracket, layered onto proven winning audiences from previous campaigns.' },
+      { title: 'Placement strategy', body: 'Facebook and Instagram feeds, stories and high-intent placements used to maximise visibility.' },
+      { title: 'Daily performance tracking', body: 'CTR, cost per message and link click rates monitored daily and weekly, with campaigns adjusted on real-time performance.' },
+    ],
+    metrics: [
+      { label: 'Cost per message', value: '\u20b177 \u2192 \u20b111', note: 'an 86% reduction' },
+      { label: 'Click-through rate', value: '5.40%', note: 'industry average cited at 2%' },
+      { label: 'Link click-through rate', value: '1.33%' },
+    ],
+    outcome:
+      'A \u20b13.2M lot-only sale closed at Metrogate Silang Estates, with the client subsequently finalising a bulk account sale for Grandview Tower.',
+    image: '/work/c01.jpg',
+  },
+  {
+    slug: 'luxury-condo-10m-studio',
+    n: '06',
+    title: '\u20b115K of ad spend to a \u20b110M studio unit sale',
+    sector: 'Real Estate',
+    background:
+      'A salesperson from a prestigious developer set out to attract high-net-worth buyers for a luxury mid-to-high-end condominium in Metro Manila, aiming for quality inquiries and one big-ticket close.',
+    challenges: [
+      'Tough competition in Metro Manila\u2019s high-end condo market',
+      'Holding lead quality while keeping costs reasonable',
+      'Turning online inquiries into real-world sales',
+    ],
+    strategy: [
+      { title: 'Hyper-targeted ads', body: 'Affluent professionals, executives and overseas investors actively looking at premium condo investments.' },
+      { title: 'Strategic placements', body: 'Facebook and Instagram feeds, Stories and Messenger, to maximise direct conversations.' },
+      { title: 'Fast response', body: 'The client executed fast response times and a personalised approach, which carried buyer confidence.' },
+    ],
+    metrics: [
+      { label: 'Sale closed', value: '\u20b110M', note: 'studio unit' },
+      { label: 'Total inquiries', value: '129' },
+      { label: 'Cost per message', value: '\u20b1120.44' },
+      { label: 'Ad spend', value: '\u20b115,536.49' },
+    ],
+    outcome: 'A \u20b110M studio unit sold from 129 inquiries generated on just over \u20b115,000 of ad spend.',
+    economics: {
+      adSpend: '\u20b115,536.49',
+      fee: '\u20b118,000',
+      investment: '\u20b133,536.49',
+      commission: '\u20b1300,000',
+      roi: '795%',
+      perPeso: '\u20b18.95 returned per \u20b11 invested',
+    },
+    image: '/work/c06.jpg',
+  },
+  {
+    slug: 'quezon-city-9-3m-condo',
+    n: '07',
+    title: '361 inquiries at \u20b141.59 each, and a \u20b19.3M sale',
+    sector: 'Real Estate',
+    background:
+      'A team of sales professionals under a prestigious high-end developer pooled a shared ad budget to attract serious buyers for a luxury condominium project in Quezon City.',
+    challenges: [
+      'A highly competitive luxury real estate market',
+      'Holding lead quality while keeping costs low',
+      'Maximising a shared ad budget for the best return',
+    ],
+    strategy: [
+      { title: 'Focused audience targeting', body: 'Ads shown to affluent professionals, business owners and executives actively looking at premium real estate.' },
+      { title: 'Messenger-led lead generation', body: 'Messenger ads with fast response times to keep engagement high and conversations direct.' },
+      { title: 'Proactive nurturing', body: 'The team followed up immediately and built relationships with prospects rather than waiting on inbound.' },
+    ],
+    metrics: [
+      { label: 'Sale closed', value: '\u20b19.3M', note: 'condo unit' },
+      { label: 'Total inquiries', value: '361' },
+      { label: 'Cost per message', value: '\u20b141.59' },
+      { label: 'Ad spend', value: '\u20b115,281.74' },
+    ],
+    outcome:
+      'A \u20b19.3M condo sold, with two of three further leads signing Letters of Intent and awaiting final closing.',
+    economics: {
+      adSpend: '\u20b115,281.74',
+      fee: '\u20b118,000',
+      investment: '\u20b133,281.74',
+      commission: '\u20b1279,000 - \u20b1465,000',
+      roi: 'At least 738%',
+      perPeso: 'At least \u20b18.38 returned per \u20b11 invested',
+    },
+    caveat: 'Commission here is estimated from standard commission rates rather than confirmed, so the lower bound is used.',
+    image: '/work/c10.jpg',
+  },
+  {
+    slug: 'site-visits-metro-manila',
+    n: '08',
+    title: '120+ inquiries at \u20b1173 each, driving showroom site visits',
+    sector: 'Real Estate',
+    background:
+      'A salesperson from a reputable developer wanted to lift site visits for mid-to-high-end condominium projects in Metro Manila - the objective being buyers who would physically attend the showroom, not just message.',
+    challenges: [
+      'Filtering serious buyers out of general inquiries',
+      'Getting prospects to commit to a site visit',
+      'Managing cost per lead while holding lead quality',
+    ],
+    strategy: [
+      { title: 'High-intent targeting', body: 'Professionals aged 28-45, OFWs and property investors, with lookalike audiences from past messagers and engaged prospects.' },
+      { title: 'Urgency in the creative', body: 'Carousel and single-image ads on amenities, skyline views and flexible payment terms, with copy built to push toward a visit.' },
+      { title: 'Retargeting and nurture', body: 'Reminders by email and Messenger ads reinforcing key selling points and live promos.' },
+    ],
+    metrics: [
+      { label: 'Leads generated', value: '120+', note: 'in one month' },
+      { label: 'Cost per lead', value: '\u20b1173.18', note: 'target was under \u20b1200' },
+      { label: 'Click-through rate', value: '2.90%' },
+    ],
+    outcome:
+      'Site visits booked across the month, with several buyers expressing strong interest. This campaign is included for the lead economics - no closed sale is claimed for it.',
+    image: '/work/c03.jpg',
   },
 ];
 

@@ -1,0 +1,198 @@
+---
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import ChatFab from '../../components/ChatFab.astro';
+import { caseStudies, company } from '../../data/site';
+
+const chatHref = company.messenger || `tel:${company.phoneHref}`;
+---
+
+<Base
+  title="Real Estate Facebook Ads Case Studies | Philippines"
+  description="Eight real campaign case studies from Philippine property sales - ₱47.9M in closed condo sales, a ₱50M Makati commercial unit, cost per message cut from ₱77 to ₱11."
+  path="/case-studies/"
+>
+  <Header solid />
+
+  <main id="main">
+    <section class="mx-auto max-w-[90rem] px-6 pb-16 pt-36 sm:px-10 lg:px-14 lg:pt-44">
+      <nav aria-label="Breadcrumb" class="label text-ink-300">
+        <a href="/" class="transition-colors hover:text-ink-700">Home</a>
+        <span class="mx-2" aria-hidden="true">/</span>
+        <span class="text-ink-500">Case studies</span>
+      </nav>
+
+      <h1 class="display mt-10 max-w-[16ch] text-[clamp(2.6rem,7.5vw,6.5rem)]">
+        The numbers, <span class="italic text-clay-500">with the receipts.</span>
+      </h1>
+
+      <p class="mt-12 max-w-2xl border-t rule pt-12 text-lg leading-relaxed text-ink-700 sm:text-xl">
+        Eight campaigns from Philippine property sales - what the brief was, what we ran, and what it returned.
+        Where a figure is an estimate rather than a confirmed number, it says so.
+      </p>
+    </section>
+
+    <div class="mx-auto max-w-[90rem] px-6 pb-24 sm:px-10 lg:px-14 lg:pb-32">
+      {
+        caseStudies.map((c) => (
+          <article id={c.slug} class="scroll-mt-28 border-t rule py-16 lg:py-20">
+            <div class="grid gap-12 lg:grid-cols-[1fr_1.35fr] lg:gap-16">
+              <!-- Left: framing -->
+              <div class="lg:sticky lg:top-32 lg:h-fit">
+                <div class="flex items-baseline gap-4">
+                  <span class="display text-5xl text-clay-500/35">{c.n}</span>
+                  <p class="label text-clay-500">{c.sector}</p>
+                </div>
+
+                <h2 class="display mt-6 text-[clamp(1.8rem,3.6vw,2.9rem)]">{c.title}</h2>
+                {c.period && <p class="mt-4 text-sm text-ink-500">{c.period}</p>}
+
+                <img
+                  src={c.image}
+                  alt={`${c.sector} campaign creative by Allaia Studio`}
+                  width="720"
+                  height="720"
+                  loading="lazy"
+                  decoding="async"
+                  class="mt-8 w-full max-w-[18rem] rounded-2xl object-cover"
+                />
+              </div>
+
+              <!-- Right: substance -->
+              <div>
+                <p class="text-lg leading-relaxed text-ink-700">{c.background}</p>
+
+                <!-- Headline metrics -->
+                <dl class="mt-10 grid gap-px border rule bg-[color-mix(in_oklab,var(--color-ink-900)_12%,transparent)] sm:grid-cols-2">
+                  {c.metrics.map((m, mi) => (
+                    // An odd final metric spans both columns, otherwise the
+                    // container background shows through as an empty grey cell.
+                    <div
+                      class:list={[
+                        'bg-bone-50 p-6',
+                        mi === c.metrics.length - 1 && c.metrics.length % 2 === 1 && 'sm:col-span-2',
+                      ]}
+                    >
+                      <dt class="label text-ink-500">{m.label}</dt>
+                      <dd class="display mt-3 text-3xl text-ink-900 lg:text-4xl">{m.value}</dd>
+                      {m.note && <p class="mt-2 text-xs text-ink-500">{m.note}</p>}
+                    </div>
+                  ))}
+                </dl>
+
+                <!-- Challenges -->
+                <div class="mt-12">
+                  <p class="label text-ink-500">The problem</p>
+                  <ul class="mt-5 space-y-3">
+                    {c.challenges.map((ch) => (
+                      <li class="flex items-baseline gap-3 leading-relaxed text-ink-700">
+                        <span class="h-1 w-1 shrink-0 rounded-full bg-clay-500" aria-hidden="true" />
+                        {ch}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <!-- Strategy -->
+                <div class="mt-12">
+                  <p class="label text-ink-500">What we ran</p>
+                  <div class="mt-5 border-t rule">
+                    {c.strategy.map((s) => (
+                      <div class="border-b rule py-5">
+                        <h3 class="font-semibold text-ink-900">{s.title}</h3>
+                        <p class="mt-2 text-sm leading-relaxed text-ink-700">{s.body}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <!-- Outcome -->
+                <div class="mt-12 rounded-2xl bg-ink-900 p-8 text-bone-50 lg:p-10">
+                  <p class="label text-clay-400">Outcome</p>
+                  <p class="mt-4 text-lg leading-relaxed text-bone-50/85">{c.outcome}</p>
+
+                  {c.economics && (
+                    <dl class="mt-8 grid grid-cols-2 gap-x-8 gap-y-5 border-t border-bone-50/15 pt-7 sm:grid-cols-3">
+                      <div>
+                        <dt class="label text-bone-50/35">Ad spend</dt>
+                        <dd class="mt-1.5 font-semibold">{c.economics.adSpend}</dd>
+                      </div>
+                      <div>
+                        <dt class="label text-bone-50/35">Service fee</dt>
+                        <dd class="mt-1.5 font-semibold">{c.economics.fee}</dd>
+                      </div>
+                      <div>
+                        <dt class="label text-bone-50/35">Total investment</dt>
+                        <dd class="mt-1.5 font-semibold">{c.economics.investment}</dd>
+                      </div>
+                      <div>
+                        <dt class="label text-bone-50/35">Commission earned</dt>
+                        <dd class="mt-1.5 font-semibold">{c.economics.commission}</dd>
+                      </div>
+                      <div class="col-span-2 sm:col-span-1">
+                        <dt class="label text-bone-50/35">Return</dt>
+                        <dd class="display mt-1 text-3xl text-clay-400">{c.economics.roi}</dd>
+                        {c.economics.perPeso && (
+                          <p class="mt-1.5 text-xs text-bone-50/50">{c.economics.perPeso}</p>
+                        )}
+                      </div>
+                    </dl>
+                  )}
+                </div>
+
+                {c.caveat && (
+                  <p class="mt-6 border-l-2 border-clay-500/40 pl-5 text-sm leading-relaxed text-ink-500">
+                    {c.caveat}
+                  </p>
+                )}
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+
+    <!-- Provenance + disclaimer -->
+    <section class="border-y rule bg-bone-100 py-16">
+      <div class="mx-auto max-w-[52rem] px-6 sm:px-10">
+        <p class="label text-ink-500">About these results</p>
+        <div class="mt-6 space-y-4 text-sm leading-relaxed text-ink-700">
+          <p>
+            These campaigns were delivered by the same team, under the studio's previous name, Winnify Ads. Figures
+            are reproduced from the original campaign reporting.
+          </p>
+          <p>
+            Commission figures are what the client earned, not studio revenue. Where commission was estimated from
+            standard rates rather than confirmed, the case study says so and the lower bound is used.
+          </p>
+          <p>
+            Past performance is not a prediction. Results depend on your market, your offer, your price point and
+            your budget, and property commission structures vary. We will tell you honestly what we think is
+            achievable for your situation before you commit to anything.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="px-6 py-20 sm:px-10 lg:px-14 lg:py-28">
+      <div class="mx-auto max-w-[90rem] border-y rule py-20 text-center">
+        <h2 class="display mx-auto max-w-[16ch] text-[clamp(2rem,5vw,4rem)]">
+          Want numbers like these <span class="italic text-clay-500">on your account?</span>
+        </h2>
+        <div class="mt-10 flex flex-col justify-center gap-3 sm:flex-row">
+          <a href={chatHref} class="inline-flex items-center justify-center rounded-full bg-ink-900 px-9 py-4 text-sm font-semibold text-bone-50 transition-all hover:-translate-y-0.5 hover:bg-clay-500">
+            Start a conversation
+          </a>
+          <a href="/real-estate-marketing-philippines" class="inline-flex items-center justify-center rounded-full border rule px-9 py-4 text-sm font-semibold transition-colors hover:border-ink-900">
+            Real estate marketing
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+  <ChatFab />
+</Base>
