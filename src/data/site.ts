@@ -22,6 +22,24 @@ export const company = {
   serviceArea: 'Manila-based, working across the Philippines',
 };
 
+// ---------------------------------------------------------------------------
+// HERO MOTION
+//
+// The hero always renders a generative flow-field canvas, so it is complete
+// with no asset at all. Drop a file in /public and name it here to layer real
+// footage underneath it - the canvas automatically thins out so the footage
+// reads through.
+//
+// Recommended: 1920x1080, H.264 .mp4, under ~4 MB, no audio, 8-14 seconds and
+// seamlessly loopable. Editorial and slow - a slow push through a room, light
+// moving across a surface. Nothing with faces or fast cuts, it fights the type.
+// Always provide the poster too: it is what shows on slow connections.
+// ---------------------------------------------------------------------------
+export const heroMedia = {
+  video: '', // e.g. '/hero.mp4'
+  poster: '', // e.g. '/hero-poster.jpg'
+};
+
 export const nav = [
   { label: 'Work', href: '#work' },
   { label: 'Services', href: '#services' },
