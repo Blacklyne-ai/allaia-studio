@@ -1,0 +1,136 @@
+---
+import { method, metrics } from '../data/site';
+---
+
+<section id="method" class="mx-auto max-w-[90rem] px-6 py-24 sm:px-10 lg:px-14 lg:py-36">
+  <div class="grid gap-16 lg:grid-cols-[0.85fr_1.15fr]">
+    <!-- Sticky rail -->
+    <div class="lg:sticky lg:top-32 lg:h-fit lg:self-start">
+      <p class="label reveal text-clay-500">The method</p>
+      <h2 class="display reveal mt-6 text-[clamp(2.5rem,6vw,5rem)]">
+        Eight steps.<br /><span class="italic text-ink-300">No black box.</span>
+      </h2>
+      <p class="reveal mt-8 max-w-md text-lg leading-relaxed text-ink-700">
+        You always know which stage your campaign is at, what changed this week, and why it changed.
+      </p>
+
+      <!-- Progress -->
+      <div class="reveal mt-12 hidden lg:block">
+        <div class="flex items-baseline gap-2">
+          <span id="method-current" class="display text-6xl text-ink-900 tabular-nums">01</span>
+          <span class="display text-2xl text-ink-300">/ {String(method.length).padStart(2, '0')}</span>
+        </div>
+        <div class="mt-5 h-px w-full max-w-xs bg-[color-mix(in_oklab,var(--color-ink-900)_14%,transparent)]">
+          <div id="method-bar" class="h-px w-0 bg-clay-500 transition-[width] duration-500 ease-out"></div>
+        </div>
+        <p id="method-label" class="mt-5 text-sm font-semibold text-ink-700">{method[0].title}</p>
+      </div>
+    </div>
+
+    <!-- Steps -->
+    <ol id="method-steps" class="border-t rule">
+      {
+        method.map((m) => (
+          <li class="method-step reveal border-b rule py-9 transition-opacity duration-500 lg:py-11" data-step={m.n}>
+            <div class="flex items-baseline gap-6">
+              <span class="label shrink-0 text-clay-500">{m.n}</span>
+              <div>
+                <h3 class="display text-2xl lg:text-3xl">{m.title}</h3>
+                <p class="mt-3 max-w-lg leading-relaxed text-ink-700">{m.body}</p>
+              </div>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+
+  <!-- Reported monthly -->
+  <div class="reveal mt-20 border-t rule pt-10">
+    <p class="label text-ink-500">Reported monthly</p>
+    <ul class="mt-6 flex flex-wrap gap-x-10 gap-y-4">
+      {
+        metrics.map((m) => (
+          <li class="flex items-baseline gap-2.5">
+            <span class="display text-xl text-clay-500">{m.abbr}</span>
+            <span class="text-sm text-ink-500">{m.name}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  /* Steps outside the read position recede. Only on wide screens, where the
+     sticky rail actually exists to give the effect meaning. */
+  @media (min-width: 1024px) {
+    .method-step {
+      opacity: 0.38;
+    }
+    .method-step.is-active {
+      opacity: 1;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .method-step {
+      opacity: 1 !important;
+      transition: none;
+    }
+  }
+</style>
+
+<script is:inline>
+  (() => {
+    const steps = [...document.querySelectorAll('.method-step')];
+    const cur = document.getElementById('method-current');
+    const bar = document.getElementById('method-bar');
+    const lab = document.getElementById('method-label');
+    if (!steps.length || !cur || !bar || !lab) return;
+
+    // Reduced motion keeps every step at full strength and skips the tracking.
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      steps.forEach((s) => s.classList.add('is-active'));
+      bar.style.width = '100%';
+      return;
+    }
+
+    let active = -1;
+    function setActive(i) {
+      if (i === active) return;
+      active = i;
+      steps.forEach((s, n) => s.classList.toggle('is-active', n === i));
+      const s = steps[i];
+      cur.textContent = s.dataset.step || String(i + 1).padStart(2, '0');
+      lab.textContent = s.querySelector('h3')?.textContent || '';
+      bar.style.width = ((i + 1) / steps.length) * 100 + '%';
+    }
+
+    // Whichever step is nearest the read line wins - more stable than
+    // per-element intersection when several are on screen at once.
+    let raf = 0;
+    function update() {
+      raf = 0;
+      const line = innerHeight * 0.42;
+      let best = 0;
+      let bestD = Infinity;
+      for (let i = 0; i < steps.length; i++) {
+        const r = steps[i].getBoundingClientRect();
+        const d = Math.abs(r.top + r.height / 2 - line);
+        if (d < bestD) {
+          bestD = d;
+          best = i;
+        }
+      }
+      setActive(best);
+    }
+    function onScroll() {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(update);
+    }
+
+    update();
+    addEventListener('scroll', onScroll, { passive: true });
+    addEventListener('resize', onScroll, { passive: true });
+  })();
+</script>

@@ -97,6 +97,39 @@ export const sectors = [
   { name: 'Flower Arrangement', note: 'Studios and events' },
 ];
 
+// ---------------------------------------------------------------------------
+// WORK
+//
+// Real campaign creative, extracted from the studio's own portfolio deck.
+// These are live ads that ran for real clients.
+//
+// TWO THINGS TO CHECK BEFORE THIS GOES PUBLIC:
+// 1. Client permission. Several are for named businesses (Ayala Land Premier,
+//    Arthaland, Majica Aesthetics, Keystone Properties and others). Showing
+//    client work is normal agency practice, but confirm the named ones are OK.
+// 2. Personal numbers. Some creatives carry an individual agent's mobile and
+//    email baked into the artwork. They are rendered small here, but they are
+//    still legible if someone opens the file directly. Swap or crop any you
+//    are not comfortable republishing.
+// ---------------------------------------------------------------------------
+export const work = [
+  { src: '/work/w09.jpg', sector: 'Real Estate' },
+  { src: '/work/w01.jpg', sector: 'Beauty & Aesthetics' },
+  { src: '/work/w10.jpg', sector: 'Real Estate' },
+  { src: '/work/w04.jpg', sector: 'Food Service' },
+  { src: '/work/w11.jpg', sector: 'Real Estate' },
+  { src: '/work/w03.jpg', sector: 'Dental' },
+  { src: '/work/w08.jpg', sector: 'Travel' },
+  { src: '/work/w12.jpg', sector: 'Real Estate' },
+  { src: '/work/w02.jpg', sector: 'Beauty & Aesthetics' },
+  { src: '/work/w06.jpg', sector: 'Insurance' },
+  { src: '/work/w13.jpg', sector: 'Real Estate' },
+  { src: '/work/w07.jpg', sector: 'Automotive' },
+  { src: '/work/w15.jpg', sector: 'Flowers' },
+  { src: '/work/w05.jpg', sector: 'Food Service' },
+  { src: '/work/w14.jpg', sector: 'Cleaning Services' },
+];
+
 export const method = [
   { n: '01', title: 'Discovery', body: 'We start with your goals, your audience and what you actually need the ads to do.' },
   { n: '02', title: 'Strategy', body: 'A campaign strategy built for those goals, not a template applied to them.' },

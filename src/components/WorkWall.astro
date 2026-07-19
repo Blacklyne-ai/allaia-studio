@@ -1,0 +1,226 @@
+---
+import { work } from '../data/site';
+
+// Split into two rows that travel in opposite directions.
+const mid = Math.ceil(work.length / 2);
+const rows = [work.slice(0, mid), work.slice(mid)];
+---
+
+<section id="work" class="relative overflow-hidden bg-ink-900 py-24 text-bone-50 lg:py-32">
+  <div class="mx-auto max-w-[90rem] px-6 sm:px-10 lg:px-14">
+    <div class="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
+      <div class="reveal">
+        <p class="label text-clay-400">Selected work</p>
+        <h2 class="display mt-6 text-[clamp(2.5rem,6vw,5rem)]">
+          Ads that<br /><span class="italic text-bone-50/50">actually ran.</span>
+        </h2>
+      </div>
+      <p class="reveal max-w-xl text-lg leading-relaxed text-bone-50/60 lg:pb-3">
+        Live campaign creative from real clients across ten sectors - property, clinics, food, insurance, motors and
+        more. Everything here was produced in-house.
+      </p>
+    </div>
+  </div>
+
+  <!-- Full-bleed marquee wall -->
+  <div class="work-wall mt-16 space-y-5 lg:mt-20 lg:space-y-6">
+    {
+      rows.map((row, ri) => (
+        <div class="wall-row relative flex overflow-hidden" data-dir={ri % 2 === 0 ? '1' : '-1'}>
+          <div class="wall-track flex w-max gap-5 lg:gap-6">
+            {/* copy 0 is the real, interactive set; copy 1 exists only to make
+                the loop seamless, so it is hidden from assistive tech and from
+                the tab order rather than duplicating every control. */}
+            {[0, 1].map((copy) => (
+              <div class="flex gap-5 lg:gap-6" aria-hidden={copy === 1 ? 'true' : undefined}>
+                {row.map((item, i) => {
+                  const Tag = copy === 0 ? 'button' : 'div';
+                  return (
+                    <Tag
+                      type={copy === 0 ? 'button' : undefined}
+                      tabindex={copy === 1 ? '-1' : undefined}
+                      class:list={[
+                        'group relative block w-[62vw] shrink-0 overflow-hidden rounded-2xl bg-bone-100/5 sm:w-[38vw] lg:w-[22vw] xl:w-[19rem]',
+                        copy === 0 && 'work-tile',
+                      ]}
+                      data-src={copy === 0 ? item.src : undefined}
+                      data-sector={copy === 0 ? item.sector : undefined}
+                      aria-label={copy === 0 ? `View ${item.sector} campaign creative` : undefined}
+                    >
+                      <img
+                        src={item.src}
+                        alt={copy === 0 ? `${item.sector} campaign creative by Allaia Studio` : ''}
+                        width="760"
+                        height="760"
+                        /* Marquee tiles sit outside the viewport horizontally, where
+                           lazy loading is unreliable - the first pass is eager. */
+                        loading={copy === 0 && i < 6 ? 'eager' : 'lazy'}
+                        fetchpriority={copy === 0 && i < 3 ? 'high' : 'low'}
+                        decoding="async"
+                        class="aspect-square w-full object-cover transition duration-700 will-change-transform group-hover:scale-[1.04]"
+                      />
+                      <span class="pointer-events-none absolute inset-0 bg-ink-900/45 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                      <span class="label pointer-events-none absolute bottom-4 left-4 translate-y-2 text-bone-50 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+                        {item.sector}
+                      </span>
+                    </Tag>
+                  );
+                })}
+              </div>
+            ))}
+          </div>
+        </div>
+      ))
+    }
+  </div>
+
+  <p class="mx-auto mt-12 max-w-[90rem] px-6 text-xs text-bone-50/35 sm:px-10 lg:px-14">
+    Client creative shown with permission. Campaign results vary by market, offer and budget.
+  </p>
+</section>
+
+<!-- Lightbox -->
+<div
+  id="work-lightbox"
+  class="fixed inset-0 z-[60] hidden items-center justify-center bg-ink-900/92 p-6 backdrop-blur-sm"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Campaign creative"
+>
+  <button id="lb-close" type="button" class="absolute right-6 top-6 grid h-12 w-12 place-items-center rounded-full border border-bone-50/25 text-bone-50 transition-colors hover:bg-bone-50 hover:text-ink-900" aria-label="Close">
+    <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18" /></svg>
+  </button>
+  <figure class="max-h-full w-full max-w-2xl">
+    <img id="lb-img" src="" alt="" class="mx-auto max-h-[78vh] w-auto rounded-2xl" />
+    <figcaption id="lb-cap" class="label mt-5 text-center text-bone-50/60"></figcaption>
+  </figure>
+</div>
+
+<style>
+  /* The loop offset is one copy plus the gap between copies. Deriving both
+     from a single var keeps it seamless at every breakpoint. */
+  .wall-track {
+    --gap: 1.25rem;
+    gap: var(--gap);
+    animation: wall-scroll var(--dur, 70s) linear infinite;
+    will-change: transform;
+  }
+  .wall-track > div {
+    gap: var(--gap);
+  }
+  @media (min-width: 1024px) {
+    .wall-track {
+      --gap: 1.5rem;
+    }
+  }
+  .wall-row[data-dir='-1'] .wall-track {
+    animation-direction: reverse;
+  }
+  .work-wall:hover .wall-track {
+    animation-play-state: paused;
+  }
+
+  @keyframes wall-scroll {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      /* -50% lands mid-gap, so take back half the gap to land exactly on the
+         start of the duplicate copy. */
+      transform: translate3d(calc(-50% - var(--gap) / 2), 0, 0);
+    }
+  }
+
+  /* Soften the full-bleed edges into the section. */
+  .wall-row::before,
+  .wall-row::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: clamp(2rem, 8vw, 9rem);
+    z-index: 2;
+    pointer-events: none;
+  }
+  .wall-row::before {
+    left: 0;
+    background: linear-gradient(to right, var(--color-ink-900), transparent);
+  }
+  .wall-row::after {
+    right: 0;
+    background: linear-gradient(to left, var(--color-ink-900), transparent);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .wall-track {
+      animation: none;
+    }
+    .wall-row {
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .wall-row::-webkit-scrollbar {
+      display: none;
+    }
+  }
+</style>
+
+<script is:inline>
+  (() => {
+    const wall = document.querySelector('.work-wall');
+    const lb = document.getElementById('work-lightbox');
+    const img = document.getElementById('lb-img');
+    const cap = document.getElementById('lb-cap');
+    const close = document.getElementById('lb-close');
+    if (!wall || !lb || !img || !cap || !close) return;
+
+    // Pace each row by its own width so both travel at the same speed
+    // regardless of how many tiles they hold.
+    document.querySelectorAll('.wall-row').forEach((row) => {
+      const track = row.querySelector('.wall-track');
+      if (!track) return;
+      const set = () => {
+        const px = track.scrollWidth / 2;
+        track.style.setProperty('--dur', Math.max(28, px / 42) + 's');
+      };
+      if (document.readyState === 'complete') set();
+      else addEventListener('load', set, { once: true });
+      set();
+    });
+
+    let lastFocus = null;
+
+    function open(src, sector) {
+      lastFocus = document.activeElement;
+      img.src = src;
+      img.alt = sector + ' campaign creative by Allaia Studio';
+      cap.textContent = sector;
+      lb.classList.remove('hidden');
+      lb.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+      close.focus();
+    }
+
+    function shut() {
+      lb.classList.add('hidden');
+      lb.classList.remove('flex');
+      img.src = '';
+      document.body.style.overflow = '';
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+    }
+
+    wall.addEventListener('click', (e) => {
+      const tile = e.target.closest('.work-tile');
+      if (!tile) return;
+      open(tile.dataset.src, tile.dataset.sector);
+    });
+
+    close.addEventListener('click', shut);
+    lb.addEventListener('click', (e) => {
+      if (e.target === lb) shut();
+    });
+    addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !lb.classList.contains('hidden')) shut();
+    });
+  })();
+</script>
