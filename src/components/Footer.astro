@@ -1,12 +1,13 @@
 ---
 import Logo from './Logo.astro';
 import { company, nav } from '../data/site';
+import { landings } from '../data/landings';
 const year = new Date().getFullYear();
 ---
 
 <footer class="bg-ink-900 text-bone-50">
   <div class="mx-auto max-w-[90rem] px-6 py-20 sm:px-10 lg:px-14 lg:py-28">
-    <div class="grid gap-14 lg:grid-cols-[1.5fr_1fr_1fr]">
+    <div class="grid gap-14 lg:grid-cols-[1.4fr_1fr_1fr_1.1fr]">
       <div>
         <Logo class="text-2xl sm:text-3xl" light />
         <p class="display mt-8 max-w-md text-3xl leading-tight text-bone-50/90 sm:text-4xl">
@@ -29,6 +30,21 @@ const year = new Date().getFullYear();
           }
           <li><a href="/privacy" class="text-sm text-bone-50/65 transition-colors hover:text-bone-50">Privacy</a></li>
           <li><a href="/terms" class="text-sm text-bone-50/65 transition-colors hover:text-bone-50">Terms</a></li>
+        </ul>
+      </nav>
+
+      <nav aria-label="Services and sectors">
+        <h2 class="label text-bone-50/35">What we do</h2>
+        <ul class="mt-6 space-y-3.5">
+          {
+            landings.map((l) => (
+              <li>
+                <a href={`/${l.slug}`} class="text-sm text-bone-50/65 transition-colors hover:text-bone-50">
+                  {l.eyebrow}
+                </a>
+              </li>
+            ))
+          }
         </ul>
       </nav>
 

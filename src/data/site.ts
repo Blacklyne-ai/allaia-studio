@@ -40,12 +40,13 @@ export const heroMedia = {
   poster: '', // e.g. '/hero-poster.jpg'
 };
 
+// Root-relative so these resolve from the landing pages too, not just home.
 export const nav = [
-  { label: 'Work', href: '#work' },
-  { label: 'Services', href: '#services' },
-  { label: 'Method', href: '#method' },
-  { label: 'Engagements', href: '#engagements' },
-  { label: 'Studio', href: '#studio' },
+  { label: 'Work', href: '/#work' },
+  { label: 'Services', href: '/#services' },
+  { label: 'Method', href: '/#method' },
+  { label: 'Engagements', href: '/#engagements' },
+  { label: 'Studio', href: '/#studio' },
 ];
 
 // The three things the studio leads with.

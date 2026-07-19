@@ -5,6 +5,7 @@ import '@fontsource/playfair-display/400-italic.css';
 import '@fontsource/playfair-display/500-italic.css';
 import '../styles/global.css';
 import { company } from '../data/site';
+import { landings } from '../data/landings';
 
 interface Props {
   title: string;
@@ -18,12 +19,39 @@ const canonical = new URL(path, Astro.site ?? 'https://allaiastudio.com').toStri
 const orgSchema = {
   '@context': 'https://schema.org',
   '@type': 'ProfessionalService',
+  '@id': 'https://allaiastudio.com/#studio',
   name: company.name,
   description: company.tagline,
   url: 'https://allaiastudio.com',
   email: company.email,
   telephone: company.phoneHref,
+  image: 'https://allaiastudio.com/og.svg',
+  priceRange: '$$',
+  // TODO: add streetAddress + postalCode once confirmed. Google weights a full
+  // address heavily for local intent, and geo coordinates help further.
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Manila',
+    addressCountry: 'PH',
+  },
   areaServed: { '@type': 'Country', name: 'Philippines' },
+  knowsAbout: [
+    'Meta advertising',
+    'Facebook Ads',
+    'Instagram Ads',
+    'Real estate marketing',
+    'Recruitment marketing',
+    'AI lead response',
+    'Search engine optimisation',
+  ],
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Growth services',
+    itemListElement: landings.map((l) => ({
+      '@type': 'Offer',
+      itemOffered: { '@type': 'Service', name: l.eyebrow, url: `https://allaiastudio.com/${l.slug}` },
+    })),
+  },
 };
 ---
 
