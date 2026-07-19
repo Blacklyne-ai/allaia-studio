@@ -202,17 +202,43 @@ const faqSchema = {
     {
       showTestimonials && (
         <section class="mx-auto max-w-[90rem] px-6 py-24 sm:px-10 lg:px-14 lg:py-36">
-          <p class="label reveal text-clay-500">Client words</p>
-          <div class="mt-12 grid gap-px border rule bg-[color-mix(in_oklab,var(--color-ink-900)_12%,transparent)] md:grid-cols-2 lg:grid-cols-3">
-            {approved.map((t) => (
-              <figure class="reveal bg-bone-50 p-9">
-                <blockquote class="display text-2xl leading-snug">{t.quote}</blockquote>
-                <figcaption class="mt-6 border-t rule pt-5 text-sm">
-                  <span class="block font-semibold text-ink-900">{t.author}</span>
-                  <span class="block text-ink-500">{t.role}</span>
-                </figcaption>
-              </figure>
-            ))}
+          <div class="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
+            <div class="reveal">
+              <p class="label text-clay-500">Client words</p>
+              <h2 class="display mt-6 text-[clamp(2.5rem,6vw,5rem)]">
+                Unedited,<br /><span class="italic">including the po.</span>
+              </h2>
+            </div>
+            <p class="reveal max-w-xl text-lg leading-relaxed text-ink-700 lg:pb-3">
+              Straight from Messenger, exactly as they were sent. Published with each client's permission.
+            </p>
+          </div>
+
+          <div class="mt-16 grid gap-px border rule bg-[color-mix(in_oklab,var(--color-ink-900)_12%,transparent)] md:grid-cols-2 lg:grid-cols-3">
+            {approved.map((t, i) => {
+              // The grid draws its dividers by letting a container background
+              // show through 1px gaps, so an incomplete final row leaves a grey
+              // block. The last card stretches to close it - separately per
+              // breakpoint, since the column count differs.
+              const last = i === approved.length - 1;
+              const n = approved.length;
+              return (
+                <figure
+                  class:list={[
+                    'reveal flex flex-col bg-bone-50 p-9',
+                    last && n % 2 === 1 && 'md:col-span-2',
+                    last && n % 3 === 2 && 'lg:col-span-2',
+                    last && n % 3 === 1 && n > 1 && 'lg:col-span-3',
+                  ]}
+                >
+                  <blockquote class="display text-2xl leading-snug">{t.quote}</blockquote>
+                  <figcaption class="mt-6 border-t rule pt-5 text-sm">
+                    <span class="block font-semibold text-ink-900">{t.author}</span>
+                    <span class="block text-ink-500">{t.role}</span>
+                  </figcaption>
+                </figure>
+              );
+            })}
           </div>
         </section>
       )

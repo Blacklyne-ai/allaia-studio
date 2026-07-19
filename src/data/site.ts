@@ -541,17 +541,20 @@ export const caseStudies: CaseStudy[] = [
 // a real Philippine client because it is one; translating it into polished
 // agency English would make it sound invented.
 //
-// NOTHING RENDERS UNTIL CONSENT IS RECORDED.
+// CONSENT: confirmed by Luise on 2026-07-20 for all five named clients.
 //
-// These were private one-to-one conversations. Publishing a named person's
-// words on a public site needs their agreement - that is basic courtesy and
-// also the Data Privacy Act. Set `consent: true` per person only after they
-// have actually said yes, then flip testimonialsVerified.
+// These were private one-to-one conversations, so each person's agreement is
+// what makes publishing them lawful and decent. The per-person `consent` flag
+// stays in the data as the record of that. If anyone withdraws, set theirs to
+// false - the quote disappears on the next build without touching anything
+// else.
 //
-// The request message is in docs/collecting-proof.md. Anonymous is fine too:
-// drop the surname and use e.g. "Real estate salesperson, Metro Manila".
+// Do not add a quote here without the same confirmation. The request message
+// is in docs/collecting-proof.md, and anonymous attribution is always an
+// option: drop the surname and use e.g. "Real estate salesperson, Metro
+// Manila".
 // ---------------------------------------------------------------------------
-export const testimonialsVerified = false;
+export const testimonialsVerified = true;
 
 export interface Testimonial {
   quote: string;
@@ -568,7 +571,7 @@ export const testimonials: Testimonial[] = [
     author: 'Michelle',
     role: 'Real estate sales',
     sector: 'Real Estate',
-    consent: false,
+    consent: true,
   },
   {
     quote:
@@ -576,7 +579,7 @@ export const testimonials: Testimonial[] = [
     author: 'Daniel dela Cruz',
     role: 'Real estate salesperson',
     sector: 'Real Estate',
-    consent: false,
+    consent: true,
   },
   {
     quote:
@@ -584,7 +587,7 @@ export const testimonials: Testimonial[] = [
     author: 'Florian Viernes',
     role: 'Real estate salesperson',
     sector: 'Real Estate',
-    consent: false,
+    consent: true,
   },
   {
     quote:
@@ -592,14 +595,14 @@ export const testimonials: Testimonial[] = [
     author: 'Annabelle Pangilinan',
     role: 'Real estate salesperson',
     sector: 'Real Estate',
-    consent: false,
+    consent: true,
   },
   {
     quote: "It's doing well so far. Thank you so much.",
     author: 'Jasmine Millicent Dulay',
     role: 'Real estate salesperson',
     sector: 'Real Estate',
-    consent: false,
+    consent: true,
   },
 ];
 
