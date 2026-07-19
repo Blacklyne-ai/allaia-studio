@@ -5,17 +5,27 @@ const chatHref = company.messenger || `tel:${company.phoneHref}`;
 const hasVideo = Boolean(heroMedia.video);
 
 // Each line reveals independently, so the three "More" lines land in sequence
-// and the payoff arrives last.
+// and the turn arrives last. The fourth line is the one that does the work -
+// it names what everyone else sells, which is what makes the first three
+// specific rather than generic agency copy.
 const lines = [
   [{ t: 'More' }, { t: 'bookings.', accent: true }],
   [{ t: 'More' }, { t: 'leads.', accent: true }],
   [{ t: 'More' }, { t: 'sales.', accent: true }],
 ];
+
+// Verified figures from the case studies. Proof in the hero rather than three
+// screens down, because this is the most persuasive thing on the site.
+const proof = [
+  { value: '₱47.9M', label: 'closed sales from one four-month campaign' },
+  { value: '₱11', label: 'cost per message, down from ₱77' },
+  { value: '41x', label: 'return on a ₱50M unit sale' },
+];
 ---
 
 <section
   id="hero"
-  class="hero relative isolate flex min-h-[100svh] flex-col justify-end overflow-hidden px-6 pb-16 pt-36 sm:px-10 lg:px-14 lg:pb-20"
+  class="hero relative isolate flex min-h-[100svh] flex-col justify-end overflow-hidden px-6 pb-12 pt-32 sm:px-10 lg:px-14 lg:pb-14"
 >
   {
     hasVideo && (
@@ -53,7 +63,7 @@ const lines = [
       <p class="label text-ink-500">{company.serviceArea}</p>
     </div>
 
-    <h1 class="display mt-10 text-[clamp(2.9rem,9.5vw,8.5rem)]">
+    <h1 class="display mt-8 text-[clamp(2.6rem,7.8vw,7rem)]">
       {
         lines.map((line, li) => (
           <span class="hero-line block" style={`--i:${li + 1}`}>
@@ -66,15 +76,16 @@ const lines = [
           </span>
         ))
       }
-      <span class="hero-line mt-3 block text-[0.44em] text-ink-700" style="--i:4">
-        Be the best in your industry.
-      </span>
+      <!-- ink-500 not ink-300: the lighter tone reads better but only clears
+           2.4:1 on bone, which fails AA even at this size. -->
+      <span class="hero-line mt-2 block text-ink-500" style="--i:4">Not more likes.</span>
     </h1>
 
-    <div class="mt-14 grid gap-12 border-t rule pt-12 lg:grid-cols-[1fr_auto] lg:items-start">
+    <div class="mt-10 grid gap-8 border-t rule pt-8 lg:grid-cols-[1fr_auto] lg:items-start">
       <p class="hero-line max-w-2xl text-lg leading-relaxed text-ink-700 sm:text-xl" style="--i:5">
-        A growth studio in the Philippines. Ads, recruitment, AI response, social, websites and SEO - run as one
-        system by one team, and judged on the bookings, leads and sales that come out the other end.
+        A growth studio in the Philippines, here to make you the one they call first. Ads, recruitment, AI response,
+        social, websites and SEO - run as one system by one team, and judged only on what it books, captures and
+        closes.
       </p>
 
       <div class="hero-line flex flex-col gap-3 sm:flex-row lg:shrink-0" style="--i:6">
@@ -88,13 +99,31 @@ const lines = [
           </svg>
         </a>
         <a
-          href="#services"
+          href="/case-studies/"
           class="inline-flex items-center justify-center rounded-full border rule px-8 py-4 text-sm font-semibold text-ink-900 backdrop-blur-sm transition-colors hover:border-ink-900"
         >
-          What we do
+          See the numbers
         </a>
       </div>
     </div>
+
+    <!-- Proof. Real figures, linked to the case study that substantiates them. -->
+    <a
+      href="/case-studies/"
+      class="hero-line group mt-8 grid gap-6 border-t rule pt-7 sm:grid-cols-3 sm:gap-12"
+      style="--i:7"
+    >
+      {
+        proof.map((p) => (
+          <span class="block">
+            <span class="display block text-3xl text-ink-900 transition-colors group-hover:text-clay-600 sm:text-4xl">
+              {p.value}
+            </span>
+            <span class="mt-2 block text-xs leading-relaxed text-ink-500">{p.label}</span>
+          </span>
+        ))
+      }
+    </a>
   </div>
 </section>
 
