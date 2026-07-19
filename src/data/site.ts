@@ -543,6 +543,9 @@ export const caseStudies: CaseStudy[] = [
 //
 // CONSENT: confirmed by Luise on 2026-07-20 for all five named clients.
 //
+// Surnames are reduced to an initial - enough to read as a real person,
+// not enough to identify them to a competitor or scrape into a list.
+//
 // These were private one-to-one conversations, so each person's agreement is
 // what makes publishing them lawful and decent. The per-person `consent` flag
 // stays in the data as the record of that. If anyone withdraws, set theirs to
@@ -576,7 +579,7 @@ export const testimonials: Testimonial[] = [
   {
     quote:
       'Share ko lang we can also change the marketing strat kasi SOLD OUT na yung units. Thank you guys.',
-    author: 'Daniel dela Cruz',
+    author: 'Daniel D.',
     role: 'Real estate salesperson',
     sector: 'Real Estate',
     consent: true,
@@ -584,7 +587,7 @@ export const testimonials: Testimonial[] = [
   {
     quote:
       'Maraming inquiry yung sa Ellis project, then Manhattan Heights. Naka generate na ko ng dalawang viewing sa Ellis.',
-    author: 'Florian Viernes',
+    author: 'Florian V.',
     role: 'Real estate salesperson',
     sector: 'Real Estate',
     consent: true,
@@ -592,14 +595,14 @@ export const testimonials: Testimonial[] = [
   {
     quote:
       'As of now okay naman po mga inquiries sa GVT. I have 2 trippings last week, closable naman po.',
-    author: 'Annabelle Pangilinan',
+    author: 'Annabelle P.',
     role: 'Real estate salesperson',
     sector: 'Real Estate',
     consent: true,
   },
   {
     quote: "It's doing well so far. Thank you so much.",
-    author: 'Jasmine Millicent Dulay',
+    author: 'Jasmine D.',
     role: 'Real estate salesperson',
     sector: 'Real Estate',
     consent: true,
