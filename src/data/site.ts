@@ -9,7 +9,12 @@
 export const company = {
   name: 'Allaia Studio',
   wordmark: { serif: 'allaia', sans: 'studio' },
-  tagline: 'A growth studio for businesses that need the phone to ring.',
+  // Shown in the footer. Closes the site on the same line the hero opens with.
+  tagline: 'Be the best in your industry.',
+  // Separate on purpose: the footer wants a line, search engines want a
+  // sentence that says what the business actually does.
+  descriptor:
+    'A growth studio in the Philippines running ads, SEO, websites, recruitment and AI systems for property, hospitality, retail and clinic businesses.',
   domain: 'allaiastudio.com',
   // TODO: confirm - assumed from the new domain, not verified.
   email: 'hello@allaiastudio.com',
