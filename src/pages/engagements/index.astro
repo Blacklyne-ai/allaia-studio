@@ -1,0 +1,100 @@
+---
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import ChatFab from '../../components/ChatFab.astro';
+import PageHead from '../../components/PageHead.astro';
+import PageCta from '../../components/PageCta.astro';
+import { engagements, engagementTerms, chatHref } from '../../data/site';
+---
+
+<Base
+  title="Engagements | How We Work Together"
+  description="Three ways to work with Allaia Studio - Foundation, Momentum and Scale. Every engagement includes a dedicated account manager, daily monitoring and monthly reporting."
+  path="/engagements/"
+>
+  <Header solid />
+
+  <main id="main">
+    <PageHead
+      crumb="Engagements"
+      eyebrow="Engagements"
+      title="Three ways"
+      accent="to work together."
+      lede="Every engagement includes a dedicated account manager, daily monitoring and monthly reporting. Cost depends on scope - tell us what you're working with and we'll quote it properly."
+    />
+
+    <section class="mx-auto max-w-[90rem] px-6 pb-16 sm:px-10 lg:px-14">
+      <div class="grid gap-px border rule bg-[color-mix(in_oklab,var(--color-ink-900)_12%,transparent)] lg:grid-cols-3">
+        {
+          engagements.map((e) => (
+            <article class={`reveal flex flex-col p-9 lg:p-12 ${e.featured ? 'bg-ink-900 text-bone-50' : 'bg-bone-50'}`}>
+              <div class="flex items-baseline justify-between gap-4">
+                <p class={`label ${e.featured ? 'text-clay-400' : 'text-ink-500'}`}>{e.forWho}</p>
+                {e.featured && <span class="label text-bone-50/40">Most chosen</span>}
+              </div>
+
+              <h2 class="display mt-5 text-4xl lg:text-5xl">{e.name}</h2>
+              <p class={`mt-5 text-[0.95rem] leading-relaxed ${e.featured ? 'text-bone-50/60' : 'text-ink-700'}`}>
+                {e.body}
+              </p>
+
+              <ul class={`mt-9 space-y-3 border-t pt-8 ${e.featured ? 'border-bone-50/15' : 'rule'}`}>
+                {e.features.map((f) => (
+                  <li class={`flex items-baseline gap-3 text-sm ${e.featured ? 'text-bone-50/75' : 'text-ink-700'}`}>
+                    <span class={`h-1 w-1 shrink-0 rounded-full ${e.featured ? 'bg-bone-50/40' : 'bg-ink-300'}`} aria-hidden="true" />
+                    {f}
+                  </li>
+                ))}
+                {e.extras.map((f) => (
+                  <li class={`flex items-baseline gap-3 text-sm font-semibold ${e.featured ? 'text-bone-50' : 'text-ink-900'}`}>
+                    <span class="h-1 w-1 shrink-0 rounded-full bg-clay-500" aria-hidden="true" />
+                    {f}
+                  </li>
+                ))}
+              </ul>
+
+              <a
+                href={chatHref}
+                class={`mt-10 inline-flex items-center justify-center rounded-full px-7 py-3.5 text-sm font-semibold transition-all hover:-translate-y-0.5 ${
+                  e.featured ? 'bg-bone-50 text-ink-900 hover:bg-clay-400' : 'bg-ink-900 text-bone-50 hover:bg-clay-500'
+                }`}
+              >
+                Get a quote
+              </a>
+            </article>
+          ))
+        }
+      </div>
+
+      <ul class="reveal mt-12 grid gap-x-12 gap-y-4 sm:grid-cols-2">
+        {
+          engagementTerms.map((t) => (
+            <li class="flex items-baseline gap-3 text-sm leading-relaxed text-ink-500">
+              <span class="h-1 w-1 shrink-0 rounded-full bg-clay-500" aria-hidden="true" />
+              {t}
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <!-- Why the minimum -->
+    <section class="border-y rule bg-bone-100 py-20">
+      <div class="mx-auto max-w-[52rem] px-6 sm:px-10">
+        <p class="label text-clay-500">On the three-month minimum</p>
+        <p class="mt-6 text-lg leading-relaxed text-ink-700">
+          It is not an upsell. Meta needs volume before its delivery system can reliably find more of the people who
+          convert, and below that it never really exits the learning phase. Three months is roughly what it takes to
+          get through learning, gather data worth reading, and act on it. Anyone promising results in two weeks is
+          selling you a lottery ticket.
+        </p>
+      </div>
+    </section>
+
+    <PageCta title="Tell us your scope and" accent="we'll quote it." />
+  </main>
+
+  <Footer />
+  <ChatFab />
+</Base>

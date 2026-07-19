@@ -1,0 +1,73 @@
+---
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import ChatFab from '../../components/ChatFab.astro';
+import PageHead from '../../components/PageHead.astro';
+import PageCta from '../../components/PageCta.astro';
+import MethodSticky from '../../components/MethodSticky.astro';
+import { faqs } from '../../data/site';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+---
+
+<Base
+  title="Our Method | How We Run Campaigns"
+  description="The eight steps behind every Allaia Studio engagement - discovery, strategy, creative, setup, optimisation, management, reporting and refinement. No black box."
+  path="/method/"
+>
+  <Header solid />
+
+  <main id="main">
+    <PageHead
+      crumb="Method"
+      eyebrow="The method"
+      title="Eight steps."
+      accent="No black box."
+      lede="You always know which stage your campaign is at, what changed this week, and why it changed. Here is exactly how an engagement runs, start to finish."
+    />
+
+    <MethodSticky />
+
+    <!-- FAQ -->
+    <section class="mx-auto max-w-[90rem] px-6 py-20 sm:px-10 lg:px-14 lg:py-28">
+      <div class="grid gap-16 lg:grid-cols-[0.6fr_1.4fr]">
+        <div class="reveal lg:sticky lg:top-32 lg:h-fit">
+          <p class="label text-clay-500">Questions</p>
+          <h2 class="display mt-6 text-[clamp(2rem,5vw,4rem)]">
+            Before you<br /><span class="italic text-ink-300">get in touch.</span>
+          </h2>
+        </div>
+
+        <div class="border-t rule">
+          {
+            faqs.map((f) => (
+              <details class="reveal group border-b rule py-7">
+                <summary class="flex cursor-pointer list-none items-start justify-between gap-8 text-lg font-medium [&::-webkit-details-marker]:hidden">
+                  {f.q}
+                  <span class="mt-2 h-px w-6 shrink-0 bg-ink-900 transition-transform duration-300 group-open:rotate-90" aria-hidden="true" />
+                </summary>
+                <p class="mt-5 max-w-2xl pr-12 leading-relaxed text-ink-700">{f.a}</p>
+              </details>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <PageCta title="Want this run" accent="on your account?" />
+  </main>
+
+  <Footer />
+  <ChatFab />
+
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+</Base>

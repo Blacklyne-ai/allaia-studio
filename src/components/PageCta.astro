@@ -1,0 +1,31 @@
+---
+import { company, chatHref } from '../data/site';
+
+interface Props {
+  title?: string;
+  accent?: string;
+}
+const { title = "Tell us what you're", accent = 'trying to grow.' } = Astro.props;
+---
+
+<section class="px-6 py-20 sm:px-10 lg:px-14 lg:py-28">
+  <div class="mx-auto max-w-[90rem] border-y rule py-20 text-center">
+    <h2 class="display mx-auto max-w-[16ch] text-[clamp(2rem,5vw,4rem)]">
+      {title} <span class="italic text-clay-500">{accent}</span>
+    </h2>
+    <div class="mt-10 flex flex-col justify-center gap-3 sm:flex-row">
+      <a
+        href={chatHref}
+        class="inline-flex items-center justify-center rounded-full bg-ink-900 px-9 py-4 text-sm font-semibold text-bone-50 transition-all hover:-translate-y-0.5 hover:bg-clay-500"
+      >
+        Start a conversation
+      </a>
+      <a
+        href={`tel:${company.phoneHref}`}
+        class="inline-flex items-center justify-center rounded-full border rule px-9 py-4 text-sm font-semibold transition-colors hover:border-ink-900"
+      >
+        {company.phone}
+      </a>
+    </div>
+  </div>
+</section>

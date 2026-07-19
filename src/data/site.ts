@@ -60,14 +60,14 @@ export const heroMedia = {
 export const chatHref =
   company.messenger || company.instagramDM || `tel:${company.phoneHref}`;
 
-// Root-relative so these resolve from the landing pages too, not just home.
+// Every entry is a real page - no in-page anchors.
 export const nav = [
+  { label: 'Services', href: '/services/' },
   { label: 'Work', href: '/work/' },
   { label: 'Case studies', href: '/case-studies/' },
-  { label: 'Services', href: '/#services' },
-  { label: 'Method', href: '/#method' },
-  { label: 'Engagements', href: '/#engagements' },
-  { label: 'Studio', href: '/#studio' },
+  { label: 'Method', href: '/method/' },
+  { label: 'Engagements', href: '/engagements/' },
+  { label: 'Studio', href: '/studio/' },
   { label: 'Insights', href: '/insights/' },
 ];
 

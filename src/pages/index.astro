@@ -4,45 +4,34 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import ChatFab from '../components/ChatFab.astro';
 import HeroCinematic from '../components/HeroCinematic.astro';
-import WorkWall from '../components/WorkWall.astro';
 import SectorBand from '../components/SectorBand.astro';
-import MethodSticky from '../components/MethodSticky.astro';
-import {
-  company, pillars, services,
-  engagements, engagementTerms, principles, faqs,
-  testimonials, testimonialsVerified, chatHref,} from '../data/site';
+import PageCta from '../components/PageCta.astro';
+import { pillars, testimonials, testimonialsVerified, caseStudies } from '../data/site';
 
-// Two gates: the master flag, and per-person consent. A quote only appears if
-// that specific client agreed to it being published.
-// Interleave property with the other sectors, so the first row alone shows the
-// range rather than reading as five condo quotes before anything else.
+// Two gates: the master flag, and per-person consent.
 const consented = testimonials.filter((t) => t.consent);
 const property = consented.filter((t) => t.sector === 'Real Estate');
 const other = consented.filter((t) => t.sector !== 'Real Estate');
-// Alternate until one list runs out, then append the remainder. Indexing both
-// lists off the same counter silently dropped quotes as soon as the counts
-// diverged, which they do the moment a sector is added.
-const approved: typeof consented = [];
+// Alternate until one list runs out, then append the remainder, so the first
+// row shows range rather than five property quotes in a row.
+const interleaved: typeof consented = [];
 for (let p = 0, o = 0; p < property.length || o < other.length; ) {
-  if (p < property.length) approved.push(property[p++]);
-  if (o < other.length) approved.push(other[o++]);
+  if (p < property.length) interleaved.push(property[p++]);
+  if (o < other.length) interleaved.push(other[o++]);
 }
+// The home page shows a selection; the rest live on their own pages.
+const approved = interleaved.slice(0, 6);
 const showTestimonials = testimonialsVerified && approved.length > 0;
 
-const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: faqs.map((f) => ({
-    '@type': 'Question',
-    name: f.q,
-    acceptedAnswer: { '@type': 'Answer', text: f.a },
-  })),
-};
+const featured = caseStudies.filter((c) => c.featured).slice(0, 3);
+
+// Where each pillar sends you. The home page introduces, the pages explain.
+const pillarLinks = ['/services/', '/work/', '/method/'];
 ---
 
 <Base
   title="Allaia Studio | Growth & Marketing Studio in Manila"
-  description="More bookings, more leads, more sales. A Manila growth studio running ads, SEO, websites, recruitment and AI lead response for Philippine businesses across property, clinics, food, insurance and more."
+  description="More bookings, more leads, more sales. A Manila growth studio running ads, SEO, websites, recruitment and AI systems for Philippine businesses across property, clinics, food, insurance and more."
   path="/"
 >
   <Header />
@@ -52,8 +41,8 @@ const faqSchema = {
 
     <SectorBand />
 
-    <!-- PILLARS -->
-    <section id="services" class="mx-auto max-w-[90rem] px-6 py-24 sm:px-10 lg:px-14 lg:py-36">
+    <!-- What we do - a doorway to /services, not the whole thing -->
+    <section class="mx-auto max-w-[90rem] px-6 py-24 sm:px-10 lg:px-14 lg:py-32">
       <div class="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
         <div class="reveal">
           <p class="label text-clay-500">What we do</p>
@@ -62,156 +51,80 @@ const faqSchema = {
           </h2>
         </div>
         <p class="reveal max-w-xl text-lg leading-relaxed text-ink-700 lg:pb-3">
-          Most agencies sell you a channel and leave you to work out what it was for. We start from the number you
-          need to move, then use whichever mix of ads, search, systems and design actually moves it.
+          We start from the number you need to move, then use whichever mix of ads, search, systems and design
+          actually moves it.
         </p>
       </div>
 
-      <div class="mt-20 grid gap-px overflow-hidden border rule bg-[color-mix(in_oklab,var(--color-ink-900)_12%,transparent)] md:grid-cols-3">
+      <div class="mt-16 grid gap-px border rule bg-[color-mix(in_oklab,var(--color-ink-900)_12%,transparent)] md:grid-cols-3">
         {
-          pillars.map((p) => (
-            <article class="reveal group bg-bone-50 p-9 transition-colors duration-500 hover:bg-bone-100 lg:p-12">
+          pillars.map((p, i) => (
+            <a
+              href={pillarLinks[i]}
+              class="reveal group flex flex-col bg-bone-50 p-9 transition-colors duration-500 hover:bg-bone-100 lg:p-12"
+            >
               <span class="display text-6xl text-clay-500/30 transition-colors duration-500 group-hover:text-clay-500">
                 {p.n}
               </span>
               <h3 class="display mt-8 text-3xl lg:text-4xl">{p.title}</h3>
               <p class="mt-5 text-[0.95rem] leading-relaxed text-ink-700">{p.body}</p>
-              <p class="mt-7 border-t rule pt-5 text-xs leading-relaxed text-ink-500">{p.through}</p>
-            </article>
+              <span class="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-ink-900">
+                {['See the services', 'See the work', 'See the method'][i]}
+                <svg viewBox="0 0 24 24" class="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M5 12h14M13 6l6 6-6 6" />
+                </svg>
+              </span>
+            </a>
           ))
         }
       </div>
+    </section>
 
-      <!-- Everything else -->
-      <div class="mt-20">
-        <p class="label reveal text-ink-500">Everything else, in-house</p>
-        {/* Two columns on desktop: 10 services fill five complete rows, so no
-            orphan item is left hanging in a half-empty final row. */}
-        <div class="mt-8 grid gap-x-14 gap-y-px border-t rule sm:grid-cols-2">
+    <!-- Results preview -->
+    <section class="border-y rule bg-ink-900 py-20 text-bone-50 lg:py-28">
+      <div class="mx-auto max-w-[90rem] px-6 sm:px-10 lg:px-14">
+        <div class="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
+          <div>
+            <p class="label text-clay-400">Documented results - real estate</p>
+            <h2 class="display mt-6 text-[clamp(2rem,4.5vw,3.5rem)]">
+              What the work<br /><span class="italic text-bone-50/50">actually returned.</span>
+            </h2>
+          </div>
+          <p class="max-w-xl leading-relaxed text-bone-50/60 lg:pb-3">
+            Figures from the original campaign reporting. Real estate is where our documented numbers are - the
+            portfolio spans nine sectors.
+          </p>
+        </div>
+
+        <div class="mt-14 grid gap-px border border-bone-50/15 bg-bone-50/15 md:grid-cols-3">
           {
-            services.map((s) => (
-              <div class="reveal border-b rule py-6">
-                <h3 class="text-base font-semibold tracking-tight text-ink-900">{s.title}</h3>
-                <p class="mt-1.5 text-sm leading-relaxed text-ink-500">{s.body}</p>
-              </div>
+            featured.map((c) => (
+              <a href={`/case-studies/#${c.slug}`} class="group bg-ink-900 p-8 transition-colors hover:bg-ink-700/40 lg:p-10">
+                <p class="label text-clay-400">{c.sector}</p>
+                <p class="display mt-5 text-4xl text-clay-400 lg:text-5xl">{c.metrics[0].value}</p>
+                <p class="mt-2 text-xs text-bone-50/50">{c.metrics[0].label}</p>
+                <h3 class="mt-6 text-lg leading-snug">{c.title}</h3>
+                <span class="mt-6 inline-flex items-center gap-2 text-sm font-semibold">
+                  Read it
+                  <svg viewBox="0 0 24 24" class="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M5 12h14M13 6l6 6-6 6" />
+                  </svg>
+                </span>
+              </a>
             ))
           }
         </div>
+
+        <a href="/case-studies/" class="mt-12 inline-flex items-center gap-2 text-sm font-semibold underline underline-offset-4 transition-colors hover:text-clay-400">
+          All eight case studies
+        </a>
       </div>
     </section>
 
-    <WorkWall />
-
-    <MethodSticky />
-
-    <!-- ENGAGEMENTS -->
-    <section id="engagements" class="mx-auto max-w-[90rem] px-6 py-24 sm:px-10 lg:px-14 lg:py-36">
-      <div class="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
-        <div class="reveal">
-          <p class="label text-clay-500">Engagements</p>
-          <h2 class="display mt-6 text-[clamp(2.5rem,6vw,5rem)]">
-            Three ways<br /><span class="italic">to work together.</span>
-          </h2>
-        </div>
-        <p class="reveal max-w-xl text-lg leading-relaxed text-ink-700 lg:pb-3">
-          Every engagement includes a dedicated account manager, daily monitoring and monthly reporting. Cost depends
-          on scope - tell us what you're working with and we'll quote it properly.
-        </p>
-      </div>
-
-      <div class="mt-20 grid gap-px border rule bg-[color-mix(in_oklab,var(--color-ink-900)_12%,transparent)] lg:grid-cols-3">
-        {
-          engagements.map((e) => (
-            <article class={`reveal flex flex-col p-9 lg:p-12 ${e.featured ? 'bg-ink-900 text-bone-50' : 'bg-bone-50'}`}>
-              <div class="flex items-baseline justify-between gap-4">
-                <p class={`label ${e.featured ? 'text-clay-400' : 'text-ink-500'}`}>{e.forWho}</p>
-                {e.featured && <span class="label text-bone-50/40">Most chosen</span>}
-              </div>
-
-              <h3 class="display mt-5 text-4xl lg:text-5xl">{e.name}</h3>
-              <p class={`mt-5 text-[0.95rem] leading-relaxed ${e.featured ? 'text-bone-50/60' : 'text-ink-700'}`}>
-                {e.body}
-              </p>
-
-              <ul class={`mt-9 space-y-3 border-t pt-8 ${e.featured ? 'border-bone-50/15' : 'rule'}`}>
-                {e.features.map((f) => (
-                  <li class={`flex items-baseline gap-3 text-sm ${e.featured ? 'text-bone-50/75' : 'text-ink-700'}`}>
-                    <span class={`h-1 w-1 shrink-0 rounded-full ${e.featured ? 'bg-bone-50/40' : 'bg-ink-300'}`} aria-hidden="true" />
-                    {f}
-                  </li>
-                ))}
-                {e.extras.map((f) => (
-                  <li class={`flex items-baseline gap-3 text-sm font-semibold ${e.featured ? 'text-bone-50' : 'text-ink-900'}`}>
-                    <span class="h-1 w-1 shrink-0 rounded-full bg-clay-500" aria-hidden="true" />
-                    {f}
-                  </li>
-                ))}
-              </ul>
-
-              <a
-                href={chatHref}
-                class={`mt-10 inline-flex items-center justify-center rounded-full px-7 py-3.5 text-sm font-semibold transition-all hover:-translate-y-0.5 ${
-                  e.featured ? 'bg-bone-50 text-ink-900 hover:bg-clay-400' : 'bg-ink-900 text-bone-50 hover:bg-clay-500'
-                }`}
-              >
-                Get a quote
-              </a>
-            </article>
-          ))
-        }
-      </div>
-
-      <ul class="reveal mt-12 grid gap-x-12 gap-y-4 sm:grid-cols-2">
-        {
-          engagementTerms.map((t) => (
-            <li class="flex items-baseline gap-3 text-sm leading-relaxed text-ink-500">
-              <span class="h-1 w-1 shrink-0 rounded-full bg-clay-500" aria-hidden="true" />
-              {t}
-            </li>
-          ))
-        }
-      </ul>
-    </section>
-
-    <!-- STUDIO -->
-    <section id="studio" class="border-y rule bg-bone-100 py-24 lg:py-36">
-      <div class="mx-auto max-w-[90rem] px-6 sm:px-10 lg:px-14">
-        <div class="grid gap-16 lg:grid-cols-[0.9fr_1.1fr]">
-          <div class="reveal lg:sticky lg:top-32 lg:self-start">
-            <p class="label text-clay-500">The studio</p>
-            <h2 class="display mt-6 text-[clamp(2.5rem,6vw,5rem)]">
-              Small team.<br /><span class="italic">Deep in real estate.</span>
-            </h2>
-            <p class="mt-8 max-w-lg text-lg leading-relaxed text-ink-700">
-              We're a growth studio, not an ad-buying desk. The same people handle the strategy, the creative, the
-              systems and the reporting - which is why nothing gets lost in a handover. Our deepest body of work is
-              in Philippine real estate, where trust is what actually closes the deal.
-            </p>
-            <a
-              href={chatHref}
-              class="mt-10 inline-flex items-center gap-2.5 rounded-full bg-ink-900 px-8 py-4 text-sm font-semibold text-bone-50 transition-all hover:-translate-y-0.5 hover:bg-clay-500"
-            >
-              Start a conversation
-            </a>
-          </div>
-
-          <div class="grid gap-px border rule bg-[color-mix(in_oklab,var(--color-ink-900)_12%,transparent)] sm:grid-cols-2">
-            {
-              principles.map((p) => (
-                <article class="reveal bg-bone-100 p-9">
-                  <h3 class="display text-2xl">{p.title}</h3>
-                  <p class="mt-4 text-sm leading-relaxed text-ink-700">{p.body}</p>
-                </article>
-              ))
-            }
-          </div>
-        </div>
-      </div>
-    </section>
-
+    <!-- Testimonials -->
     {
       showTestimonials && (
-        <section class="mx-auto max-w-[90rem] px-6 py-24 sm:px-10 lg:px-14 lg:py-36">
+        <section class="mx-auto max-w-[90rem] px-6 py-24 sm:px-10 lg:px-14 lg:py-32">
           <div class="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
             <div class="reveal">
               <p class="label text-clay-500">Client words</p>
@@ -221,100 +134,29 @@ const faqSchema = {
             </div>
             <p class="reveal max-w-xl text-lg leading-relaxed text-ink-700 lg:pb-3">
               Straight from Messenger, exactly as they were sent, across property, hospitality, retail, furniture and
-              motors. Published with each client's permission - some by name, some anonymously at their preference.
+              motors. Published with each client's permission.
             </p>
           </div>
 
           <div class="mt-16 grid gap-px border rule bg-[color-mix(in_oklab,var(--color-ink-900)_12%,transparent)] md:grid-cols-2 lg:grid-cols-3">
-            {approved.map((t, i) => {
-              // The grid draws its dividers by letting a container background
-              // show through 1px gaps, so an incomplete final row leaves a grey
-              // block. The last card stretches to close it - separately per
-              // breakpoint, since the column count differs.
-              const last = i === approved.length - 1;
-              const n = approved.length;
-              return (
-                <figure
-                  class:list={[
-                    'reveal flex flex-col bg-bone-50 p-9',
-                    last && n % 2 === 1 && 'md:col-span-2',
-                    // lg must always be stated, otherwise the md span leaks
-                    // through and the last card renders double width.
-                    last && n % 3 === 0 && 'lg:col-span-1',
-                    last && n % 3 === 2 && 'lg:col-span-2',
-                    last && n % 3 === 1 && n > 1 && 'lg:col-span-3',
-                  ]}
-                >
-                  <p class="label mb-5 text-clay-500">{t.sector}</p>
-                  <blockquote class="display text-2xl leading-snug">{t.quote}</blockquote>
-                  <figcaption class="mt-6 border-t rule pt-5 text-sm">
-                    <span class="block font-semibold text-ink-900">{t.author}</span>
-                    <span class="block text-ink-500">{t.role}</span>
-                  </figcaption>
-                </figure>
-              );
-            })}
+            {approved.map((t) => (
+              <figure class="reveal flex flex-col bg-bone-50 p-9">
+                <p class="label mb-5 text-clay-500">{t.sector}</p>
+                <blockquote class="display text-2xl leading-snug">{t.quote}</blockquote>
+                <figcaption class="mt-6 border-t rule pt-5 text-sm">
+                  <span class="block font-semibold text-ink-900">{t.author}</span>
+                  <span class="block text-ink-500">{t.role}</span>
+                </figcaption>
+              </figure>
+            ))}
           </div>
         </section>
       )
     }
 
-    <!-- FAQ -->
-    <section class="mx-auto max-w-[90rem] px-6 py-24 sm:px-10 lg:px-14 lg:py-36">
-      <div class="grid gap-16 lg:grid-cols-[0.6fr_1.4fr]">
-        <div class="reveal lg:sticky lg:top-32 lg:self-start">
-          <p class="label text-clay-500">Questions</p>
-          <h2 class="display mt-6 text-[clamp(2.5rem,5vw,4rem)]">
-            Before you<br /><span class="italic">get in touch.</span>
-          </h2>
-        </div>
-
-        <div class="border-t rule">
-          {
-            faqs.map((f) => (
-              <details class="reveal group border-b rule py-7">
-                <summary class="flex cursor-pointer list-none items-start justify-between gap-8 text-lg font-medium text-ink-900 [&::-webkit-details-marker]:hidden">
-                  {f.q}
-                  <span class="mt-2 h-px w-6 shrink-0 bg-ink-900 transition-transform duration-300 group-open:rotate-90" aria-hidden="true" />
-                </summary>
-                <p class="mt-5 max-w-2xl pr-12 leading-relaxed text-ink-700">{f.a}</p>
-              </details>
-            ))
-          }
-        </div>
-      </div>
-    </section>
-
-    <!-- CTA -->
-    <section class="px-6 pb-24 sm:px-10 lg:px-14 lg:pb-36">
-      <div class="mx-auto max-w-[90rem] border-y rule py-24 text-center lg:py-32">
-        <h2 class="display reveal mx-auto max-w-[16ch] text-[clamp(2.5rem,7vw,6rem)]">
-          Tell us what you're<br /><span class="italic text-clay-500">trying to grow.</span>
-        </h2>
-        <p class="reveal mx-auto mt-8 max-w-xl text-lg leading-relaxed text-ink-700">
-          Send a message and you'll get a straight answer on whether we can help, and what it would take. If we're
-          not the right fit we'll say so.
-        </p>
-        <div class="reveal mt-12 flex flex-col justify-center gap-3 sm:flex-row">
-          <a
-            href={chatHref}
-            class="inline-flex items-center justify-center rounded-full bg-ink-900 px-9 py-4 text-sm font-semibold text-bone-50 transition-all hover:-translate-y-0.5 hover:bg-clay-500"
-          >
-            Start a conversation
-          </a>
-          <a
-            href={`tel:${company.phoneHref}`}
-            class="inline-flex items-center justify-center rounded-full border rule px-9 py-4 text-sm font-semibold text-ink-900 transition-colors hover:border-ink-900"
-          >
-            {company.phone}
-          </a>
-        </div>
-      </div>
-    </section>
+    <PageCta />
   </main>
 
   <Footer />
   <ChatFab />
-
-  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
 </Base>

@@ -1,0 +1,91 @@
+---
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import ChatFab from '../../components/ChatFab.astro';
+import PageHead from '../../components/PageHead.astro';
+import PageCta from '../../components/PageCta.astro';
+import { principles, sectors, metrics } from '../../data/site';
+---
+
+<Base
+  title="The Studio | Who We Are"
+  description="Allaia Studio is a small growth team in Manila. One team handles strategy, creative, systems and reporting - with the deepest body of work in Philippine real estate."
+  path="/studio/"
+>
+  <Header solid />
+
+  <main id="main">
+    <PageHead
+      crumb="Studio"
+      eyebrow="The studio"
+      title="Small team."
+      accent="Deep in real estate."
+      lede="We're a growth studio, not an ad-buying desk. The same people handle the strategy, the creative, the systems and the reporting - which is why nothing gets lost in a handover."
+    />
+
+    <!-- Principles -->
+    <section class="mx-auto max-w-[90rem] px-6 pb-20 sm:px-10 lg:px-14">
+      <p class="label reveal text-ink-500">How we work</p>
+      <div class="mt-8 grid gap-px border rule bg-[color-mix(in_oklab,var(--color-ink-900)_12%,transparent)] sm:grid-cols-2">
+        {
+          principles.map((p) => (
+            <article class="reveal bg-bone-50 p-9 lg:p-11">
+              <h2 class="display text-2xl lg:text-3xl">{p.title}</h2>
+              <p class="mt-4 leading-relaxed text-ink-700">{p.body}</p>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- Sectors -->
+    <section class="border-y rule bg-ink-900 py-20 text-bone-50 lg:py-24">
+      <div class="mx-auto max-w-[90rem] px-6 sm:px-10 lg:px-14">
+        <div class="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
+          <div>
+            <p class="label text-clay-400">Where we work</p>
+            <h2 class="display mt-6 text-[clamp(2rem,4.5vw,3.5rem)]">
+              Ten sectors,<br /><span class="italic text-bone-50/50">one playbook.</span>
+            </h2>
+          </div>
+          <p class="max-w-xl leading-relaxed text-bone-50/60 lg:pb-3">
+            The offer changes completely between them. The discipline does not: qualify inside the ad, test properly,
+            monitor daily, and follow up like the lead cost you something.
+          </p>
+        </div>
+
+        <ul class="mt-14 grid gap-x-12 gap-y-px border-t border-bone-50/15 sm:grid-cols-2 lg:grid-cols-3">
+          {
+            sectors.map((s) => (
+              <li class="reveal flex items-baseline justify-between gap-4 border-b border-bone-50/15 py-5">
+                <span class="text-lg">{s.name}</span>
+                <span class="text-xs text-bone-50/45">{s.note}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </section>
+
+    <!-- What we report -->
+    <section class="mx-auto max-w-[90rem] px-6 py-20 sm:px-10 lg:px-14">
+      <p class="label reveal text-ink-500">Reported monthly</p>
+      <ul class="reveal mt-8 flex flex-wrap gap-x-12 gap-y-5 border-t rule pt-8">
+        {
+          metrics.map((m) => (
+            <li class="flex items-baseline gap-3">
+              <span class="display text-2xl text-clay-500">{m.abbr}</span>
+              <span class="text-sm text-ink-500">{m.name}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <PageCta title="Want to work" accent="with us?" />
+  </main>
+
+  <Footer />
+  <ChatFab />
+</Base>

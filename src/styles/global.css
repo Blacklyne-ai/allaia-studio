@@ -17,8 +17,13 @@
   --color-clay-500: #b4532a;
   --color-clay-400: #c96f42;
 
-  --font-display: 'Playfair Display', ui-serif, Georgia, serif;
+  /* Jost is a Futura revival - geometric, modern, and the same family as the
+     body text, so the whole site now sits on one typeface instead of pairing
+     a Didone against a grotesque. */
+  --font-display: 'Jost Variable', ui-sans-serif, system-ui, sans-serif;
   --font-sans: 'Jost Variable', ui-sans-serif, system-ui, sans-serif;
+  /* The wordmark keeps the serif, because that is the real allaia mark. */
+  --font-mark: 'Playfair Display', ui-serif, Georgia, serif;
 }
 
 @layer base {
@@ -47,7 +52,7 @@
 
 /* The wordmark lockup: italic serif + bold geometric sans + full stop. */
 @utility mark-serif {
-  font-family: var(--font-display);
+  font-family: var(--font-mark);
   font-style: italic;
   font-weight: 500;
   letter-spacing: -0.015em;
@@ -59,11 +64,13 @@
   letter-spacing: -0.03em;
 }
 
+/* Geometric sans at display size wants light weight and tight tracking -
+   the opposite of what the Didone needed. */
 @utility display {
   font-family: var(--font-display);
-  font-weight: 400;
-  letter-spacing: -0.025em;
-  line-height: 1.03;
+  font-weight: 300;
+  letter-spacing: -0.035em;
+  line-height: 1.0;
 }
 
 @utility label {

@@ -28,6 +28,14 @@ const industries = [
 ];
 ---
 
+<!-- Fixed backdrop. Lives outside the hero so the terrain stays with you all
+     the way down the page instead of scrolling away after one screen. -->
+<div id="stage" class="pointer-events-none fixed inset-0 -z-10" aria-hidden="true">
+  <canvas id="hero-canvas" class="absolute inset-0 h-full w-full transition-opacity duration-1000"></canvas>
+  <canvas id="hero-gl" class="absolute inset-0 hidden h-full w-full"></canvas>
+  <div id="hero-spot" class="absolute inset-0 opacity-0"></div>
+</div>
+
 <section
   id="hero"
   class="hero relative isolate flex min-h-[100svh] flex-col justify-end overflow-hidden px-6 pb-12 pt-32 sm:px-10 lg:px-14 lg:pb-14"
@@ -49,15 +57,6 @@ const industries = [
       </video>
     )
   }
-
-  <!-- Generative motion layer. Complete on its own; thins out if footage loads. -->
-  <canvas id="hero-canvas" class="absolute inset-0 -z-10 h-full w-full transition-opacity duration-1000" aria-hidden="true"></canvas>
-
-  <!-- WebGL terrain. Upgraded in lazily on capable devices; absent otherwise. -->
-  <canvas id="hero-gl" class="pointer-events-none absolute inset-0 -z-10 hidden h-full w-full" aria-hidden="true"></canvas>
-
-  <!-- Pointer light. Terracotta, follows the cursor, eased. -->
-  <div id="hero-spot" class="pointer-events-none absolute inset-0 -z-10 opacity-0" aria-hidden="true"></div>
 
   <!-- Scrim guarantees headline contrast whatever the motion layer is doing. -->
   <div id="hero-scrim" class="pointer-events-none absolute inset-0 -z-10" aria-hidden="true"></div>
@@ -182,10 +181,10 @@ const industries = [
   }
 
   /* Once WebGL is live the 2D field steps back to a faint texture over it. */
-  #hero.has-gl #hero-canvas {
+  #stage.has-gl #hero-canvas {
     opacity: 0.28;
   }
-  #hero.has-gl #hero-gl {
+  #stage.has-gl #hero-gl {
     display: block;
   }
 
@@ -254,11 +253,12 @@ const industries = [
 
   (() => {
     const section = document.getElementById('hero');
+    const stage = document.getElementById('stage');
     const canvas = document.getElementById('hero-canvas');
     const spot = document.getElementById('hero-spot');
     const content = document.getElementById('hero-content');
     const video = document.getElementById('hero-video');
-    if (!section || !canvas) return;
+    if (!section || !stage || !canvas) return;
 
     const ctx = canvas.getContext('2d', { alpha: true });
     if (!ctx) return;
@@ -305,7 +305,7 @@ const industries = [
     }
 
     function resize() {
-      const r = section.getBoundingClientRect();
+      const r = stage.getBoundingClientRect();
       dpr = Math.min(window.devicePixelRatio || 1, thrifty ? 1 : 2);
       w = Math.max(1, Math.round(r.width));
       h = Math.max(1, Math.round(r.height));
@@ -459,17 +459,17 @@ const industries = [
 
     // Pointer - mouse only. Touch keeps the ambient field.
     if (matchMedia('(hover:hover) and (pointer:fine)').matches) {
-      section.addEventListener(
+      addEventListener(
         'pointermove',
         (e) => {
-          const r = section.getBoundingClientRect();
+          const r = stage.getBoundingClientRect();
           ptr.tx = (e.clientX - r.left) / r.width;
           ptr.ty = (e.clientY - r.top) / r.height;
           ptr.active = true;
         },
         { passive: true }
       );
-      section.addEventListener('pointerleave', () => {
+      document.addEventListener('pointerleave', () => {
         ptr.active = false;
         ptr.tx = 0.5;
         ptr.ty = 0.42;
@@ -495,7 +495,7 @@ const industries = [
     }
 
     // Tell the bundled module whether it is allowed to run at all.
-    section.dataset.glAllowed = !reduced && !thrifty ? '1' : '0';
+    stage.dataset.glAllowed = !reduced && !thrifty ? '1' : '0';
 
     // Footage is opt-in and lazy: never fetched on save-data or reduced motion.
     if (video && !thrifty && !reduced) {
@@ -522,7 +522,7 @@ const industries = [
      ships in its own chunk that is only fetched on devices that will use it. -->
 <script>
   (() => {
-    const host = document.getElementById('hero');
+    const host = document.getElementById('stage');
     const canvas = document.getElementById('hero-gl');
     if (!host || !canvas) return;
     if (host.dataset.glAllowed !== '1') return;

@@ -1,0 +1,27 @@
+---
+// Shared masthead for the interior pages, so /services, /method, /engagements
+// and /studio all open the same way instead of each inventing a layout.
+interface Props {
+  eyebrow: string;
+  title: string;
+  accent: string;
+  lede: string;
+  crumb: string;
+}
+const { eyebrow, title, accent, lede, crumb } = Astro.props;
+---
+
+<section class="mx-auto max-w-[90rem] px-6 pb-16 pt-36 sm:px-10 lg:px-14 lg:pt-44">
+  <nav aria-label="Breadcrumb" class="label text-ink-300">
+    <a href="/" class="transition-colors hover:text-ink-700">Home</a>
+    <span class="mx-2" aria-hidden="true">/</span>
+    <span class="text-ink-500">{crumb}</span>
+  </nav>
+
+  <p class="label mt-10 text-clay-500">{eyebrow}</p>
+  <h1 class="display mt-5 max-w-[17ch] text-[clamp(2.6rem,7.5vw,6.5rem)]">
+    {title} <span class="italic text-clay-500">{accent}</span>
+  </h1>
+
+  <p class="mt-12 max-w-2xl border-t rule pt-12 text-lg leading-relaxed text-ink-700 sm:text-xl">{lede}</p>
+</section>

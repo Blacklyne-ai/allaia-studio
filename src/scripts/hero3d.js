@@ -284,6 +284,9 @@ export function initHero3D(canvas, host) {
   onScroll();
   addEventListener('scroll', onScroll, { passive: true });
 
+  // Input is bound to the window, not the host: the backdrop is a fixed,
+  // pointer-events:none layer, so it can never receive events itself - and
+  // binding to the window is what keeps it interactive the whole way down.
   const fine = matchMedia('(hover:hover) and (pointer:fine)').matches;
   const onMove = (e) => {
     const r = host.getBoundingClientRect();
@@ -297,8 +300,8 @@ export function initHero3D(canvas, host) {
     ampTarget = 0; // let the ground settle back rather than cut out
   };
   if (fine) {
-    host.addEventListener('pointermove', onMove, { passive: true });
-    host.addEventListener('pointerleave', onLeave);
+    addEventListener('pointermove', onMove, { passive: true });
+    document.addEventListener('pointerleave', onLeave);
   }
 
   // Click sends a shockwave out from where you clicked. Touch gets it too -
@@ -317,16 +320,14 @@ export function initHero3D(canvas, host) {
       ampTarget = 0;
     }
   };
-  host.addEventListener('pointerdown', onDown, { passive: true });
+  addEventListener('pointerdown', onDown, { passive: true });
 
   const onVis = () => (document.hidden ? stop() : start());
   document.addEventListener('visibilitychange', onVis);
 
+  // No IntersectionObserver: the stage is fixed and always on screen, so
+  // visibilitychange is the only meaningful pause signal.
   let io;
-  if ('IntersectionObserver' in window) {
-    io = new IntersectionObserver(([e]) => (e.isIntersecting ? start() : stop()), { threshold: 0.02 });
-    io.observe(host);
-  }
 
   // A lost context must not leave a frozen canvas sitting over the 2D layer.
   const onLost = (e) => {
@@ -344,10 +345,10 @@ export function initHero3D(canvas, host) {
       removeEventListener('scroll', onScroll);
       document.removeEventListener('visibilitychange', onVis);
       if (fine) {
-        host.removeEventListener('pointermove', onMove);
-        host.removeEventListener('pointerleave', onLeave);
+        removeEventListener('pointermove', onMove);
+        document.removeEventListener('pointerleave', onLeave);
       }
-      host.removeEventListener('pointerdown', onDown);
+      removeEventListener('pointerdown', onDown);
       canvas.removeEventListener('webglcontextlost', onLost);
       io?.disconnect();
       geo.dispose();
