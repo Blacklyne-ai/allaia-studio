@@ -42,7 +42,7 @@ export const heroMedia = {
 
 // Root-relative so these resolve from the landing pages too, not just home.
 export const nav = [
-  { label: 'Work', href: '/#work' },
+  { label: 'Work', href: '/work/' },
   { label: 'Services', href: '/#services' },
   { label: 'Method', href: '/#method' },
   { label: 'Engagements', href: '/#engagements' },
@@ -50,22 +50,27 @@ export const nav = [
   { label: 'Insights', href: '/insights/' },
 ];
 
-// The three things the studio leads with.
+// Framed by outcome rather than by channel. Every pillar draws on several
+// services, which is the honest description of how the work actually runs -
+// and stops the whole site reading as a Meta ads shop.
 export const pillars = [
   {
     n: '01',
-    title: 'Paid acquisition',
-    body: 'Meta ads as the engine - built on daily monitoring, multi-variant testing and a named person who owns your account. Google search where the intent is already there.',
+    title: 'More bookings',
+    body: 'Campaigns that reach the right people, a website built to convert them, and one-tap booking on Messenger, Viber or a calendar - so wanting it and doing it are the same action.',
+    through: 'Paid social · Google search · Web design · Booking flows',
   },
   {
     n: '02',
-    title: 'Recruitment campaigns',
-    body: 'Hiring run like performance marketing. Targeted reach, qualified applicant flow, and follow-up that keeps candidates warm instead of letting them go cold.',
+    title: 'More leads',
+    body: 'Demand you create and demand you capture. Paid campaigns for people who were not looking, search and SEO for the ones already hunting, recruitment campaigns when the role is the thing you need filled.',
+    through: 'Paid social · SEO · Google PPC · Recruitment · Influencer & UGC',
   },
   {
     n: '03',
-    title: 'AI systems',
-    body: 'Chatbots and automated nurture that reply the moment an enquiry lands, qualify it, and stop leads dying in the gap between the ad and the answer.',
+    title: 'More sales',
+    body: 'Most money is lost after the enquiry, not before it. Instant AI response, qualification in the chat, follow-up that actually happens, and email that brings people back.',
+    through: 'AI systems · Follow-up automation · Email · Social management',
   },
 ];
 
@@ -113,21 +118,44 @@ export const sectors = [
 //    are not comfortable republishing.
 // ---------------------------------------------------------------------------
 export const work = [
-  { src: '/work/w09.jpg', sector: 'Real Estate' },
-  { src: '/work/w01.jpg', sector: 'Beauty & Aesthetics' },
-  { src: '/work/w10.jpg', sector: 'Real Estate' },
-  { src: '/work/w04.jpg', sector: 'Food Service' },
-  { src: '/work/w11.jpg', sector: 'Real Estate' },
-  { src: '/work/w03.jpg', sector: 'Dental' },
-  { src: '/work/w08.jpg', sector: 'Travel' },
-  { src: '/work/w12.jpg', sector: 'Real Estate' },
-  { src: '/work/w02.jpg', sector: 'Beauty & Aesthetics' },
-  { src: '/work/w06.jpg', sector: 'Insurance' },
-  { src: '/work/w13.jpg', sector: 'Real Estate' },
-  { src: '/work/w07.jpg', sector: 'Automotive' },
-  { src: '/work/w15.jpg', sector: 'Flowers' },
-  { src: '/work/w05.jpg', sector: 'Food Service' },
-  { src: '/work/w14.jpg', sector: 'Cleaning Services' },
+  { src: '/work/c01.jpg', sector: 'Real Estate' },
+  { src: '/work/c02.jpg', sector: 'Real Estate' },
+  { src: '/work/c03.jpg', sector: 'Real Estate' },
+  { src: '/work/c04.jpg', sector: 'Real Estate' },
+  { src: '/work/c05.jpg', sector: 'Real Estate' },
+  { src: '/work/c06.jpg', sector: 'Real Estate' },
+  { src: '/work/c07.jpg', sector: 'Real Estate' },
+  { src: '/work/c08.jpg', sector: 'Real Estate' },
+  { src: '/work/c09.jpg', sector: 'Real Estate' },
+  { src: '/work/c10.jpg', sector: 'Real Estate' },
+  { src: '/work/c11.jpg', sector: 'Real Estate' },
+  { src: '/work/c12.jpg', sector: 'Real Estate' },
+  { src: '/work/c13.jpg', sector: 'Real Estate' },
+  { src: '/work/c14.jpg', sector: 'Real Estate' },
+  { src: '/work/c15.jpg', sector: 'Beauty & Aesthetics' },
+  { src: '/work/c16.jpg', sector: 'Beauty & Aesthetics' },
+  { src: '/work/c17.jpg', sector: 'Beauty & Aesthetics' },
+  { src: '/work/c18.jpg', sector: 'Beauty & Aesthetics' },
+  { src: '/work/c19.jpg', sector: 'Beauty & Aesthetics' },
+  { src: '/work/c20.jpg', sector: 'Beauty & Aesthetics' },
+  { src: '/work/c21.jpg', sector: 'Beauty & Aesthetics' },
+  { src: '/work/c22.jpg', sector: 'Food Service' },
+  { src: '/work/c23.jpg', sector: 'Food Service' },
+  { src: '/work/c24.jpg', sector: 'Food Service' },
+  { src: '/work/c25.jpg', sector: 'Food Service' },
+  { src: '/work/c26.jpg', sector: 'Food Service' },
+  { src: '/work/c27.jpg', sector: 'Food Service' },
+  { src: '/work/c28.jpg', sector: 'Insurance' },
+  { src: '/work/c29.jpg', sector: 'Insurance' },
+  { src: '/work/c30.jpg', sector: 'Insurance' },
+  { src: '/work/c31.jpg', sector: 'Dental' },
+  { src: '/work/c32.jpg', sector: 'Automotive' },
+  { src: '/work/c33.jpg', sector: 'Travel' },
+  { src: '/work/c34.jpg', sector: 'Cleaning Services' },
+  { src: '/work/c35.jpg', sector: 'Cleaning Services' },
+  { src: '/work/c36.jpg', sector: 'Flowers' },
+  { src: '/work/c37.jpg', sector: 'Flowers' },
+  { src: '/work/c38.jpg', sector: 'Flowers' },
 ];
 
 export const method = [
@@ -207,5 +235,76 @@ export const faqs = [
 // Add real quotes from clients who have agreed to be quoted, put their real
 // name and business below, then set the flag to true.
 // ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
+// CASE STUDIES
+//
+// Everything in `context` and `delivered` below is factual - drawn from the
+// creative that actually ran. `results` is EMPTY ON PURPOSE.
+//
+// A case study without numbers is a project summary, which is what these
+// currently are, and that is honest. The moment you invent a "+340% leads" the
+// whole page becomes untrustworthy - and under PH consumer-protection rules
+// unsubstantiated performance claims are a real exposure, not a style choice.
+//
+// TO PUBLISH RESULTS: pull the actual figures from Ads Manager for the period,
+// add them below, confirm the client is happy to have them shown, then set
+// caseResultsVerified = true. Until then the projects render without a results
+// block rather than with a fabricated one.
+// ---------------------------------------------------------------------------
+export const caseResultsVerified = false;
+
+export interface CaseStudy {
+  client: string;
+  sector: string;
+  context: string;
+  delivered: string[];
+  image: string;
+  results: { label: string; value: string }[];
+}
+
+export const caseStudies: CaseStudy[] = [
+  {
+    client: 'Metro Manila property developments',
+    sector: 'Real Estate',
+    context:
+      'Preselling and ready-for-occupancy units across Metro Manila, including projects in Alabang, Makati and Quezon City. Long decision cycles and a hard qualification problem - the brief was buyers who could service the amortisation, not volume.',
+    delivered: [
+      'Campaign creative for 14 property campaigns',
+      'Price, reservation fee and monthly amortisation placed in-creative to qualify',
+      'Carousel and single-image formats for unit, amenity and payment-term sequences',
+      'Developer branding applied consistently across broker-facing assets',
+    ],
+    image: '/work/c02.jpg',
+    results: [],
+  },
+  {
+    client: 'Aesthetic and dental clinics',
+    sector: 'Beauty & Aesthetics',
+    context:
+      'Skin, laser, hair and dental practices running package launches and seasonal promotions. The constraint is Meta health advertising policy, which restricts personal-attribute copy and before-and-after formats.',
+    delivered: [
+      'Package and promo creative built to pass health advertising review first time',
+      'Price-in-creative to filter enquiries before they reach the front desk',
+      'Multi-session package framing rather than single-treatment discounting',
+      'One-tap Messenger booking as the primary call to action',
+    ],
+    image: '/work/c15.jpg',
+    results: [],
+  },
+  {
+    client: 'Food service and meal programmes',
+    sector: 'Food Service',
+    context:
+      'Subscription meal plans and catering across Bulacan and Metro Manila, where the offer is recurring rather than one-off and the economics depend on retention rather than first order.',
+    delivered: [
+      'Subscription tier and macro-breakdown creative for meal programmes',
+      'Delivery-area and rate-card assets for operational clarity',
+      'Catering and event-led creative for the higher-value segment',
+    ],
+    image: '/work/c22.jpg',
+    results: [],
+  },
+];
+
 export const testimonialsVerified = false;
 export const testimonials: { quote: string; author: string; role: string }[] = [];

@@ -5,9 +5,10 @@ import Footer from '../components/Footer.astro';
 import ChatFab from '../components/ChatFab.astro';
 import HeroCinematic from '../components/HeroCinematic.astro';
 import WorkWall from '../components/WorkWall.astro';
+import SectorBand from '../components/SectorBand.astro';
 import MethodSticky from '../components/MethodSticky.astro';
 import {
-  company, pillars, services, sectors,
+  company, pillars, services,
   engagements, engagementTerms, principles, faqs,
   testimonials, testimonialsVerified,
 } from '../data/site';
@@ -28,7 +29,7 @@ const faqSchema = {
 
 <Base
   title="Allaia Studio | Growth & Marketing Studio in Manila"
-  description="Manila growth studio running Meta ads, recruitment campaigns and AI lead response for Philippine businesses. Real estate, clinics, food, insurance. Daily monitoring, monthly ROI reporting."
+  description="More bookings, more leads, more sales. A Manila growth studio running ads, SEO, websites, recruitment and AI lead response for Philippine businesses across property, clinics, food, insurance and more."
   path="/"
 >
   <Header />
@@ -36,26 +37,7 @@ const faqSchema = {
   <main id="main">
     <HeroCinematic />
 
-    <!-- SECTORS MARQUEE -->
-    <section id="sectors" class="marquee overflow-hidden border-y rule bg-bone-100 py-8">
-      <h2 class="sr-only">Sectors we have delivered work in</h2>
-      <div class="marquee-track flex w-max items-center gap-12 whitespace-nowrap">
-        {
-          [0, 1].map(() => (
-            <>
-              {sectors.map((s) => (
-                <span class="flex items-center gap-12">
-                  <span class={`display text-2xl sm:text-3xl ${s.flagship ? 'text-ink-900' : 'text-ink-300'}`}>
-                    {s.name}
-                  </span>
-                  <span class="h-1 w-1 shrink-0 rounded-full bg-clay-500" aria-hidden="true" />
-                </span>
-              ))}
-            </>
-          ))
-        }
-      </div>
-    </section>
+    <SectorBand />
 
     <!-- PILLARS -->
     <section id="services" class="mx-auto max-w-[90rem] px-6 py-24 sm:px-10 lg:px-14 lg:py-36">
@@ -63,12 +45,12 @@ const faqSchema = {
         <div class="reveal">
           <p class="label text-clay-500">What we do</p>
           <h2 class="display mt-6 text-[clamp(2.5rem,6vw,5rem)]">
-            Three things,<br /><span class="italic">done properly.</span>
+            Three outcomes.<br /><span class="italic">Everything serves them.</span>
           </h2>
         </div>
         <p class="reveal max-w-xl text-lg leading-relaxed text-ink-700 lg:pb-3">
-          Most agencies sell you a list. These are the three that move the number, and everything else exists to
-          support them.
+          Most agencies sell you a channel and leave you to work out what it was for. We start from the number you
+          need to move, then use whichever mix of ads, search, systems and design actually moves it.
         </p>
       </div>
 
@@ -81,6 +63,7 @@ const faqSchema = {
               </span>
               <h3 class="display mt-8 text-3xl lg:text-4xl">{p.title}</h3>
               <p class="mt-5 text-[0.95rem] leading-relaxed text-ink-700">{p.body}</p>
+              <p class="mt-7 border-t rule pt-5 text-xs leading-relaxed text-ink-500">{p.through}</p>
             </article>
           ))
         }

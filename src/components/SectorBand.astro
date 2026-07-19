@@ -1,0 +1,99 @@
+---
+import { work } from '../data/site';
+import { landings } from '../data/landings';
+
+// Build the band from the work we actually have, so counts are real rather
+// than asserted, and every tile has a genuine thumbnail behind it.
+const counts = work.reduce<Record<string, number>>((acc, w) => {
+  acc[w.sector] = (acc[w.sector] ?? 0) + 1;
+  return acc;
+}, {});
+
+const thumbFor = (sector: string) => work.find((w) => w.sector === sector)?.src;
+
+// Sector -> landing page, where one exists. Others are not linked rather than
+// pointed at a page that does not deserve the click.
+const linkMap: Record<string, string> = {
+  'Real Estate': 'real-estate-marketing-philippines',
+  'Beauty & Aesthetics': 'aesthetic-clinic-marketing-philippines',
+  Dental: 'aesthetic-clinic-marketing-philippines',
+};
+
+const order = ['Real Estate', 'Beauty & Aesthetics', 'Food Service', 'Insurance', 'Dental', 'Flowers', 'Cleaning Services', 'Automotive', 'Travel'];
+const sectors = order
+  .filter((s) => counts[s])
+  .map((s) => ({
+    name: s,
+    count: counts[s],
+    thumb: thumbFor(s),
+    href: linkMap[s] && landings.some((l) => l.slug === linkMap[s]) ? `/${linkMap[s]}` : null,
+  }));
+---
+
+<section id="sectors" class="border-y rule bg-bone-100 py-20 lg:py-24">
+  <div class="mx-auto max-w-[90rem] px-6 sm:px-10 lg:px-14">
+    <div class="flex flex-wrap items-end justify-between gap-6">
+      <div>
+        <p class="label reveal text-clay-500">Where we work</p>
+        <h2 class="display reveal mt-5 text-[clamp(1.9rem,4vw,3.2rem)]">
+          Nine sectors, <span class="italic">one playbook.</span>
+        </h2>
+      </div>
+      <a href="/work/" class="reveal group inline-flex items-center gap-2 text-sm font-semibold">
+        See the full portfolio
+        <svg viewBox="0 0 24 24" class="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 12h14M13 6l6 6-6 6"></path>
+        </svg>
+      </a>
+    </div>
+
+    <ul class="mt-14 grid gap-px border rule bg-[color-mix(in_oklab,var(--color-ink-900)_12%,transparent)] sm:grid-cols-2 lg:grid-cols-3">
+      {
+        sectors.map((s) => {
+          const Tag = s.href ? 'a' : 'div';
+          return (
+            <li>
+              <Tag
+                href={s.href ?? undefined}
+                class:list={[
+                  'group flex h-full items-center gap-5 bg-bone-100 p-5 transition-colors duration-500 sm:p-6',
+                  s.href && 'hover:bg-bone-50',
+                ]}
+              >
+                <img
+                  src={s.thumb}
+                  alt=""
+                  width="720"
+                  height="720"
+                  loading="lazy"
+                  decoding="async"
+                  class="h-16 w-16 shrink-0 rounded-xl object-cover transition-transform duration-700 group-hover:scale-105 sm:h-20 sm:w-20"
+                />
+                <span class="min-w-0">
+                  <span class="block text-lg font-semibold tracking-tight text-ink-900">{s.name}</span>
+                  <span class="mt-0.5 block text-sm text-ink-500">
+                    {s.count} {s.count === 1 ? 'campaign' : 'campaigns'} shown
+                  </span>
+                </span>
+                {s.href && (
+                  <svg
+                    viewBox="0 0 24 24"
+                    class="ml-auto h-4 w-4 shrink-0 text-ink-300 transition-all duration-500 group-hover:translate-x-1 group-hover:text-clay-500"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M5 12h14M13 6l6 6-6 6" />
+                  </svg>
+                )}
+              </Tag>
+            </li>
+          );
+        })
+      }
+    </ul>
+  </div>
+</section>

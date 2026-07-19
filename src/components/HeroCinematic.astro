@@ -4,10 +4,12 @@ import { company, heroMedia } from '../data/site';
 const chatHref = company.messenger || `tel:${company.phoneHref}`;
 const hasVideo = Boolean(heroMedia.video);
 
-// The headline is split so each line can be revealed independently.
+// Each line reveals independently, so the three "More" lines land in sequence
+// and the payoff arrives last.
 const lines = [
-  [{ t: 'The phone' }, { t: 'rings', accent: true }],
-  [{ t: "or it didn't work." }],
+  [{ t: 'More' }, { t: 'bookings.', accent: true }],
+  [{ t: 'More' }, { t: 'leads.', accent: true }],
+  [{ t: 'More' }, { t: 'sales.', accent: true }],
 ];
 ---
 
@@ -51,7 +53,7 @@ const lines = [
       <p class="label text-ink-500">{company.serviceArea}</p>
     </div>
 
-    <h1 class="display mt-10 max-w-[19ch] text-[clamp(3rem,10vw,9rem)]">
+    <h1 class="display mt-10 text-[clamp(2.9rem,9.5vw,8.5rem)]">
       {
         lines.map((line, li) => (
           <span class="hero-line block" style={`--i:${li + 1}`}>
@@ -64,16 +66,18 @@ const lines = [
           </span>
         ))
       }
+      <span class="hero-line mt-3 block text-[0.44em] text-ink-700" style="--i:4">
+        Be the best in your industry.
+      </span>
     </h1>
 
-    <div class="mt-16 grid gap-12 border-t rule pt-12 lg:grid-cols-[1fr_auto] lg:items-start">
-      <p class="hero-line max-w-2xl text-lg leading-relaxed text-ink-700 sm:text-xl" style="--i:3">
-        Allaia Studio is a growth studio in the Philippines. We run the paid acquisition, the recruitment campaigns
-        and the AI systems that sit behind them - and we judge all of it on whether it produced enquiries you can
-        actually close.
+    <div class="mt-14 grid gap-12 border-t rule pt-12 lg:grid-cols-[1fr_auto] lg:items-start">
+      <p class="hero-line max-w-2xl text-lg leading-relaxed text-ink-700 sm:text-xl" style="--i:5">
+        A growth studio in the Philippines. Ads, recruitment, AI response, social, websites and SEO - run as one
+        system by one team, and judged on the bookings, leads and sales that come out the other end.
       </p>
 
-      <div class="hero-line flex flex-col gap-3 sm:flex-row lg:shrink-0" style="--i:4">
+      <div class="hero-line flex flex-col gap-3 sm:flex-row lg:shrink-0" style="--i:6">
         <a
           href={chatHref}
           class="group inline-flex items-center justify-center gap-2.5 rounded-full bg-ink-900 px-8 py-4 text-sm font-semibold text-bone-50 transition-all hover:-translate-y-0.5 hover:bg-clay-500"

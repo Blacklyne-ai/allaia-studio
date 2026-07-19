@@ -1,0 +1,304 @@
+---
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import ChatFab from '../../components/ChatFab.astro';
+import { work, company, caseStudies, caseResultsVerified } from '../../data/site';
+import { landings } from '../../data/landings';
+
+const chatHref = company.messenger || `tel:${company.phoneHref}`;
+
+const counts = work.reduce<Record<string, number>>((acc, w) => {
+  acc[w.sector] = (acc[w.sector] ?? 0) + 1;
+  return acc;
+}, {});
+const sectors = Object.keys(counts).sort((a, b) => counts[b] - counts[a]);
+
+const linkMap: Record<string, string> = {
+  'Real Estate': 'real-estate-marketing-philippines',
+  'Beauty & Aesthetics': 'aesthetic-clinic-marketing-philippines',
+};
+---
+
+<Base
+  title="Portfolio | Campaign Creative for Philippine Businesses"
+  description="Selected campaign creative from Allaia Studio - property, clinics, food service, insurance, dental, automotive, travel and more. All produced in-house."
+  path="/work/"
+>
+  <Header solid />
+
+  <main id="main">
+    <section class="mx-auto max-w-[90rem] px-6 pb-14 pt-36 sm:px-10 lg:px-14 lg:pt-44">
+      <nav aria-label="Breadcrumb" class="label text-ink-300">
+        <a href="/" class="transition-colors hover:text-ink-700">Home</a>
+        <span class="mx-2" aria-hidden="true">/</span>
+        <span class="text-ink-500">Portfolio</span>
+      </nav>
+
+      <h1 class="display mt-10 max-w-[15ch] text-[clamp(2.6rem,7.5vw,6.5rem)]">
+        {work.length} campaigns that <span class="italic text-clay-500">actually ran.</span>
+      </h1>
+
+      <p class="mt-12 max-w-2xl border-t rule pt-12 text-lg leading-relaxed text-ink-700 sm:text-xl">
+        Live creative from real client campaigns across {sectors.length} sectors. Concepts, copy, design and production
+        all handled in-house.
+      </p>
+    </section>
+
+    <!-- Filter -->
+    <section class="sticky top-[4.5rem] z-30 border-y rule bg-bone-50/92 py-4 backdrop-blur-xl">
+      <div class="mx-auto max-w-[90rem] px-6 sm:px-10 lg:px-14">
+        <div class="flex flex-wrap gap-2" role="group" aria-label="Filter portfolio by sector">
+          <button
+            type="button"
+            data-filter="all"
+            aria-pressed="true"
+            class="filter-btn rounded-full border rule px-4 py-2 text-sm font-medium transition-colors aria-pressed:border-ink-900 aria-pressed:bg-ink-900 aria-pressed:text-bone-50"
+          >
+            All <span class="text-ink-300 aria-pressed:text-bone-50/50">{work.length}</span>
+          </button>
+          {
+            sectors.map((s) => (
+              <button
+                type="button"
+                data-filter={s}
+                aria-pressed="false"
+                class="filter-btn rounded-full border rule px-4 py-2 text-sm font-medium transition-colors hover:border-ink-700 aria-pressed:border-ink-900 aria-pressed:bg-ink-900 aria-pressed:text-bone-50"
+              >
+                {s} <span class="text-ink-300">{counts[s]}</span>
+              </button>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- Grid -->
+    <section class="mx-auto max-w-[90rem] px-6 py-14 sm:px-10 lg:px-14 lg:py-20">
+      <p id="work-count" class="label mb-8 text-ink-500" aria-live="polite">
+        Showing all {work.length} campaigns
+      </p>
+
+      <ul id="work-grid" class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 lg:gap-6">
+        {
+          work.map((item, i) => (
+            <li class="work-item" data-sector={item.sector}>
+              <button
+                type="button"
+                class="work-tile group relative block w-full overflow-hidden rounded-2xl bg-bone-200"
+                data-src={item.src}
+                data-sector={item.sector}
+                aria-label={`View ${item.sector} campaign creative`}
+              >
+                <img
+                  src={item.src}
+                  alt={`${item.sector} campaign creative by Allaia Studio`}
+                  width="720"
+                  height="720"
+                  loading={i < 8 ? 'eager' : 'lazy'}
+                  decoding="async"
+                  class="aspect-square w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                />
+                <span class="pointer-events-none absolute inset-0 bg-ink-900/45 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                <span class="label pointer-events-none absolute bottom-4 left-4 translate-y-2 text-bone-50 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+                  {item.sector}
+                </span>
+              </button>
+            </li>
+          ))
+        }
+      </ul>
+
+      <p class="mt-12 max-w-3xl text-xs leading-relaxed text-ink-500">
+        Client creative shown with permission. Campaign performance varies by market, offer and budget - these are
+        examples of production work, not a guarantee of results.
+      </p>
+    </section>
+
+    <!-- Case studies -->
+    <section class="border-t rule bg-ink-900 py-20 text-bone-50 lg:py-28">
+      <div class="mx-auto max-w-[90rem] px-6 sm:px-10 lg:px-14">
+        <div class="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
+          <div>
+            <p class="label text-clay-400">Selected projects</p>
+            <h2 class="display mt-6 text-[clamp(2rem,4.5vw,3.5rem)]">
+              What the brief<br /><span class="italic text-bone-50/50">actually was.</span>
+            </h2>
+          </div>
+          <p class="max-w-xl leading-relaxed text-bone-50/60 lg:pb-3">
+            The constraint each project was solving and what we produced against it.
+          </p>
+        </div>
+
+        <div class="mt-16 space-y-px">
+          {
+            caseStudies.map((c) => (
+              <article class="grid gap-8 border-t border-bone-50/15 py-10 lg:grid-cols-[16rem_1fr_1fr] lg:gap-14">
+                <img
+                  src={c.image}
+                  alt={`${c.sector} campaign creative by Allaia Studio`}
+                  width="720"
+                  height="720"
+                  loading="lazy"
+                  decoding="async"
+                  class="w-full max-w-[16rem] rounded-2xl object-cover"
+                />
+
+                <div>
+                  <p class="label text-clay-400">{c.sector}</p>
+                  <h3 class="display mt-3 text-2xl lg:text-3xl">{c.client}</h3>
+                  <p class="mt-5 leading-relaxed text-bone-50/60">{c.context}</p>
+                </div>
+
+                <div>
+                  <p class="label text-bone-50/35">What we delivered</p>
+                  <ul class="mt-5 space-y-3">
+                    {c.delivered.map((d) => (
+                      <li class="flex items-baseline gap-3 text-sm leading-relaxed text-bone-50/75">
+                        <span class="h-1 w-1 shrink-0 rounded-full bg-clay-400" aria-hidden="true" />
+                        {d}
+                      </li>
+                    ))}
+                  </ul>
+
+                  {caseResultsVerified && c.results.length > 0 && (
+                    <dl class="mt-8 grid grid-cols-2 gap-6 border-t border-bone-50/15 pt-6">
+                      {c.results.map((r) => (
+                        <div>
+                          <dt class="label text-bone-50/35">{r.label}</dt>
+                          <dd class="display mt-2 text-3xl text-clay-400">{r.value}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                  )}
+                </div>
+              </article>
+            ))
+          }
+        </div>
+
+        <p class="mt-12 max-w-3xl border-t border-bone-50/15 pt-8 text-xs leading-relaxed text-bone-50/40">
+          These are project summaries describing scope and deliverables. We do not publish performance figures we
+          cannot substantiate, and results vary by market, offer and budget.
+        </p>
+      </div>
+    </section>
+
+    <!-- Sector links -->
+    <section class="border-t rule bg-bone-100 py-20 lg:py-24">
+      <div class="mx-auto max-w-[90rem] px-6 sm:px-10 lg:px-14">
+        <p class="label text-ink-500">Go deeper</p>
+        <div class="mt-8 grid gap-px border rule bg-[color-mix(in_oklab,var(--color-ink-900)_12%,transparent)] md:grid-cols-2">
+          {
+            landings
+              .filter((l) => Object.values(linkMap).includes(l.slug))
+              .map((l) => (
+                <a href={`/${l.slug}`} class="group bg-bone-100 p-9 transition-colors hover:bg-bone-50 lg:p-12">
+                  <p class="label text-clay-500">{l.eyebrow}</p>
+                  <h2 class="display mt-4 text-2xl lg:text-3xl">
+                    {l.h1} <span class="italic">{l.h1Accent}</span>
+                  </h2>
+                </a>
+              ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="px-6 py-20 sm:px-10 lg:px-14 lg:py-28">
+      <div class="mx-auto max-w-[90rem] border-y rule py-20 text-center">
+        <h2 class="display mx-auto max-w-[16ch] text-[clamp(2rem,5vw,4rem)]">
+          Want work like this <span class="italic text-clay-500">for your business?</span>
+        </h2>
+        <div class="mt-10 flex flex-col justify-center gap-3 sm:flex-row">
+          <a href={chatHref} class="inline-flex items-center justify-center rounded-full bg-ink-900 px-9 py-4 text-sm font-semibold text-bone-50 transition-all hover:-translate-y-0.5 hover:bg-clay-500">
+            Start a conversation
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Lightbox -->
+  <div
+    id="work-lightbox"
+    class="fixed inset-0 z-[60] hidden items-center justify-center bg-ink-900/92 p-6 backdrop-blur-sm"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Campaign creative"
+  >
+    <button id="lb-close" type="button" class="absolute right-6 top-6 grid h-12 w-12 place-items-center rounded-full border border-bone-50/25 text-bone-50 transition-colors hover:bg-bone-50 hover:text-ink-900" aria-label="Close">
+      <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+    </button>
+    <figure class="max-h-full w-full max-w-2xl">
+      <img id="lb-img" src="" alt="" class="mx-auto max-h-[78vh] w-auto rounded-2xl" />
+      <figcaption id="lb-cap" class="label mt-5 text-center text-bone-50/60"></figcaption>
+    </figure>
+  </div>
+
+  <Footer />
+  <ChatFab />
+
+  <script is:inline>
+    (() => {
+      const grid = document.getElementById('work-grid');
+      const countEl = document.getElementById('work-count');
+      const btns = [...document.querySelectorAll('.filter-btn')];
+      const items = [...document.querySelectorAll('.work-item')];
+      if (!grid || !countEl || !btns.length) return;
+
+      const total = items.length;
+
+      function apply(filter) {
+        let shown = 0;
+        for (const li of items) {
+          const match = filter === 'all' || li.dataset.sector === filter;
+          li.hidden = !match;
+          if (match) shown++;
+        }
+        btns.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.filter === filter)));
+        countEl.textContent =
+          filter === 'all' ? `Showing all ${total} campaigns` : `Showing ${shown} ${filter} ${shown === 1 ? 'campaign' : 'campaigns'}`;
+      }
+
+      btns.forEach((b) => b.addEventListener('click', () => apply(b.dataset.filter)));
+
+      // Lightbox
+      const lb = document.getElementById('work-lightbox');
+      const img = document.getElementById('lb-img');
+      const cap = document.getElementById('lb-cap');
+      const close = document.getElementById('lb-close');
+      if (!lb || !img || !cap || !close) return;
+
+      let lastFocus = null;
+      function open(src, sector) {
+        lastFocus = document.activeElement;
+        img.src = src;
+        img.alt = sector + ' campaign creative by Allaia Studio';
+        cap.textContent = sector;
+        lb.classList.remove('hidden');
+        lb.classList.add('flex');
+        document.body.style.overflow = 'hidden';
+        close.focus();
+      }
+      function shut() {
+        lb.classList.add('hidden');
+        lb.classList.remove('flex');
+        img.src = '';
+        document.body.style.overflow = '';
+        if (lastFocus && lastFocus.focus) lastFocus.focus();
+      }
+
+      grid.addEventListener('click', (e) => {
+        const tile = e.target.closest('.work-tile');
+        if (tile) open(tile.dataset.src, tile.dataset.sector);
+      });
+      close.addEventListener('click', shut);
+      lb.addEventListener('click', (e) => e.target === lb && shut());
+      addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !lb.classList.contains('hidden')) shut();
+      });
+    })();
+  </script>
+</Base>
