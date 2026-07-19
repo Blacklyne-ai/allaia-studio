@@ -64,13 +64,14 @@
   letter-spacing: -0.03em;
 }
 
-/* Geometric sans at display size wants light weight and tight tracking -
-   the opposite of what the Didone needed. */
+/* Semibold, tightly tracked. Light weights read delicate rather than modern
+   at this scale - the contemporary geometric look is weight plus tight
+   spacing, not thin strokes. */
 @utility display {
   font-family: var(--font-display);
-  font-weight: 300;
-  letter-spacing: -0.035em;
-  line-height: 1.0;
+  font-weight: 600;
+  letter-spacing: -0.032em;
+  line-height: 1.02;
 }
 
 @utility label {
