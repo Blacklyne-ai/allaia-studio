@@ -38,7 +38,7 @@ they are ready when there is one.
 
 ---
 
-## c11 · Brand story `c11-story-brand.png`
+## c11 · Brand story `c11-story-brand.jpg`
 
 **Instagram**
 
@@ -72,7 +72,7 @@ they are ready when there is one.
 
 ---
 
-## c02 · Gentry Corporate Plaza `c02-50m.png`
+## c02 · Gentry Corporate Plaza `c02-50m.jpg`
 
 **Instagram**
 
@@ -104,7 +104,7 @@ they are ready when there is one.
 
 ---
 
-## c03 · Four months `c03-47m.png`
+## c03 · Four months `c03-47m.jpg`
 
 **Instagram**
 
@@ -139,7 +139,7 @@ they are ready when there is one.
 
 ---
 
-## c04 · Cost per message `c04-cpm.png`
+## c04 · Cost per message `c04-cpm.jpg`
 
 **Instagram**
 
@@ -171,7 +171,7 @@ they are ready when there is one.
 
 ---
 
-## c05 · Hotel & resort `c05-hotel.png`
+## c05 · Hotel & resort `c05-hotel.jpg`
 
 **Instagram**
 
@@ -200,7 +200,7 @@ they are ready when there is one.
 
 ---
 
-## c06 · Travel `c06-travel.png`
+## c06 · Travel `c06-travel.jpg`
 
 **Instagram**
 
@@ -278,7 +278,7 @@ they are ready when there is one.
 
 ---
 
-## c01 · Work montage `c01-work-grid.png`
+## c01 · Work montage `c01-work-grid.jpg`
 
 **Instagram**
 
@@ -367,7 +367,7 @@ stretching it.
 
 ---
 
-## c09 · Apply story `c09-story-apply.png`
+## c09 · Apply story `c09-story-apply.jpg`
 
 **Instagram**
 
@@ -408,7 +408,7 @@ stretching it.
 
 ---
 
-## c10 · ₱50M story `c10-story-50m.png`
+## c10 · ₱50M story `c10-story-50m.jpg`
 
 **Instagram**
 
