@@ -5,7 +5,7 @@ import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import ChatFab from '../../components/ChatFab.astro';
 import { bySlug } from '../../data/landings';
-import { company, chatHref} from '../../data/site';
+import { company, intake } from '../../data/site';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ data }) => !data.draft);
@@ -112,8 +112,8 @@ const crumbs = {
           Want this run <span class="italic text-clay-500">properly?</span>
         </h2>
         <div class="mt-10 flex flex-col justify-center gap-3 sm:flex-row">
-          <a href={chatHref} class="inline-flex items-center justify-center rounded-full bg-ink-900 px-9 py-4 text-sm font-semibold text-bone-50 transition-all hover:-translate-y-0.5 hover:bg-clay-500">
-            Start a conversation
+          <a href="/apply/" class="inline-flex items-center justify-center rounded-full bg-ink-900 px-9 py-4 text-sm font-semibold text-bone-50 transition-all hover:-translate-y-0.5 hover:bg-clay-500">
+            {intake.ctaPrimary}
           </a>
           <a href="/insights/" class="inline-flex items-center justify-center rounded-full border rule px-9 py-4 text-sm font-semibold transition-colors hover:border-ink-900">
             More insights

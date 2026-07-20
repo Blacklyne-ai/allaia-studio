@@ -4,7 +4,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import ChatFab from '../components/ChatFab.astro';
 import { landings, bySlug } from '../data/landings';
-import { company, engagements, chatHref} from '../data/site';
+import { company, engagements, intake} from '../data/site';
 
 export function getStaticPaths() {
   return landings.map((l) => ({ params: { slug: l.slug } }));
@@ -53,10 +53,10 @@ const crumbs = {
       <div class="mt-14 grid gap-12 border-t rule pt-12 lg:grid-cols-[1fr_auto] lg:items-start">
         <p class="max-w-2xl text-lg leading-relaxed text-ink-700 sm:text-xl">{page.lede}</p>
         <a
-          href={chatHref}
+          href="/apply/"
           class="inline-flex shrink-0 items-center justify-center rounded-full bg-ink-900 px-8 py-4 text-sm font-semibold text-bone-50 transition-all hover:-translate-y-0.5 hover:bg-clay-500"
         >
-          Start a conversation
+          {intake.ctaPrimary}
         </a>
       </div>
     </section>
@@ -198,8 +198,8 @@ const crumbs = {
           Tell us what you're <span class="italic text-clay-500">trying to grow.</span>
         </h2>
         <div class="reveal mt-10 flex flex-col justify-center gap-3 sm:flex-row">
-          <a href={chatHref} class="inline-flex items-center justify-center rounded-full bg-ink-900 px-9 py-4 text-sm font-semibold text-bone-50 transition-all hover:-translate-y-0.5 hover:bg-clay-500">
-            Start a conversation
+          <a href="/apply/" class="inline-flex items-center justify-center rounded-full bg-ink-900 px-9 py-4 text-sm font-semibold text-bone-50 transition-all hover:-translate-y-0.5 hover:bg-clay-500">
+            {intake.ctaPrimary}
           </a>
           <a href={`tel:${company.phoneHref}`} class="inline-flex items-center justify-center rounded-full border rule px-9 py-4 text-sm font-semibold transition-colors hover:border-ink-900">
             {company.phone}

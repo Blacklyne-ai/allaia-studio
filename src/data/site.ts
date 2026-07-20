@@ -54,9 +54,6 @@ export const heroMedia = {
   poster: '', // e.g. '/hero-poster.jpg'
 };
 
-// The message-first CTA, resolved once. Messenger wins if a Facebook page is
-// added later, otherwise Instagram DM, and a phone call as the last resort.
-// Duplicating this expression across seven files is how it drifts.
 // ---------------------------------------------------------------------------
 // INTAKE
 //
@@ -68,8 +65,9 @@ export const heroMedia = {
 // scarcity is a deceptive sales act under the Consumer Act, and it is the
 // fastest way to lose the credibility the case studies just bought you.
 //
-// TODO: confirm the real numbers before publishing anything specific -
-// how many clients you actually carry, and the real wait.
+// CONFIRMED by Luise on 2026-07-20: the studio is genuinely at capacity and
+// genuinely screens applicants. If that stops being true, change `status`
+// first - a stale capacity line is the same lie as an invented one.
 // ---------------------------------------------------------------------------
 export const intake = {
   // Shown wherever a CTA lands. Change the verb here and it changes everywhere.
@@ -108,6 +106,9 @@ export const intake = {
   ],
 };
 
+// The message-first CTA, resolved once. Messenger wins if a Facebook page is
+// added later, otherwise Instagram DM, and a phone call as the last resort.
+// Duplicating this expression across files is how it drifts.
 export const chatHref =
   company.messenger || company.instagramDM || `tel:${company.phoneHref}`;
 
