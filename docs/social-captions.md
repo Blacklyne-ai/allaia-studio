@@ -1,37 +1,44 @@
-# Social posts - captions
+# Social creatives - captions
 
-Graphics are in `public/social/`, 1080x1080, ready for Instagram and Facebook.
-Logo files are in `public/brand/`. All rendered in Geist, matching the site.
+All artwork is in `public/social/`, rendered in Geist to match the site. Logo
+files are in `public/brand/`.
 
-**Eleven posts.** 01-08 are proof and value. 09-11 carry the application
-positioning and are the ones that make the waitlist real rather than a line on
-a page.
+**15 creatives, three formats**
 
-Every figure below is real and traceable to the case studies or testimonials on
-the site. Nothing here claims anything the site cannot back up.
+| File | Format | What it is |
+|---|---|---|
+| `c01-work-grid` | 1080² | Nine real client ads, montage |
+| `c02-50m` `c03-47m` `c04-cpm` | 1080² | Case study stat cards |
+| `c05-hotel` `c06-travel` | 1080² | Client quote cards |
+| `c07-leak-1/2/3` | 1080² | Carousel - inquiries but no sales |
+| `c08-apply-1/2/3` | 1080² | Carousel - how intake works |
+| `c09` `c10` `c11` | 1080×1920 | Stories |
+
+**Client creative appears on `c01` only.** That post is captioned as our work,
+so a montage is accurate. Putting a client's ad behind a different client's
+case study or quote implies a link that is not real - the same error as
+illustrating the SYNC N Tower study with an Ayala ad. Everything else is
+typographic.
+
+Every figure is traceable to the case studies on the site.
 
 **Account:** `@allaia.media` - instagram.com/allaia.media
 
-The loop is closed: a post drives a profile visit, the bio link drives the
-site, and the site's Apply page sends them back to your Instagram DMs. The
-floating chat button also opens a DM directly for anyone with a quick question
-who does not want to fill anything in.
+The loop: a post drives a profile visit, the bio link drives the site, and the
+site's Apply page sends them back to your DMs.
 
-**Two things to do first**
+**Before the first post**
 
 1. Set the link in bio to `allaiastudio.com`.
-2. Turn on Instagram's saved replies for the three questions you will get
-   every time - what do you charge, what do you need from me, how long before
-   we see results. Replying in minutes rather than hours is the same behaviour
-   the site sells.
+2. Set up saved replies for the three questions you will always get - what do
+   you charge, what do you need from me, how long before results.
 
-**Still open:** there is no Facebook page. The captions below are written for
-both platforms so they are ready when there is - and the site is wired so that
-adding a Facebook slug makes Messenger the primary route automatically.
+**Still open:** no Facebook page. Captions are written for both platforms so
+they are ready when there is one.
 
 ---
 
-## 01 · Brand `01-brand.png`
+## c11 · Brand story `c11-story-brand.png`
 
 **Instagram**
 
@@ -65,7 +72,7 @@ adding a Facebook slug makes Messenger the primary route automatically.
 
 ---
 
-## 02 · Gentry Corporate Plaza `02-gentry.png`
+## c02 · Gentry Corporate Plaza `c02-50m.png`
 
 **Instagram**
 
@@ -97,7 +104,7 @@ adding a Facebook slug makes Messenger the primary route automatically.
 
 ---
 
-## 03 · Four months `03-fourmonths.png`
+## c03 · Four months `c03-47m.png`
 
 **Instagram**
 
@@ -132,7 +139,7 @@ adding a Facebook slug makes Messenger the primary route automatically.
 
 ---
 
-## 04 · Cost per message `04-cpm.png`
+## c04 · Cost per message `c04-cpm.png`
 
 **Instagram**
 
@@ -164,7 +171,7 @@ adding a Facebook slug makes Messenger the primary route automatically.
 
 ---
 
-## 05 · Hotel & resort `05-hotel.png`
+## c05 · Hotel & resort `c05-hotel.png`
 
 **Instagram**
 
@@ -193,7 +200,7 @@ adding a Facebook slug makes Messenger the primary route automatically.
 
 ---
 
-## 06 · Travel `06-travel.png`
+## c06 · Travel `c06-travel.png`
 
 **Instagram**
 
@@ -223,7 +230,7 @@ adding a Facebook slug makes Messenger the primary route automatically.
 
 ---
 
-## 07 · Boosting vs ads `07-boosting.png`
+## c07 · Carousel - inquiries but no sales `c07-leak-1/2/3.png`
 
 **Instagram**
 
@@ -271,7 +278,7 @@ adding a Facebook slug makes Messenger the primary route automatically.
 
 ---
 
-## 08 · Sectors `08-sectors.png`
+## c01 · Work montage `c01-work-grid.png`
 
 **Instagram**
 
@@ -325,7 +332,7 @@ stretching it.
 
 ---
 
-## 09 · We work by application `09-apply.png`
+## c08 · Carousel - how intake works `c08-apply-1/2/3.png`
 
 **Instagram**
 
@@ -360,7 +367,7 @@ stretching it.
 
 ---
 
-## 10 · The screen `10-screen.png`
+## c09 · Apply story `c09-story-apply.png`
 
 **Instagram**
 
@@ -401,7 +408,7 @@ stretching it.
 
 ---
 
-## 11 · Waitlist `11-waitlist.png`
+## c10 · ₱50M story `c10-story-50m.png`
 
 **Instagram**
 
@@ -432,8 +439,14 @@ stretching it.
 
 With the application posts in, lead with positioning and let proof follow:
 
-**09 → 02 → 07 → 05 → 03 → 10 → 06 → 08 → 04 → 11 → 01**
+**c01 → c08 (carousel) → c02 → c07 (carousel) → c05 → c03 → c06 → c04**
 
-The reasoning: open by saying how you work, then immediately back it with a
-₱50M sale. Put a value post between each piece of proof. Save the waitlist
-post until people have seen enough to want a place.
+Open with the work montage - it shows range in one scroll and needs no
+explanation. Then the intake carousel, so people know how you operate before
+you start quoting numbers at them. After that, alternate: proof, value, proof.
+
+Stories `c09` `c10` `c11` run alongside, not in sequence. Post one whenever a
+feed post goes up so it appears in both places.
+
+Carousels outperform single images on reach, so `c07` and `c08` are the two
+worth boosting if you promote anything.
