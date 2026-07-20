@@ -1,16 +1,21 @@
 # Social posts - captions
 
 Graphics are in `public/social/`, 1080x1080, ready for Instagram and Facebook.
-Logo files are in `public/brand/`.
+Logo files are in `public/brand/`. All rendered in Geist, matching the site.
+
+**Eleven posts.** 01-08 are proof and value. 09-11 carry the application
+positioning and are the ones that make the waitlist real rather than a line on
+a page.
 
 Every figure below is real and traceable to the case studies or testimonials on
 the site. Nothing here claims anything the site cannot back up.
 
 **Account:** `@allaia.media` - instagram.com/allaia.media
 
-Every "Start a conversation" button on the site now opens an Instagram DM to
-that account, so the loop is closed: a post drives a profile visit, the bio
-link drives the site, and the site sends them straight back to your inbox.
+The loop is closed: a post drives a profile visit, the bio link drives the
+site, and the site's Apply page sends them back to your Instagram DMs. The
+floating chat button also opens a DM directly for anyone with a quick question
+who does not want to fill anything in.
 
 **Two things to do first**
 
@@ -316,3 +321,119 @@ what turns interest into an inquiry.
 **Sizes.** 1080x1080 works for the IG feed and FB. For Stories, place the
 square on a plain `#1B1B1B` or `#FAF8F5` 1080x1920 background rather than
 stretching it.
+
+
+---
+
+## 09 · We work by application `09-apply.png`
+
+**Instagram**
+
+> We work by application.
+>
+> Not because it sounds exclusive. Because a campaign only works when the
+> offer, the margin and someone to answer the enquiries are already in place -
+> and if they are not, taking your money would waste it.
+>
+> Currently at capacity. Applications are open for the next intake.
+>
+> 🔗 allaiastudio.com/apply
+>
+> #MarketingAgencyPH #DigitalMarketingPhilippines #FacebookAdsPhilippines #ManilaBusiness #GrowthMarketing #SmallBusinessPhilippines
+
+**Facebook**
+
+> We work by application.
+>
+> Not for the sake of sounding exclusive. A campaign only works when three
+> things are already true: the offer converts, the margin can carry ad spend,
+> and somebody actually answers the enquiries it generates. When they are not,
+> advertising just loses money faster.
+>
+> So we screen first. You tell us what you sell, what you are spending, and
+> what you need the number to be. We come back within a few days with either a
+> scope and a quote, or an honest no and what we would fix first.
+>
+> We are currently at capacity. Applications are open for the next intake.
+>
+> allaiastudio.com/apply
+
+---
+
+## 10 · The screen `10-screen.png`
+
+**Instagram**
+
+> We turn work away.
+>
+> Four reasons we say no:
+>
+> — The margin cannot carry paid acquisition yet
+> — Nobody is free to answer the enquiries
+> — The offer or the price is the real problem
+> — The budget is too small to exit the learning phase
+>
+> Any agency will take your retainer. Knowing when the answer is "not yet" is
+> worth more to you than another invoice.
+>
+> #MarketingPhilippines #FacebookAdsPhilippines #SmallBusinessPH #BusinessTipsPhilippines #DigitalMarketingPH
+
+**Facebook**
+
+> We turn work away, regularly - and it is often the most useful thing we do
+> for that business.
+>
+> The four reasons we say no:
+>
+> 1. The margin cannot support paid acquisition yet. Ads would only lose money
+>    faster.
+> 2. Nobody is available to answer the enquiries the campaigns would generate.
+> 3. The offer or the price is the real problem, and advertising would only buy
+>    evidence of it.
+> 4. The budget is too small to exit the learning phase, so it could never
+>    produce readable data.
+>
+> Advertising magnifies whatever is already there, including the problems. Any
+> agency will happily take the retainer. Being told "not yet, fix this first"
+> is worth more than another twelve months of invoices.
+>
+> allaiastudio.com/apply
+
+---
+
+## 11 · Waitlist `11-waitlist.png`
+
+**Instagram**
+
+> Rather you wait than be run badly.
+>
+> If we are full, you go on the waitlist with a realistic date - not a holding
+> message and not a junior quietly assigned to your account.
+>
+> 🔗 allaiastudio.com/apply
+>
+> #MarketingAgencyPH #DigitalMarketingPhilippines #ManilaBusiness #GrowthMarketing
+
+**Facebook**
+
+> Rather you wait than be run badly.
+>
+> When we are full, the honest options are to stretch the team and do a worse
+> job, or to tell you when we can actually start. We do the second one.
+>
+> You go on the waitlist with a realistic date. No holding message, no junior
+> quietly assigned to your account to make the numbers work.
+>
+> allaiastudio.com/apply
+
+---
+
+## Revised posting order
+
+With the application posts in, lead with positioning and let proof follow:
+
+**09 → 02 → 07 → 05 → 03 → 10 → 06 → 08 → 04 → 11 → 01**
+
+The reasoning: open by saying how you work, then immediately back it with a
+₱50M sale. Put a value post between each piece of proof. Save the waitlist
+post until people have seen enough to want a place.
